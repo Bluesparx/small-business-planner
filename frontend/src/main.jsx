@@ -1,10 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import React from 'react';
+import { createRoot } from 'react-dom/client'; // Correct import for React 18+
+import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+import './index.css';
+import App from './App';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+// Get the root element where your React app will be rendered
+const rootElement = document.getElementById('root');
+
+// Create a root and render the App component inside it
+const root = createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    {/* Wrap your app with BrowserRouter */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
