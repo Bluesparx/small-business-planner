@@ -14,25 +14,25 @@ export const Footer = () => {
           {/* Middle Section - Links */}
           <div className="flex space-x-6 mb-4 md:mb-0">
             <a
-              href="#home"
+              href=""
               className="text-gray-400 hover:text-white text-sm"
             >
               Home
             </a>
             <a
-              href="#about"
+              href="about"
               className="text-gray-400 hover:text-white text-sm"
             >
               About
             </a>
             <a
-              href="#services"
+              href="services"
               className="text-gray-400 hover:text-white text-sm"
             >
               Services
             </a>
             <a
-              href="#contact"
+              href="contact"
               className="text-gray-400 hover:text-white text-sm"
             >
               Contact

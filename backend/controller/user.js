@@ -3,7 +3,7 @@ const bcrypt =require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 const userSignUp=async(req,res)=>{
-    const{email,password} = req.body
+    const{name,email,password} = req.body
     if(!email || !password){
         return res.status(400).json({message:"Email and password is required"})
     }
@@ -13,7 +13,7 @@ const userSignUp=async(req,res)=>{
     }
     const hashPwd = await bcrypt.hash(password,10)
     const newUser = await User.create({
-        email,password:hashPwd
+        name,email,password:hashPwd
     })
     let token = jwt.sign({email,id:newUser._id},process.env.SECRET_KEY,{expiresIn:'1hr'})
     return res.status(200).json({token,newUser})

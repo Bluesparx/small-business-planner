@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if user is logged in (JWT token exists in localStorage)
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    setIsLoggedIn(!!token); // Set state based on token existence
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+    setIsLoggedIn(false); // Update state after logout
+  };
 
   return (
     <>
@@ -30,25 +42,44 @@ export const Navbar = () => {
               >
                 About
               </Link>
-              <Link
-                to="/services"
-                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-              >
-                Services
-              </Link>
-              <Link
-                to="/contact"
-                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-              >
-                Contact
-              </Link>
-              {/* Login Button */}
-              <Link
-                to="/login"
-                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-              >
-                Login
-              </Link>
+              {isLoggedIn && (
+                <>
+                  <Link
+                    to="/dash"
+                    className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    to="/services"
+                    className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  >
+                    Services
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
+              {!isLoggedIn && (
+                <Link
+                  to="/login"
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                >
+                  Login
+                </Link>
+              )}
+              {!isLoggedIn && (
+                <Link
+                  to="/signup"
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                >
+                  Sign Up
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -94,30 +125,49 @@ export const Navbar = () => {
                 Home
               </Link>
               <Link
-                to="about"
+                to="/about"
                 className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 About
               </Link>
-              <Link
-                to="services"
-                className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
-              >
-                Services
-              </Link>
-              <Link
-                to="contact"
-                className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
-              >
-                Contact
-              </Link>
-              {/* Mobile Login Button */}
-              <Link
-                to="/login"
-                className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
-              >
-                Login
-              </Link>
+              {isLoggedIn && (
+                <>
+                  <Link
+                    to="/dash"
+                    className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    to="/services"
+                    className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    Services
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
+              {!isLoggedIn && (
+                <Link
+                  to="/login"
+                  className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                >
+                  Login
+                </Link>
+              )}
+              {!isLoggedIn && (
+                <Link
+                  to="/signup"
+                  className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                >
+                  Sign Up
+                </Link>
+              )}
             </div>
           )}
         </div>
