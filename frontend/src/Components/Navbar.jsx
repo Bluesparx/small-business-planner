@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../components/ui/ThemeContext";
+import { SunIcon, MoonIcon } from '@heroicons/react/solid';
 
 export const Navbar = () => {
+  const { isDarkMode, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -20,14 +23,28 @@ export const Navbar = () => {
     <>
       <nav className="bg-white dark:bg-gray-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           <div className="flex justify-between h-16">
+            
             {/* Logo */}
             <div className="flex items-center">
+            <div className="hidden md:flex items-center space-x-6 pr-2">
+            <button
+              onClick={toggleTheme}
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            >
+             {isDarkMode ? (
+                <SunIcon className="h-6 w-6 text-yellow-500" />
+              ) : (
+                <MoonIcon className="h-6 w-6 text-gray-500" />
+              )}
+            </button>
+          </div>
               <Link to="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                 BrandLogo
               </Link>
             </div>
-
+            
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-6">
               <Link

@@ -10,10 +10,11 @@ import { Footer } from './Components/Footer';
 import Homedash from './Components/Homedash';
 import SignUpForm from './Components/SignUpForm';
 import LoginForm from './Components/LoginForm';
-
+import { ThemeProvider } from "../components/ui/ThemeContext";
 function App() {
   return (
     <>
+     <ThemeProvider>
       <Navbar/>
       <Routes>
         
@@ -23,7 +24,7 @@ function App() {
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/dash" element={<Homedash />} />
       </Routes>
-      
+      </ThemeProvider>
     </>
   );
 }
