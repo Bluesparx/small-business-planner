@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@shadcn': path.resolve(__dirname, 'node_modules/@shadcn/ui'),
-    },
-  },
+      '@': path.resolve(__dirname, 'src')
+    }
+  }
 });

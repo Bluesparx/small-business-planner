@@ -1,23 +1,23 @@
-const express = require('express');
-const https = require('https');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import https from 'https';
+import bodyParser from 'body-parser';
+import connectDb from './config/connectionDb.js';
+import router from './routes/user.js';
+import cors from 'cors';
+
 const app = express();
-const bodyParser = require('body-parser');
-const dotenv = require("dotenv").config()
-const connectDb =require("./config/connectionDb")
-const cors = require('cors');
-
-// Set the port to listen on
 const PORT = process.env.PORT || 3000;
-connectDb()
 
-app.use(express.json())
+connectDb();
 
+app.use(express.json());
 app.use(cors());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //user Routes
-app.use("/",require("./routes/user"))
+app.use("/", router);
 
 // Start the server
 app.listen(PORT, () => {

@@ -3,13 +3,13 @@ import { Route, Routes } from 'react-router-dom'; // Import Route and Routes for
 
 // Example Components
 
-import Landing from './Components/Landing';
-import { Navbar } from './Components/Navbar';
-import { Footer } from './Components/Footer';
+import Landing from './pages/Landing';
+import { Navbar } from './pages/Navbar';
+import { Footer } from './pages/Footer';
 
-import Homedash from './Components/Homedash';
-import SignUpForm from './Components/SignUpForm';
-import LoginForm from './Components/LoginForm';
+import Dashboard from './pages/HomeDash';
+import SignUpForm from './pages/SignUpForm';
+import LoginForm from './pages/LoginForm';
 import { ThemeProvider } from "../components/ui/ThemeContext";
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/dash" element={<Homedash />} />
+        <Route path="/dash" element={<Dashboard />} />
       </Routes>
       </ThemeProvider>
     </>
