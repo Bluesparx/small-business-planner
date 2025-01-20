@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Table, TableBody, TableHeader, TableRow, TableCell } from '../components/ui/table';
+
 
 const FinancialAnalysisDisplay = ({ analysisData }) => {
 

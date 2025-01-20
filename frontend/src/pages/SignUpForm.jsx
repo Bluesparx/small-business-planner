@@ -28,7 +28,7 @@ const SignUpForm = () => {
     }
 
     try {
-      const url = 'http://localhost:5000/signUp';
+      const url = 'http://localhost:3000/signUp';
       const response = await fetch(url, {
         method: 'POST',
         headers: {
