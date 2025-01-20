@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose';
 const BalanceSheetRowSchema = new mongoose.Schema(
   {
     date: {
@@ -38,4 +37,7 @@ const BalanceSheetRowSchema = new mongoose.Schema(
   { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
 
-module.exports = mongoose.model('BalanceSheetRow', BalanceSheetRowSchema);
+
+const BalanceSheetRow= mongoose.model('BalanceSheetRow', BalanceSheetRowSchema);
+
+export default BalanceSheetRow ;
