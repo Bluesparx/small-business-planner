@@ -86,10 +86,10 @@ export const Navbar = () => {
                         <Link to="/incomeS">Income statement</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link to="/dash">Stocks Data</Link>
+                        <Link to="/stockInput">Stocks Data</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link to="/dash">Balance Sheet</Link>
+                        <Link to="/balanceS">Balance Sheet</Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -105,7 +105,7 @@ export const Navbar = () => {
                         <Link to="/dash">Stocks Data</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link to="/dash">Balance Sheet</Link>
+                        <Link to="/balanceS">Balance Sheet</Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

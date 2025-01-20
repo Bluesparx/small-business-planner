@@ -12,6 +12,8 @@ import SignUpForm from "./pages/SignUpForm";
 import LoginForm from "./pages/LoginForm";
 import { ThemeProvider } from "../components/ui/ThemeContext";
 import IncomeS from "./pages/IncomeS";
+import BalanceS from "./pages/BalanceS";
+import StockDataInput from "./pages/StockDataInput";
 function App() {
   return (
     <>
@@ -24,6 +26,8 @@ function App() {
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/dash" element={<Dashboard />} />
           <Route path="/incomeS" element={<IncomeS />} />
+          <Route path="/balanceS" element={<BalanceS />} />
+          <Route path="/stockInput" element={<StockDataInput />} />
         </Routes>
       </ThemeProvider>
     </>
