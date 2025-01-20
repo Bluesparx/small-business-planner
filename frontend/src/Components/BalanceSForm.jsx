@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-const IncomeSForm = () => {
+const BalanceSForm = () => {
   // Initialize the rows state with an empty row
   const [rows, setRows] = useState([
     {
       date: "",
      
-      revenue: "",
-      costOfRevenue: "",
-      operatingIncome: "",
-      interestExpense: "",
-      incomeBeforeTax: "",
-      netIncome: "",
-      
+      totalCurrentAssets: "",
+      totalCurrentLiabilities: "",
+      inventory: "",
+      totalLiabilities: "",
+      totalStockholdersEquity: "",
+      netReceivables:"",
+      totalAssets: "",
     },
   ]);
 
@@ -29,12 +29,14 @@ const IncomeSForm = () => {
       ...rows,
       {
         date: "",
-        revenue: "",
-        costOfRevenue: "",
-        operatingIncome: "",
-        interestExpense: "",
-        incomeBeforeTax:" ",
-        netIncome: "",
+     
+      totalCurrentAssets: "",
+      totalCurrentLiabilities: "",
+      inventory: "",
+      totalLiabilities: "",
+      totalStockholdersEquity: "",
+      netReceivables:"",
+      totalAssets: "",
       },
     ]);
   };
@@ -43,7 +45,7 @@ const IncomeSForm = () => {
   const handleSubmit = () => {
     // Validate fields in all rows
     const isValid = rows.every((row) =>
-      ["date", "symbol", "revenue", "costOfRevenue", "operatingIncome", "interestExpense","incomeBeforeTax", "netIncome"].every(
+      ["date", " totalCurrentAssets", "totalCurrentLiabilities", "inventory", "totalLiabilities", "totalStockholdersEquity", "netReceivables", "totalAssets"].every(
         (field) => row[field] && (!isNaN(parseFloat(row[field])) || field === "date" || field === "symbol")
       )
     );
@@ -64,15 +66,15 @@ const IncomeSForm = () => {
       <table border="1" style={{ width: "100%", marginBottom: "20px", borderCollapse: "collapse" }}>
         <thead>
           <tr>
-            <th>Date</th>
-           
-            <th>Revenue</th>
-            <th>Cost of Revenue</th>
-            <th>Operating Income</th>
-            <th>Interest Expense</th>
-            <th>Income before Tax</th>
-            <th>Net Income</th>
-            
+          <th>Date</th>
+     
+          <th>totalCurrentAssets</th>
+          <th>totalCurrentLiabilities</th>
+          <th>inventory</th>
+          <th>totalLiabilities</th>
+          <th>totalStockholdersEquity</th>
+          <th>netReceivables</th>
+          <th>totalAssets</th>
           </tr>
         </thead>
         <tbody>
@@ -100,4 +102,4 @@ const IncomeSForm = () => {
   );
 };
 
-export default IncomeSForm;
+export default BalanceSForm;

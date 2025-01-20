@@ -8,32 +8,36 @@ import {
 } from "../Components/ui/dropdown-menu";
 import IncomeSForm from "@/Components/IncomeSForm";
 import FileUploadDemo from "@/Components/fileUploadDemo";
+import BalanceSForm from "@/Components/BalanceSForm";
 
 // Example components for form and CSV upload
 
 const CSVUploadComponent = () => (
   <div className="mt-6">
-    
+    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+    </h2>
+    <form className="mt-4">
+      
       <FileUploadDemo />
       <button
         type="submit"
-        className="mt-4 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md"
+        className="mt-4 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md "
       >
         Upload
       </button>
-   
+    </form>
   </div>
 );
 
-const IncomeS = () => {
+const BalanceS = () => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-6">
+    <div className="min-h-screen  dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-6">
       {/* Header Section */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-          Upload Income Statement Data
+          Upload Balance Statement Data
         </h1>
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
           You can manually enter your data using the form below or upload a
@@ -66,7 +70,7 @@ const IncomeS = () => {
 
       {/* Conditional Rendering */}
       <div className="mt-6">
-        {selectedOption === "form" && <IncomeSForm />}
+        {selectedOption === "form" && <BalanceSForm />}
         {selectedOption === "csv" && <CSVUploadComponent />}
         {!selectedOption && (
           <p className="text-center text-gray-600 dark:text-gray-400">
@@ -78,4 +82,4 @@ const IncomeS = () => {
   );
 };
 
-export default IncomeS;
+export default BalanceS;
