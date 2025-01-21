@@ -3,12 +3,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Components/Loader';  // Import the loader component
 
 const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
+  const [isLoading, setIsLoading] = useState(false); // Loader state
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,6 +30,7 @@ const LoginForm = () => {
     }
 
     try {
+      setIsLoading(true);  // Show loader
       const url = 'http://localhost:3000/login';
       const response = await fetch(url, {
         method: 'POST',
@@ -39,25 +42,30 @@ const LoginForm = () => {
 
       if (!response.ok) {
         const error = await response.json();
+        setIsLoading(false);  // Hide loader
         return handleError(error.message || 'Login failed');
       }
 
       const result = await response.json();
-    console.log('Login response:', result);  // Check the result structure
+      console.log('Login response:', result);  // Check the result structure
 
-    // Save JWT token and username to localStorage
-    if (result.token && result.user) {
-      localStorage.setItem('jwtToken', result.token);  // Save the JWT token
-    localStorage.setItem('user', JSON.stringify(result.user));  // S
-    } else {
-      handleError('Invalid response structure');
-      return;
-    }
+      // Save JWT token and username to localStorage
+      if (result.token && result.user) {
+        localStorage.setItem('jwtToken', result.token);  // Save the JWT token
+        localStorage.setItem('user', JSON.stringify(result.user));  // Save user data
+      } else {
+        setIsLoading(false);  // Hide loader
+        handleError('Invalid response structure');
+        return;
+      }
+
       handleSuccess('Login successful!');
       setTimeout(() => {
+        setIsLoading(false);  // Hide loader
         navigate('/dash');
       }, 1000);
     } catch (err) {
+      setIsLoading(false);  // Hide loader
       handleError(err.message || 'Network error occurred');
     }
   };
@@ -136,7 +144,7 @@ const LoginForm = () => {
                   (e.target.style.backgroundColor = '#2563EB')
                 }
               >
-                Login
+                {isLoading ? 'Logging in...' : 'Login'}  {/* Show loading text */}
               </button>
 
               <p className="text-center text-gray-600 mt-4">
@@ -149,6 +157,10 @@ const LoginForm = () => {
           </div>
         </div>
       </div>
+
+      {/* Display the loader when isLoading is true */}
+      {isLoading && <Loader />}
+
       <ToastContainer />
     </div>
   );

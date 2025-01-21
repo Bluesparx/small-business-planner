@@ -18,6 +18,7 @@ import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
 import Chatbot from "./pages/Chatbot";
 function App() {
+  
   return (
     <>
       <ThemeProvider>
