@@ -17,8 +17,8 @@ const chartConfig = {
 const AssetChart = ({ data }) => {
   const transformedData = data?.map(item => ({
     date: item.date,
-    roa: item["Return on Assets"],
-    assetTurnover: item["Asset Turnover"]
+    roa: item.ReturnOnAssets,
+    assetTurnover: item.AssetTurnover
   })) || [];
 
   return (

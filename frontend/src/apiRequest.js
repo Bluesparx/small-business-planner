@@ -95,7 +95,7 @@ export const getIncomeTableById = async (tableId) => {
 // Data Analytics API 
 export const triggerUserAnalysis = async (userId) => {
   try {
-    const response = await axios.post(`${API_URL}/data-analytics/trigger-analysis`, { userId });
+    const response = await axios.post(`${API_URL}/data/trigger-analysis`, { userId });
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;
@@ -104,7 +104,7 @@ export const triggerUserAnalysis = async (userId) => {
 
 export const getUserAnalysis = async (userId) => {
   try {
-    const response = await axios.get(`${API_URL}/data-analytics/user-analysis/${userId}`);
+    const response = await axios.get(`${API_URL}/data/user-analysis/${userId}`);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;

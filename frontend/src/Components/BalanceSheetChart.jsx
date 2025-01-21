@@ -3,6 +3,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
 
+// Chart Configuration
 const chartConfig = {
   currentRatio: {
     label: "Current Ratio",
@@ -14,6 +15,7 @@ const chartConfig = {
   },
 };
 
+// Custom Bar component for animations and styling
 const CustomBar = ({ fill, x, y, width, height }) => {
   return (
     <rect
@@ -61,13 +63,13 @@ const BalanceSheetChart = ({ data }) => {
                   const { currentRatio, quickRatio, date } = payload[0].payload;
                   return (
                     <div
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.75)",
-                      color: "black",
-                      padding: "10px", 
-                      borderRadius: "5px",
-                    }}
-                  >
+                      style={{
+                        backgroundColor: "rgba(255, 255, 255, 0.75)",
+                        color: "black",
+                        padding: "10px",
+                        borderRadius: "5px",
+                      }}
+                    >
                       <p className="font-medium">{new Date(date).toLocaleDateString('en-US')}</p>
                       <p className="text-sm text-gray-600">Current Ratio: {currentRatio.toFixed(4)}</p>
                       <p className="text-sm text-gray-600">Quick Ratio: {quickRatio.toFixed(4)}</p>
