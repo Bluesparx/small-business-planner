@@ -21,6 +21,13 @@ const ProfitabilityChart = ({ data }) => {
     netProfit: item.NetProfitRatio
   })) || [];
 
+  // Calculate the number of ticks (up to 5, or less depending on the data length)
+  const maxTicks = 5;
+  const tickCount = Math.min(transformedData.length, maxTicks);
+
+  // Calculate the interval (spacing) to ensure even distribution of the ticks
+  const tickInterval = transformedData.length > 1 ? Math.floor(transformedData.length / tickCount) : 1;
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -42,7 +49,12 @@ const ProfitabilityChart = ({ data }) => {
               ))}
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="date" tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { month: 'short' })} />
+            <XAxis
+              dataKey="date"
+              tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { month: 'short' })}
+              tickCount={tickCount} // Set tick count to 5 or fewer
+              interval={tickInterval} // Evenly space out the ticks
+            />
             <YAxis tickFormatter={(value) => `${(value * 100).toFixed(0)}%`} />
 
             <Tooltip
