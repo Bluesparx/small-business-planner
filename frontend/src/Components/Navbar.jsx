@@ -68,6 +68,12 @@ export const Navbar = () => {
               >
                 About
               </Link>
+              <Link
+                to="/subscription"
+                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+              >
+                Pricing
+              </Link>
               {isLoggedIn && (
                 <>
                   <Link

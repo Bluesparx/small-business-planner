@@ -14,6 +14,8 @@ import { ThemeProvider } from "../components/ui/ThemeContext";
 import IncomeS from "./pages/IncomeS";
 import BalanceS from "./pages/BalanceS";
 import StockDataInput from "./pages/StockDataInput";
+import SubscriptionPage from "./pages/SubscriptionPage";
+import About from "./pages/About";
 function App() {
   return (
     <>
@@ -28,6 +30,8 @@ function App() {
           <Route path="/incomeS" element={<IncomeS />} />
           <Route path="/balanceS" element={<BalanceS />} />
           <Route path="/stockInput" element={<StockDataInput />} />
+          <Route path="/subscription" element={<SubscriptionPage />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </ThemeProvider>
     </>
