@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
+import { userSignUp } from '../apiRequest';
 
 const SignUpForm = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -28,25 +29,15 @@ const SignUpForm = () => {
     }
 
     try {
-      const url = 'http://localhost:3000/signUp';
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(signupInfo),
-      });
+      const response = await userSignUp({ name, email, password });
 
       if (!response.ok) {
         const error = await response.json();
         return handleError(error.message || 'Sign-up failed');
       }
 
-      const result = await response.json();
-      console.log(result);
-
       handleSuccess('Sign-up successful!');
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate('/login');
       },1000)
     } catch (err) {

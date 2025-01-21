@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Components/Loader';  // Import the loader component
+import { userLogin } from '../apiRequest';
 
 const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -31,28 +32,11 @@ const LoginForm = () => {
 
     try {
       setIsLoading(true);  // Show loader
-      const url = 'http://localhost:3000/login';
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginInfo),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        setIsLoading(false);  // Hide loader
-        return handleError(error.message || 'Login failed');
-      }
-
-      const result = await response.json();
-      console.log('Login response:', result);  // Check the result structure
-
-      // Save JWT token and username to localStorage
-      if (result.token && result.user) {
-        localStorage.setItem('jwtToken', result.token);  // Save the JWT token
-        localStorage.setItem('user', JSON.stringify(result.user));  // Save user data
+      const response = await userLogin({ email, password });
+      
+      if (response.token && response.user) {
+        localStorage.setItem('jwtToken', response.token);  // Save the JWT token
+        localStorage.setItem('user', JSON.stringify(response.user));  // Save user data
       } else {
         setIsLoading(false);  // Hide loader
         handleError('Invalid response structure');
