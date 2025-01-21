@@ -3,8 +3,8 @@ import { createBalanceSheetTable, getAllBalanceSheetTables, getBalanceSheetTable
 
 const balanceSheetRouter = express.Router();
 
-balanceSheetRouter.post('/balance-sheet/table',createBalanceSheetTable );
-balanceSheetRouter.get('/balance-sheet/table', getAllBalanceSheetTables);
-balanceSheetRouter.get('/balance-sheet/table/:id', getBalanceSheetTableById);
+balanceSheetRouter.post('/table',createBalanceSheetTable );
+balanceSheetRouter.get('/table', getAllBalanceSheetTables);
+balanceSheetRouter.get('/table/:id', getBalanceSheetTableById);
 
 export default balanceSheetRouter;

@@ -6,6 +6,7 @@ import connectDb from './config/connectionDb.js';
 import router from './routes/user.js'; // Correctly import user router
 import balanceSheetRouter from './routes/balanceSheetTable.js'; // Correctly import BalanceSheet router
 import incomeRouter from './routes/income_table.js';
+import dataAnalyticsRouter from './routes/dataAnalyticsRoutes.js';
 
 dotenv.config();
 
@@ -20,9 +21,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use the routers
-app.use('/', router); // Users-related routes
-app.use('/api', balanceSheetRouter);
-app.use('/api', incomeRouter);
+app.use('/api/users', router);
+app.use('/api/balance-sheet', balanceSheetRouter);
+app.use('/api/income', incomeRouter);
+app.use('/api/data', dataAnalyticsRouter);
 
 // Start the server
 app.listen(PORT, () => {

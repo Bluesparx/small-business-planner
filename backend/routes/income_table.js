@@ -2,8 +2,8 @@ import { createIncomeTable,getAllIncomeTables,getIncomeTableById} from '../contr
 import express from 'express';
 const incomeRouter = express.Router();
 
-incomeRouter.post('/income/table',createIncomeTable);
-incomeRouter.get('/income/table', getAllIncomeTables);
-incomeRouter.get('/income/table/:id', getIncomeTableById);
+incomeRouter.post('/table',createIncomeTable);
+incomeRouter.get('/table', getAllIncomeTables);
+incomeRouter.get('/table/:id', getIncomeTableById);
 
 export default incomeRouter;

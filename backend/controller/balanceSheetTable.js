@@ -1,11 +1,11 @@
-import BalanceSheetTable from "../models/BalanceSheetTable.js";
+import BalanceSheetTable from "../models/balanceSheetTable.js";
 import BalanceSheetRow from "../models/BalanceSheetRow.js";
 
 // POST: Create a new balance sheet table
 // router.post('/balance-sheet/table',
 const createBalanceSheetTable = async (req, res) => {
   try {
-    const { name, rows } = req.body;
+    const { userId, name, rows } = req.body;
 
     // Validate rows
     if (!rows || !Array.isArray(rows)) {
@@ -15,8 +15,9 @@ const createBalanceSheetTable = async (req, res) => {
     // Save rows first
     const savedRows = await BalanceSheetRow.insertMany(rows);
 
-    // Create the table with saved row IDs
+    // Create the table with saved row IDs and userId
     const newTable = new BalanceSheetTable({
+      user: userId,
       name,
       rows: savedRows.map((row) => row._id),
     });
@@ -29,7 +30,6 @@ const createBalanceSheetTable = async (req, res) => {
 };
 
 // GET: Get all balance sheet tables
-// router.get('/balance-sheet/table',
 const getAllBalanceSheetTables = async (req, res) => {
   try {
     const tables = await BalanceSheetTable.find().populate("rows");
@@ -40,7 +40,6 @@ const getAllBalanceSheetTables = async (req, res) => {
 };
 
 // GET: Get a specific balance sheet table by ID
-// router.get('/balance-sheet/table/:id',
 const getBalanceSheetTableById = async (req, res) => {
   try {
     const table = await BalanceSheetTable

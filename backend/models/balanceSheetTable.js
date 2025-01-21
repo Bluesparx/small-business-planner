@@ -3,6 +3,11 @@ import BalanceSheetRowSchema from './BalanceSheetRow.js'; // Import the row sche
 
 const BalanceSheetTableSchema = new mongoose.Schema(
   {
+    user: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User', 
+      required: true 
+    },
     name: {
       type: String,
       required: false, // Make the name field optional
@@ -17,6 +22,6 @@ const BalanceSheetTableSchema = new mongoose.Schema(
   { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
 
-const BalanceSheetTable = mongoose.model('BalanceSheetTable', BalanceSheetTableSchema);
+const BalanceSheetTable = mongoose.models.BalanceSheetTable || mongoose.model('BalanceSheetTable', BalanceSheetTableSchema);
 
 export default BalanceSheetTable;

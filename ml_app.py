@@ -201,11 +201,11 @@ def analyze_financial_data(BS, IS):
     # Asset Turnover
     average_assets_for_the_period = BS['totalAssets']
     assets_turnover = revenue / average_assets_for_the_period
-    IS_analysis['Asset Turnover'] = assets_turnover
+    IS_analysis['AssetTurnover'] = assets_turnover
 
     # Return on Assets
     return_on_assets = net_income / BS['totalAssets']
-    IS_analysis['Return on Assets'] = return_on_assets
+    IS_analysis['ReturnOnAssets'] = return_on_assets
 
     # Growth Percentage for Income Statement
     growth_percentage_is = {}
@@ -214,10 +214,10 @@ def analyze_financial_data(BS, IS):
         last_value = IS_analysis[column].iloc[0]
         growth_percentage_is[column] = ((last_value - first_value) / first_value) * 100
 
-    growth_is = pd.DataFrame(growth_percentage_is, index=["Growth %"])
+    growth_is = pd.DataFrame(growth_percentage_is, index=["Growth"])
     growth_is = growth_is.T
     growth_is.reset_index(inplace=True)
-    growth_is.columns = ['Income Metric', 'Overall Growth %']
+    growth_is.columns = ['IncomeMetric', 'OverallGrowth']
 
     # Growth Percentage for Balance Sheet
     growth_percentage_bs = {}
@@ -226,10 +226,10 @@ def analyze_financial_data(BS, IS):
         last_value = BS_analysis[column].iloc[0]
         growth_percentage_bs[column] = ((last_value - first_value) / first_value) * 100
 
-    growth_bs = pd.DataFrame(growth_percentage_bs, index=["Growth %"])
+    growth_bs = pd.DataFrame(growth_percentage_bs, index=["Growth"])
     growth_bs = growth_bs.T
     growth_bs.reset_index(inplace=True)
-    growth_bs.columns = ['Balance Sheet Metric', 'Overall Growth %']
+    growth_bs.columns = ['BalanceSheetMetric', 'OverallGrowth']
 
     return BS_analysis.to_dict(orient='records'), IS_analysis.to_dict(orient='records'), growth_is.to_dict(orient='records'), growth_bs.to_dict(orient='records')
 

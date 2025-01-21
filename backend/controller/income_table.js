@@ -1,11 +1,10 @@
 import IncomeTable from "../models/income_table.js";
 import IncomeRow from "../models/income_row.js";
 
-// POST: Create a new balance sheet table
-// router.post('/balance-sheet/table',
+// POST: Create a new income statement table
 const createIncomeTable = async (req, res) => {
   try {
-    const { name, rows } = req.body;
+    const { userId, name, rows } = req.body;
 
     // Validate rows
     if (!rows || !Array.isArray(rows)) {
@@ -15,8 +14,9 @@ const createIncomeTable = async (req, res) => {
     // Save rows first
     const savedRows = await IncomeRow.insertMany(rows);
 
-    // Create the table with saved row IDs
+    // Create the table with saved row IDs and userId
     const newTable = new IncomeTable({
+      user: userId,
       name,
       rows: savedRows.map((row) => row._id),
     });
@@ -28,8 +28,7 @@ const createIncomeTable = async (req, res) => {
   }
 };
 
-// GET: Get all balance sheet tables
-// router.get('/balance-sheet/table',
+// GET: Get all income statement tables
 const getAllIncomeTables = async (req, res) => {
   try {
     const tables = await IncomeTable.find().populate("rows");
@@ -39,8 +38,7 @@ const getAllIncomeTables = async (req, res) => {
   }
 };
 
-// GET: Get a specific balance sheet table by ID
-// router.get('/balance-sheet/table/:id',
+// GET: Get a specific income statement table by ID
 const getIncomeTableById = async (req, res) => {
   try {
     const table = await IncomeTable
