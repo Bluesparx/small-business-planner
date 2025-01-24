@@ -6,9 +6,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dropout, Dense
+from pymongo import MongoClient
 
 app = Flask(__name__)
 CORS(app)
+
+# MongoDB Configuration
+client = MongoClient("mongodb://localhost:27017/")  # Replace with your MongoDB URI if needed
+db = client["smallBusinessPlanner"]  # Create a database for stock predictions
+predictions_collection = db["StockPredictions"]  # Collection for predictions
 
 def create_sequences(data, sequence_length):
     X, y = [], []
@@ -23,10 +29,10 @@ def preprocess_historical_data(data, sequence_length=10):
         data['Date'] = pd.to_datetime(data['Date'])
         data.sort_values(by='Date', inplace=True)
         
-        # convert price
+        # Convert price column
         data['Close/Last'] = data['Close/Last'].replace('[\\$,]', '', regex=True).astype(float)
 
-        # Scale 
+        # Scale prices
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaled_prices = scaler.fit_transform(data[['Close/Last']])
         
@@ -37,32 +43,34 @@ def preprocess_historical_data(data, sequence_length=10):
 
     except Exception as e:
         raise ValueError(f"Error in preprocessing historical data: {e}")
+
 def train_lstm_model(X_train, y_train):
     try:
-        # Build model - LSTM with 50 neurons and 4 hidden layers
+        # Build LSTM model
         model = Sequential()
 
         # First LSTM layer + Dropout
         model.add(LSTM(units=50, return_sequences=True, input_shape=(X_train.shape[1], 1), activation='tanh'))
         model.add(Dropout(0.2)) 
 
-        # Second 
+        # Second LSTM layer
         model.add(LSTM(units=50, return_sequences=True, activation='tanh'))
         model.add(Dropout(0.2))
 
-        # Third 
+        # Third LSTM layer
         model.add(LSTM(units=50, return_sequences=True, activation='tanh'))
         model.add(Dropout(0.2))
 
-        # Fourth 
+        # Fourth LSTM layer
         model.add(LSTM(units=50, activation='tanh'))
         model.add(Dropout(0.2))
 
         model.add(Dense(units=1))
 
-        #  mse for loss
+        # Compile model
         model.compile(optimizer='adam', loss='mean_squared_error')
 
+        # Train model
         model.fit(X_train, y_train, epochs=75, batch_size=64)
 
         return model
@@ -70,9 +78,9 @@ def train_lstm_model(X_train, y_train):
     except Exception as e:
         raise ValueError(f"Error in building and training the model: {e}")
 
-
 def generate_predictions(model, scaled_prices, scaler, forecast_days=90, sequence_length=10):
     try:
+        # Use the last sequence for predictions
         last_sequence = scaled_prices[-sequence_length:].reshape(-1, 1)
         
         if last_sequence.shape[0] != sequence_length:
@@ -96,37 +104,74 @@ def generate_predictions(model, scaled_prices, scaler, forecast_days=90, sequenc
     except Exception as e:
         raise ValueError(f"Error in generating predictions: {e}")
 
-# Route: get predictions for 90 days
+# Route: Analyze Historical Data and Make Predictions
+# Route: Analyze Historical Data and Make Predictions
 @app.route('/analyze_historical', methods=['POST'])
 def analyze_historical():
     try:
+        # Extract user_id from the query parameters
+        user_id = request.args.get('user_id')
+        if not user_id:
+            return jsonify({"error": "User ID is required in the query parameters."}), 400
+        
         if 'historical_data' not in request.files:
             return jsonify({"error": "Please provide a historical data file."}), 400
         
+        # Read uploaded file
         file = request.files['historical_data']
         data = pd.read_csv(file)
 
+        # Preprocess the data and train the model
         X_train, y_train, scaler, scaled_prices = preprocess_historical_data(data)
-
         model = train_lstm_model(X_train, y_train)
 
-         # generate forecast for next 90 days 
+        # Generate predictions for the next 90 days
         predictions = generate_predictions(model, scaled_prices, scaler, forecast_days=90)
 
+        # Prepare prediction results with dates
         predicted_dates = pd.date_range(start=pd.to_datetime('today').normalize(), periods=90).tolist()
         predictions_with_dates = [{"Date": str(date), "Predicted Close": float(pred)} for date, pred in zip(predicted_dates, predictions)]
 
+        # Save predictions to MongoDB with the user_id
+        predictions_collection.insert_one({
+            "user_id": user_id,  # Include the user ID from query parameters
+            "timestamp": pd.to_datetime('now').isoformat(),
+            "predictions": predictions_with_dates
+        })
+
+        # Return predictions as a response
         return jsonify({
             "historical_analysis": predictions_with_dates
         })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+
+# Route: Get Latest Predictions
+# Route: Get Latest Predictions
+@app.route('/getprediction', methods=['GET'])
+def get_prediction():
+    try:
+        user_id = request.args.get('user_id')  # Get user ID from the query parameter
+        if not user_id:
+            return jsonify({"error": "User ID is required."}), 400
+        
+        # Retrieve the latest prediction for the specific user
+        latest_prediction = predictions_collection.find_one({"user_id": user_id}, sort=[("timestamp", -1)])
+
+        if not latest_prediction:
+            return jsonify({"error": f"No predictions found for user: {user_id}."}), 404
+        
+        return jsonify({
+            "timestamp": latest_prediction["timestamp"],
+            "predictions": latest_prediction["predictions"]
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
-# BALANCE and income stateent analysis 
-
+# Route: Analyze Financial Data (Balance Sheet and Income Statement Analysis)
 def analyze_financial_data(BS, IS):
     BS_analysis = pd.DataFrame(BS['date'])
 
@@ -136,12 +181,12 @@ def analyze_financial_data(BS, IS):
     working_capital = current_assets - current_liabilities
     BS_analysis['workingCapital'] = working_capital
 
-    # Working Capital per Dollar sale
+    # Working Capital per Dollar Sale
     total_sales = IS['revenue']
     working_capital_per_dollar_of_sales = working_capital / total_sales
     BS_analysis['workingCapitalperDollarSale'] = working_capital_per_dollar_of_sales
 
-    # Current Ratio - for liquidity
+    # Current Ratio (Liquidity)
     current_ratio = current_assets / current_liabilities
     BS_analysis['currentRatio'] = current_ratio
 
@@ -166,7 +211,7 @@ def analyze_financial_data(BS, IS):
     average_age_of_receivables = number_of_days_in_period / receivable_turnover
     BS_analysis['averageAgeOfReceivables'] = average_age_of_receivables
 
-    # Inventory Turnover and days for Inventory to Turn
+    # Inventory Turnover and Days for Inventory to Turn
     cost_of_goods_sold = IS['costOfRevenue']
     average_inventory_for_the_period = inventory
     inventory_turnover = cost_of_goods_sold / average_inventory_for_the_period
@@ -207,34 +252,9 @@ def analyze_financial_data(BS, IS):
     return_on_assets = net_income / BS['totalAssets']
     IS_analysis['ReturnOnAssets'] = return_on_assets
 
-    # Growth Percentage for Income Statement
-    growth_percentage_is = {}
-    for column in IS_analysis.columns[1:]:
-        first_value = IS_analysis[column].iloc[-1]
-        last_value = IS_analysis[column].iloc[0]
-        growth_percentage_is[column] = ((last_value - first_value) / first_value) * 100
+    return BS_analysis.to_dict(orient='records'), IS_analysis.to_dict(orient='records')
 
-    growth_is = pd.DataFrame(growth_percentage_is, index=["Growth"])
-    growth_is = growth_is.T
-    growth_is.reset_index(inplace=True)
-    growth_is.columns = ['IncomeMetric', 'OverallGrowth']
-
-    # Growth Percentage for Balance Sheet
-    growth_percentage_bs = {}
-    for column in BS_analysis.columns[1:]:
-        first_value = BS_analysis[column].iloc[-1]
-        last_value = BS_analysis[column].iloc[0]
-        growth_percentage_bs[column] = ((last_value - first_value) / first_value) * 100
-
-    growth_bs = pd.DataFrame(growth_percentage_bs, index=["Growth"])
-    growth_bs = growth_bs.T
-    growth_bs.reset_index(inplace=True)
-    growth_bs.columns = ['BalanceSheetMetric', 'OverallGrowth']
-
-    return BS_analysis.to_dict(orient='records'), IS_analysis.to_dict(orient='records'), growth_is.to_dict(orient='records'), growth_bs.to_dict(orient='records')
-
-    
-# Route: Analyze Financial Data
+# Route: Analyze Financial Data (Balance Sheet and Income Statement)
 @app.route('/analyze', methods=['POST'])
 def analyze():
     try:
@@ -246,11 +266,9 @@ def analyze():
         BS = pd.read_csv(balance_sheet_file)
         IS = pd.read_csv(income_statement_file)
 
-        BS_analysis, IS_analysis, growth_is, growth_bs = analyze_financial_data(BS, IS)
+        BS_analysis, IS_analysis = analyze_financial_data(BS, IS)
 
         return jsonify({
-            "growth_income_statement": growth_is,
-            "growth_balance_sheet": growth_bs,
             "balance_sheet_analysis": BS_analysis,
             "income_statement_analysis": IS_analysis
         })

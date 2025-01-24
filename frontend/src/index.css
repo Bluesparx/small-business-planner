@@ -4,14 +4,40 @@
 
 /* Global styles */
 html[data-theme="dark"] {
-    background-color: #121212;
-    color: #e0e0e0;
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+html[data-theme="light"] {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Custom Tailwind for Dark and Light Mode */
+@layer components {
+  /* For dark mode */
+  .dark\:text-white {
+    color: #ffffff;
   }
-  
-  html[data-theme="light"] {
-    background-color: #ffffff;
+  .dark\:border-white {
+    border-color: #ffffff;
+  }
+  .dark\:bg-gray-800 {
+    background-color: #2c2c2c;
+  }
+
+  /* For light mode */
+  .light\:text-black {
     color: #000000;
   }
+  .light\:border-black {
+    border-color: #000000;
+  }
+  .light\:bg-white {
+    background-color: #ffffff;
+  }
+}
+
   
   /* Additional styles for specific Aceternity UI components can go here */
   

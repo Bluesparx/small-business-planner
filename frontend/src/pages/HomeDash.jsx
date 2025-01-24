@@ -7,6 +7,7 @@ import AssetChart from '../components/AssetChart';
 import ProfitabilityChart from '../components/ProfitabilityChart';
 import { getUserAnalysis } from '../apiRequest';
 import emptyDashImage from '../assets/empty_dash.svg';
+import { Loader } from 'lucide-react';
 import {StockChart} from '../components/StockChart';
 
 const formatValue = (value) => {
@@ -65,7 +66,7 @@ const Dashboard = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div><Loader/></div>;
   }
 
   if (!analyzedData) {

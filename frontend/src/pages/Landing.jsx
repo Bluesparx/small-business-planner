@@ -9,7 +9,7 @@ const Landing = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);  
-    }, 100);  
+    }, 0);  
   }, []);
 
   return (
