@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,7 +8,15 @@ const StockDataInput = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [userId] = useState("678c9f752d7b14bf4aac6b7a"); // Hardcoded user ID (replace this with real user info)
+  const [userId, setUserId] = useState(null); // Initialize userId state
+
+  useEffect(() => {
+    // Get the user from localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setUserId(user?._id); // Set the userId from localStorage
+    }
+  }, []);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -20,6 +28,11 @@ const StockDataInput = () => {
       return;
     }
 
+    if (!userId) {
+      toast.error('User ID is not available.');
+      return;
+    }
+
     setLoading(true);
     setPredictions([]);
 
@@ -27,11 +40,15 @@ const StockDataInput = () => {
     formData.append('historical_data', selectedFile);
 
     try {
-      const response = await axios.post(`http://localhost:5000/analyze_historical?user_id=${userId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `http://localhost:5000/analyze_historical?user_id=${userId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       if (response.data.historical_analysis) {
         setPredictions(response.data.historical_analysis);
@@ -83,7 +100,9 @@ const StockDataInput = () => {
               {predictions.map((item, index) => (
                 <tr key={index}>
                   <td className="border border-gray-300 px-4 py-2">{item.Date}</td>
-                  <td className="border border-gray-300 px-4 py-2">{item['Predicted Close'].toFixed(2)}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {item['Predicted Close'].toFixed(2)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -92,9 +111,7 @@ const StockDataInput = () => {
       )}
 
       {/* If you want to display the graph here */}
-      {predictions.length > 0 && (
-        <StockPredictionGraph predictions={predictions} />
-      )}
+      {predictions.length > 0 && <StockPredictionGraph predictions={predictions} />}
     </div>
   );
 };
