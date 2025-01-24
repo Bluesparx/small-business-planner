@@ -17,6 +17,9 @@ import StockDataInput from "./pages/StockDataInput";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
 import Chatbot from "./pages/Chatbot";
+import StockAnalysis from "./pages/stockAnalysis";
+
+
 function App() {
   
   return (
@@ -34,6 +37,7 @@ function App() {
           <Route path="/stockInput" element={<StockDataInput />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
           <Route path="/about" element={<About />} />
+          <Route path="/stock-analysis" element={<StockAnalysis />} />
          
         </Routes>
         <Chatbot />

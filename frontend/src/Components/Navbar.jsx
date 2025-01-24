@@ -108,7 +108,7 @@ export const Navbar = () => {
                         <Link to="/">Income statement</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link to="/dash">Stocks Data</Link>
+                        <Link to="/stock-analysis">Stocks Data</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link to="/balanceS">Balance Sheet</Link>
