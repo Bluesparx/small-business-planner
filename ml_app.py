@@ -252,7 +252,31 @@ def analyze_financial_data(BS, IS):
     return_on_assets = net_income / BS['totalAssets']
     IS_analysis['ReturnOnAssets'] = return_on_assets
 
-    return BS_analysis.to_dict(orient='records'), IS_analysis.to_dict(orient='records')
+# Growth Percentage for Income Statement
+    growth_percentage_is = {}
+    for column in IS_analysis.columns[1:]:
+        first_value = IS_analysis[column].iloc[-1]
+        last_value = IS_analysis[column].iloc[0]
+        growth_percentage_is[column] = ((last_value - first_value) / first_value) * 100
+
+    growth_is = pd.DataFrame(growth_percentage_is, index=["Growth"])
+    growth_is = growth_is.T
+    growth_is.reset_index(inplace=True)
+    growth_is.columns = ['IncomeMetric', 'OverallGrowth']
+
+    # Growth Percentage for Balance Sheet
+    growth_percentage_bs = {}
+    for column in BS_analysis.columns[1:]:
+        first_value = BS_analysis[column].iloc[-1]
+        last_value = BS_analysis[column].iloc[0]
+        growth_percentage_bs[column] = ((last_value - first_value) / first_value) * 100
+
+    growth_bs = pd.DataFrame(growth_percentage_bs, index=["Growth"])
+    growth_bs = growth_bs.T
+    growth_bs.reset_index(inplace=True)
+    growth_bs.columns = ['BalanceSheetMetric', 'OverallGrowth']
+
+    return BS_analysis.to_dict(orient='records'), IS_analysis.to_dict(orient='records'), growth_is.to_dict(orient='records'), growth_bs.to_dict(orient='records')
 
 # Route: Analyze Financial Data (Balance Sheet and Income Statement)
 @app.route('/analyze', methods=['POST'])
@@ -266,11 +290,13 @@ def analyze():
         BS = pd.read_csv(balance_sheet_file)
         IS = pd.read_csv(income_statement_file)
 
-        BS_analysis, IS_analysis = analyze_financial_data(BS, IS)
+        BS_analysis, IS_analysis, growth_is, growth_bs = analyze_financial_data(BS, IS)
 
         return jsonify({
             "balance_sheet_analysis": BS_analysis,
-            "income_statement_analysis": IS_analysis
+            "growth_balance_sheet": growth_bs,
+            "income_statement_analysis": IS_analysis,
+            "growth_income_statement": growth_is
         })
 
     except Exception as e:

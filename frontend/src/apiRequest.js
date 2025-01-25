@@ -5,7 +5,11 @@ const API_URL = 'http://localhost:3000/api';
 // User API requests
 export const userSignUp = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/users/signUp`, userData);
+    const response = await axios.post(`${API_URL}/users/signUp`, userData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;
@@ -31,12 +35,9 @@ export const getUser = async (userId) => {
 };
 
 // Balance Sheet API
-export const createBalanceSheetTable = async (userId, balanceSheetData) => {
+export const createBalanceSheetTable = async (balanceSheetData) => {
   try {
-    const response = await axios.post(`${API_URL}/balance-sheet/table`, {
-      userId,
-      ...balanceSheetData
-    });
+    const response = await axios.post(`${API_URL}/balance-sheet/table`, balanceSheetData);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;
@@ -62,21 +63,19 @@ export const getBalanceSheetTableById = async (tableId) => {
 };
 
 // Income Statement API requests
-export const createIncomeTable = async (userId, incomeData) => {
+export const createIncomeTable = async (incomeData) => {
   try {
-    const response = await axios.post(`${API_URL}/income-statement/table`, {
-      userId, 
-      ...incomeData
-    });
+    const response = await axios.post(`${API_URL}/income/table`, incomeData);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;
   }
 };
 
+
 export const getAllIncomeTables = async () => {
   try {
-    const response = await axios.get(`${API_URL}/income-statement/table`);
+    const response = await axios.get(`${API_URL}/income/table`);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;
@@ -85,7 +84,7 @@ export const getAllIncomeTables = async () => {
 
 export const getIncomeTableById = async (tableId) => {
   try {
-    const response = await axios.get(`${API_URL}/income-statement/table/${tableId}`);
+    const response = await axios.get(`${API_URL}/income/table/${tableId}`);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;

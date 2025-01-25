@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Components/Loader';  // Import the loader component
 import { userSignUp } from '../apiRequest';
 
 const SignUpForm = () => {
@@ -11,7 +12,9 @@ const SignUpForm = () => {
     email: '',
     password: '',
   });
-  const navigate= useNavigate();
+  const [isLoading, setIsLoading] = useState(false);  // Loader state
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignupInfo((prev) => ({
@@ -29,26 +32,31 @@ const SignUpForm = () => {
     }
 
     try {
+      setIsLoading(true);
       const response = await userSignUp({ name, email, password });
 
-      if (!response.ok) {
-        const error = await response.json();
-        return handleError(error.message || 'Sign-up failed');
+      if (!response.token && !response.user) {
+        handleError('Invalid Sign Up');
+        return;
+      } else {
+        setIsLoading(false);
       }
 
       handleSuccess('Sign-up successful!');
       setTimeout(() => {
+        setIsLoading(false);
         navigate('/login');
-      },1000)
+      }, 1000);
     } catch (err) {
+      setIsLoading(false);
       handleError(err.message || 'Network error occurred');
     }
   };
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-[70] pt-5">
-        <div className="w-full max-w-md p-4 border-1 border-gray-100 rounded-lg shadow-lg">
+      <div className="flex items-center justify-center min-h-[70vh] pt-8">
+        <div className="w-full max-w-md p-8  rounded-lg shadow-lg">
           <div className="max-w-sm mx-auto  p-6">
             <h2 className="text-2xl text-blue-600 font-semibold">Sign Up</h2>
             <p className="text-gray-600 mt-1">
@@ -133,7 +141,7 @@ const SignUpForm = () => {
                   (e.target.style.backgroundColor = '#2563EB')
                 }
               >
-                Sign Up
+                {isLoading ? 'Signing Up...' : 'Sign Up'}  {/* Show loading text */}
               </button>
 
               <p className="text-center text-gray-600 mt-4">
@@ -146,6 +154,9 @@ const SignUpForm = () => {
           </div>
         </div>
       </div>
+
+      {isLoading && <Loader />}
+
       <ToastContainer />
     </div>
   );

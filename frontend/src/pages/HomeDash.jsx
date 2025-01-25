@@ -65,12 +65,70 @@ const Dashboard = () => {
     }
   }, []);
 
-  if (isLoading) {
-    return <div><Loader/></div>;
-  }
-
   if (!analyzedData) {
-    return <div>No data available</div>;
+    return (
+      <div className="p-8 max-w-7xl mx-auto grid grid-cols-1 gap-6 space-y-6">
+      <div className="flex flex-row w-full gap-6 mx-18 my-16">
+              <Card className="flex-2 w-2/3 py-6">
+                <CardContent className="flex flex-col items-center justify-center min-h-[400px]">
+                  <div
+                    className="w-1/2 h-60 bg-cover bg-center rounded-lg"
+                    style={{
+                      backgroundImage: `url(${emptyDashImage})`,
+                      backgroundPosition: 'center',
+                      backgroundSize: 'cover'
+                    }}
+                  />
+                  <p className="text-xl font-semibold text-gray-600 mt-4 mb-2">
+                    No Analytics Available
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Please upload financial statements to view analysis
+                  </p>
+                </CardContent>
+              </Card>
+
+              <div className="flex-1 w-full">
+                <Card className="py-8 px-2">
+                  <CardHeader>
+                    <CardTitle>Getting Started</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {[
+                        {
+                          title: "Upload Income Statement",
+                          description: "Upload your company's income statement for financial analysis.",
+                          link: "/incomeS"
+                        },
+                        {
+                          title: "Upload Balance Sheet",
+                          description: "Upload your balance sheet to analyze assets and liabilities.",
+                          link: "/balanceS"
+                        },
+                        {
+                          title: "Upload Stock Data",
+                          description: "Import stock data to track market performance.",
+                          link: "/stockS"
+                        }
+                      ].map((item, index) => (
+                        <div key={index} className="space-y-2">
+                          <Link
+                            to={item.link}
+                            className="text-blue-600 hover:text-blue-800 font-medium block"
+                          >
+                            {item.title}
+                          </Link>
+                          <p className="text-sm text-gray-600">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+            </div>
+    );
   }
 
   // Process income statement metrics
@@ -159,14 +217,12 @@ const Dashboard = () => {
     }
   ];
 
-  const hasData = analyzedData?.balanceSheetAnalysis?.length > 0;
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 gap-6">
         <div className="space-y-6">
-          {hasData ? (
-            <div className='flex flex-row'>
+           <div className='flex flex-row'>
               <div className="flex flex-col gap-4 w-full mt-4 m-2">
                 <MetricTable title="Balance Sheet Analysis" metrics={balanceSheetMetrics} />
                 <MetricTable title="Income Statement Analysis" metrics={incomeStatementMetrics} />
@@ -178,67 +234,6 @@ const Dashboard = () => {
                 <AssetChart data={analyzedData.incomeStatementAnalysis} />
               </div>
             </div>
-          ) : (
-            <div className="flex flex-row w-full gap-6 mx-18 my-16">
-              <Card className="flex-2 w-2/3 py-6">
-                <CardContent className="flex flex-col items-center justify-center min-h-[400px]">
-                  <div
-                    className="w-1/2 h-60 bg-cover bg-center rounded-lg"
-                    style={{
-                      backgroundImage: `url(${emptyDashImage})`,
-                      backgroundPosition: 'center',
-                      backgroundSize: 'cover'
-                    }}
-                  />
-                  <p className="text-xl font-semibold text-gray-600 mt-4 mb-2">
-                    No Analytics Available
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Please upload financial statements to view analysis
-                  </p>
-                </CardContent>
-              </Card>
-
-              <div className="flex-1 w-full">
-                <Card className="py-8 px-2">
-                  <CardHeader>
-                    <CardTitle>Getting Started</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {[
-                        {
-                          title: "Upload Income Statement",
-                          description: "Upload your company's income statement for financial analysis.",
-                          link: "/incomeS"
-                        },
-                        {
-                          title: "Upload Balance Sheet",
-                          description: "Upload your balance sheet to analyze assets and liabilities.",
-                          link: "/balanceS"
-                        },
-                        {
-                          title: "Upload Stock Data",
-                          description: "Import stock data to track market performance.",
-                          link: "/stockS"
-                        }
-                      ].map((item, index) => (
-                        <div key={index} className="space-y-2">
-                          <Link
-                            to={item.link}
-                            className="text-blue-600 hover:text-blue-800 font-medium block"
-                          >
-                            {item.title}
-                          </Link>
-                          <p className="text-sm text-gray-600">{item.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

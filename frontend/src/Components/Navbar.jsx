@@ -24,6 +24,7 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("user");
     setIsLoggedIn(false); // Update state after logout
   };
 
@@ -94,9 +95,6 @@ export const Navbar = () => {
                       <DropdownMenuItem>
                         <Link to="/stockInput">Stocks Data</Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link to="/balanceS">Balance Sheet</Link>
-                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                   <DropdownMenu>
@@ -109,9 +107,6 @@ export const Navbar = () => {
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link to="/stock-analysis">Stocks Data</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link to="/balanceS">Balance Sheet</Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
