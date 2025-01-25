@@ -8,6 +8,7 @@ import ProfitabilityChart from '../components/ProfitabilityChart';
 import { getUserAnalysis } from '../apiRequest';
 import emptyDashImage from '../assets/empty_dash.svg';
 import { Loader } from 'lucide-react';
+import {StockChart} from '../components/StockChart';
 
 const formatValue = (value) => {
   if (typeof value === 'number') {
@@ -169,6 +170,7 @@ const Dashboard = () => {
               <div className="flex flex-col gap-4 w-full mt-4 m-2">
                 <MetricTable title="Balance Sheet Analysis" metrics={balanceSheetMetrics} />
                 <MetricTable title="Income Statement Analysis" metrics={incomeStatementMetrics} />
+                <StockChart />
               </div>
               <div className="grid grid-col gap-4 m-2 p-2">
                 <BalanceSheetChart data={analyzedData.balanceSheetAnalysis} />
