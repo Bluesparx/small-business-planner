@@ -1,4 +1,8 @@
 import React from "react";
+import stockImage from '../assets/image1.png';
+import Pricing from '../assets/image2.png';
+import chatbot from '../assets/image3.png';
+import Landing from '../assets/image4.png';
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export const HeroParallaxDemo = () => {
@@ -88,9 +92,8 @@ export const Header = () => {
         The Ultimate <br /> small business <br /> finance planning <br/> app
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We build beautiful products with the latest technologies and frameworks.
-        We are a team of passionate developers and designers that love to build
-        amazing products.
+      simplifies financial management for small businesses, automating reports, predictions, and insights.
+       Vyapaar-e empowers businesses to make informed financial decisions with ease and efficiency.
       </p>
     </div>
   );
@@ -125,34 +128,25 @@ export const ProductCard = ({ product, translate }) => {
 
 export const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
+    title: "Landing",
+    thumbnail: Landing,
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+    title: "Stock Analysis",
+    thumbnail: stockImage,
+  },
+  
+  {
+    title: "Pricing",
+    thumbnail: Pricing,
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/rogue.png",
+    title: "Chatbot",
+    thumbnail: chatbot,
   },
   {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/editorially.png",
-  },
-  {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/editrix.png",
-  },
-  {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+    title: "Landing",
+    thumbnail: Landing,
   },
   {
     title: "Algochurn",
@@ -164,6 +158,13 @@ export const products = [
     link: "https://ui.aceternity.com",
     thumbnail: "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
   },
+  
+  {
+    title: "Landing",
+    thumbnail: Landing,
+  },
+  
+
   {
     title: "Tailwind Master Kit",
     link: "https://tailwindmasterkit.com",

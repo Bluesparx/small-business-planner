@@ -29,7 +29,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white dark:bg-gray-800 shadow-md">
+      <nav className="  shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo */}
@@ -37,7 +37,7 @@ export const Navbar = () => {
               <div className="hidden md:flex items-center space-x-6 pr-2">
                 <button
                   onClick={toggleTheme}
-                  className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  className=" hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   {isDarkMode ? (
                     <SunIcon className="h-6 w-6 text-yellow-500" />
@@ -48,9 +48,9 @@ export const Navbar = () => {
               </div>
               <Link
                 to="/"
-                className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+                className="text-2xl font-bold text-cyan-600 dark:text-blue-400"
               >
-                BrandLogo
+                Vyapaar-e
               </Link>
             </div>
 
@@ -58,19 +58,19 @@ export const Navbar = () => {
             <div className="hidden md:flex items-center space-x-6">
               <Link
                 to="/"
-                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
               >
                 Home
               </Link>
               <Link
                 to="/about"
-                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
               >
                 About
               </Link>
               <Link
                 to="/subscription"
-                className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
               >
                 Pricing
               </Link>
@@ -78,13 +78,13 @@ export const Navbar = () => {
                 <>
                   <Link
                     to="/dash"
-                    className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                    className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Dashboard
                   </Link>
 
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                    <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Upload Data
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -100,7 +100,7 @@ export const Navbar = () => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                    <DropdownMenuTrigger className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Analytics
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -118,7 +118,7 @@ export const Navbar = () => {
 
                   <button
                     onClick={handleLogout}
-                    className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                    className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Logout
                   </button>
@@ -127,7 +127,7 @@ export const Navbar = () => {
               {!isLoggedIn && (
                 <Link
                   to="/login"
-                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                 >
                   Login
                 </Link>
@@ -135,7 +135,7 @@ export const Navbar = () => {
               {!isLoggedIn && (
                 <Link
                   to="/signup"
-                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                 >
                   Sign Up
                 </Link>
@@ -146,7 +146,7 @@ export const Navbar = () => {
             <div className="flex md:hidden items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+                className=" dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
               >
                 <svg
                   className="h-6 w-6"
@@ -180,13 +180,13 @@ export const Navbar = () => {
             <div className="md:hidden">
               <Link
                 to="/"
-                className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 Home
               </Link>
               <Link
                 to="/about"
-                className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 About
               </Link>
@@ -194,19 +194,20 @@ export const Navbar = () => {
                 <>
                   <Link
                     to="/dash"
-                    className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     Dashboard
                   </Link>
                   <Link
                     to="/services"
-                    className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     Services
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                    to="/"
+                    className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     Logout
                   </button>
@@ -215,7 +216,7 @@ export const Navbar = () => {
               {!isLoggedIn && (
                 <Link
                   to="/login"
-                  className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
                   Login
                 </Link>
@@ -223,7 +224,7 @@ export const Navbar = () => {
               {!isLoggedIn && (
                 <Link
                   to="/signup"
-                  className="block px-4 py-2 text-gray-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className="block px-4 py-2  hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
                   Sign Up
                 </Link>

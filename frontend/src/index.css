@@ -10,7 +10,7 @@ html[data-theme="dark"] {
 
 html[data-theme="light"] {
   background-color: #ffffff;
-  color: #000000;
+  color: #2c2c2c;
 }
 
 /* Custom Tailwind for Dark and Light Mode */

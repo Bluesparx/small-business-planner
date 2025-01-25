@@ -47,9 +47,9 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-[70] pt-8">
-        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-          <div className="max-w-sm mx-auto bg-white p-6">
+      <div className="flex items-center justify-center min-h-[70] pt-5">
+        <div className="w-full max-w-md p-4 border-1 border-gray-100 rounded-lg shadow-lg">
+          <div className="max-w-sm mx-auto  p-6">
             <h2 className="text-2xl text-blue-600 font-semibold">Sign Up</h2>
             <p className="text-gray-600 mt-1">
               Nice to meet you! Enter your details to register.
