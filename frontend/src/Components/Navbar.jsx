@@ -103,20 +103,22 @@ export const Navbar = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       <DropdownMenuItem>
-                        <Link to="/">Income statement</Link>
+                        <Link to="/analysis">Income statement</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link to="/stock-analysis">Stocks Data</Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-
+                  <Link to="/">
                   <button
+                    
                     onClick={handleLogout}
                     className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     Logout
                   </button>
+                  </Link>
                 </>
               )}
               {!isLoggedIn && (

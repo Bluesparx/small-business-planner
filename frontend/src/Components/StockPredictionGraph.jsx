@@ -66,13 +66,13 @@ const StockPredictionGraph = ({ predictions }) => {
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="90d" className="rounded-lg">
-              Last 90 entries
+             90 entries
             </SelectItem>
             <SelectItem value="30d" className="rounded-lg">
-              Last 30 entries
+              30 entries
             </SelectItem>
             <SelectItem value="7d" className="rounded-lg">
-              Last 7 entries
+               7 entries
             </SelectItem>
           </SelectContent>
         </Select>

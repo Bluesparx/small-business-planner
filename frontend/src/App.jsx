@@ -18,6 +18,7 @@ import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
 import Chatbot from "./pages/Chatbot";
 import StockAnalysis from "./pages/stockAnalysis";
+import AnalyticsPage from "./pages/AnalyticsPage";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/subscription" element={<SubscriptionPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/stock-analysis" element={<StockAnalysis />} />
+          <Route path="/analysis" element={<AnalyticsPage />} />
          
         </Routes>
         <Chatbot />

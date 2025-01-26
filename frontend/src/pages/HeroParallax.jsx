@@ -3,6 +3,7 @@ import stockImage from '../assets/image1.png';
 import Pricing from '../assets/image2.png';
 import chatbot from '../assets/image3.png';
 import Landing from '../assets/image4.png';
+import dash from '../assets/image5.png';
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export const HeroParallaxDemo = () => {
@@ -149,14 +150,12 @@ export const products = [
     thumbnail: Landing,
   },
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+    title: "Dashboard",
+    thumbnail: dash,
   },
   {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
+    title: "Dashboard",
+    thumbnail: dash,
   },
   
   {
@@ -166,9 +165,8 @@ export const products = [
   
 
   {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
-    thumbnail: "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
+    title: "Dashboard",
+    thumbnail: dash,
   },
   {
     title: "SmartBridge",

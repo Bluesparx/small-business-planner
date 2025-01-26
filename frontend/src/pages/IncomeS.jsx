@@ -108,7 +108,7 @@ const IncomeS = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen  dark:bg-gray-900 p-6">
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
           Upload Financial Data
@@ -143,7 +143,7 @@ const IncomeS = () => {
         {isAnalysisComplete && (
           <div className="text-center mt-6">
             <Link
-              to="/dash"
+              to="/analysis"
               className="px-6 py-3 text-white bg-green-600 rounded-md hover:bg-green-700"
             >
               Check Analysed Data
