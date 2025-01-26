@@ -64,7 +64,7 @@ const StockPredictionGraph = ({ predictions }) => {
           >
             <SelectValue placeholder="Last 90 entries" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl">
+          <SelectContent className="rounded-xl bg-white">
             <SelectItem value="90d" className="rounded-lg">
               Last 90 entries
             </SelectItem>

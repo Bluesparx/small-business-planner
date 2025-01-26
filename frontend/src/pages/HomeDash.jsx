@@ -104,7 +104,7 @@ const Dashboard = () => {
                         {
                           title: "Upload Balance Sheet",
                           description: "Upload your balance sheet to analyze assets and liabilities.",
-                          link: "/balanceS"
+                          link: "/incomeS"
                         },
                         {
                           title: "Upload Stock Data",
