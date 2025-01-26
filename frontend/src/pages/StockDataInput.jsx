@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StockPredictionGraph from '@/Components/StockPredictionGraph';
+import { Card } from '@/components/ui/card';
 
 const StockDataInput = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -83,11 +84,15 @@ const StockDataInput = () => {
         onClick={handleFileUpload}
         className="mt-4 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md"
       >
-        {loading ? 'Uploading...' : 'Upload'}
+        {loading ? 'Uploading...It may take a while as we process the data..' : 'Upload'}
       </button>
 
       {predictions.length > 0 && (
-        <div className="mt-8">
+        <div className='flex align-center flex-col justify-center mx-10 mt-2'>
+          
+
+      <StockPredictionGraph predictions={predictions} />
+        <Card className="mt-2">
           <h2 className="text-xl font-bold text-green-600">Predicted Stock Prices</h2>
           <table className="mt-4 border-collapse border border-gray-300 w-full">
             <thead>
@@ -107,11 +112,9 @@ const StockDataInput = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </Card>
+        </div> 
       )}
-
-      {/* If you want to display the graph here */}
-      {predictions.length > 0 && <StockPredictionGraph predictions={predictions} />}
     </div>
   );
 };

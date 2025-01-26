@@ -88,7 +88,7 @@ export const Navbar = () => {
                     <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Upload Data
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
                       <DropdownMenuItem>
                         <Link to="/incomeS">Income statement</Link>
                       </DropdownMenuItem>
@@ -101,7 +101,7 @@ export const Navbar = () => {
                     <DropdownMenuTrigger className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Analytics
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
                       <DropdownMenuItem>
                         <Link to="/analysis">Income statement</Link>
                       </DropdownMenuItem>

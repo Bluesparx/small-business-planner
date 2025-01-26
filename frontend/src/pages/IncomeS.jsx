@@ -116,6 +116,7 @@ const IncomeS = () => {
       </div>
 
       <div className="space-y-4">
+        <div className="flex flex-row gap-4 p-4 justify-center align-center">
         <div>
           <h2 className="text-lg font-semibold mb-2">Balance Sheet</h2>
           <UploadCSV onFileUpload={(file) => handleFileUpload("balance_sheet", file)} />
@@ -124,6 +125,7 @@ const IncomeS = () => {
         <div>
           <h2 className="text-lg font-semibold mb-2">Income Statement</h2>
           <UploadCSV onFileUpload={(file) => handleFileUpload("income_statement", file)} />
+        </div>
         </div>
 
         <div className="text-center mt-6">
