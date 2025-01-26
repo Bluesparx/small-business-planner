@@ -12,8 +12,14 @@ import {StockChart} from '../components/StockChart';
 
 const formatValue = (value) => {
   if (typeof value === 'number') {
-    // Convert to percentage with 2 decimal places
-    return `${value.toFixed(2)}%`;
+    const isNegative = value < 0;
+    const color = isNegative ? 'text-red-600' : 'text-green-600'; // Tailwind classes for red and green text colors
+
+    return (
+      <span className={color}>
+        {value.toFixed(2)}%
+      </span>
+    );
   }
   return value || 'N/A';
 };

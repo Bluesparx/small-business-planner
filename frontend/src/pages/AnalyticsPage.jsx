@@ -15,12 +15,19 @@ import ProfitMarginsPieChart from '@/Components/ui/ProfitMarginsPieChart';
 
 // Format the value as percentage
 const formatValue = (value) => {
-  if (typeof value === 'number') {
-    return `${value.toFixed(2)}%`;
-  }
-  return value || 'N/A';
-};
-
+    if (typeof value === 'number') {
+      const isNegative = value < 0;
+      const color = isNegative ? 'text-red-600' : 'text-green-600'; // Tailwind classes for red and green text colors
+  
+      return (
+        <span className={color}>
+          {value.toFixed(2)}%
+        </span>
+      );
+    }
+    return value || 'N/A';
+  };
+  
 // Table to display metrics
 const MetricTable = ({ title, metrics }) => (
   <Card className="w-full shadow-lg rounded-lg">
