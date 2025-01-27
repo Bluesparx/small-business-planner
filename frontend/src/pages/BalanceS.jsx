@@ -14,10 +14,8 @@ import BalanceSForm from "@/Components/BalanceSForm";
 
 const CSVUploadComponent = () => (
   <div className="mt-6">
-    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-    </h2>
+    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200"></h2>
     <form className="mt-4">
-      
       <FileUploadDemo />
       <button
         type="submit"

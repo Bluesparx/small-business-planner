@@ -1,30 +1,29 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from '../Components/ui/card';
-import { Button } from '../Components/ui/button';
+} from "../Components/ui/card";
+import { Button } from "../Components/ui/button";
 
 const About = () => {
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center px-6 py-12 text-center">
-  <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight  mb-6">
-    About Our App
-  </h1>
-  <p className="text-lg md:text-xl leading-relaxed max-w-3xl dark:text-gray-200">
-    Welcome to our small business finance planning app — a revolutionary tool
-    designed to simplify financial management and empower businesses with
-    data-driven insights. Whether it's analyzing income statements, tracking
-    balance sheets, or predicting stock trends, our platform is your trusted
-    companion in making informed decisions.
-  </p>
-</section>
-
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight  mb-6">
+          About Our App
+        </h1>
+        <p className="text-lg md:text-xl leading-relaxed max-w-3xl dark:text-gray-200">
+          Welcome to our small business finance planning app — a revolutionary
+          tool designed to simplify financial management and empower businesses
+          with data-driven insights. Whether it's analyzing income statements,
+          tracking balance sheets, or predicting stock trends, our platform is
+          your trusted companion in making informed decisions.
+        </p>
+      </section>
 
       {/* Features and Technology Grid */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6 py-12 max-w-6xl mx-auto">
@@ -84,9 +83,7 @@ const About = () => {
 
       <section className="px-6 py-12 bg-gray-500 ">
         <div className="text-center">
-          <h2 className="text-3xl font-bold ">
-            Our Mission
-          </h2>
+          <h2 className="text-3xl font-bold ">Our Mission</h2>
           <p className="mt-4 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
             Our mission is to empower small businesses by simplifying financial
             planning and enabling smarter, data-driven decisions. By leveraging
@@ -95,9 +92,6 @@ const About = () => {
           </p>
         </div>
       </section>
-
-   
-      
     </div>
   );
 };

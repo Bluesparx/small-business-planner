@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react"; 
-import { HeroParallaxDemo } from "./HeroParallax";
+import React, { useState, useEffect } from "react";
 import { Footer } from "./Footer";
-import Loader from "../Components/Loader";  
+import Loader from "../Components/Loader";
+
+import { SpotlightPreview } from "@/Components/ui/SpotlightPreview";
+import Carousel from "@/Components/ui/Carousel";
 
 const Landing = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);  
-    }, 0);  
+      setIsLoading(false);
+    }, 0);
   }, []);
 
   return (
     <div>
       {isLoading ? (
-        <Loader />  
+        <Loader />
       ) : (
         <>
-          <HeroParallaxDemo />
-          <div className="mt-4">
-            <Footer />  
+          <SpotlightPreview />
+          <Carousel />
+          <div className="mt-8">
+            <Footer />
           </div>
         </>
       )}

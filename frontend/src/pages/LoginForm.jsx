@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { handleError, handleSuccess } from '../../utils';
-import { useNavigate } from 'react-router-dom';
-import Loader from '../Components/Loader';  // Import the loader component
-import { userLogin } from '../apiRequest';
+import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { handleError, handleSuccess } from "../../utils";
+import { useNavigate } from "react-router-dom";
+import Loader from "../Components/Loader"; // Import the loader component
+import { userLogin } from "../apiRequest";
 
 const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [isLoading, setIsLoading] = useState(false); // Loader state
   const navigate = useNavigate();
@@ -27,30 +27,30 @@ const LoginForm = () => {
     const { email, password } = loginInfo;
 
     if (!email || !password) {
-      return handleError('Email and password are required');
+      return handleError("Email and password are required");
     }
 
     try {
-      setIsLoading(true);  // Show loader
+      setIsLoading(true); // Show loader
       const response = await userLogin({ email, password });
-      
+
       if (response.token && response.user) {
-        localStorage.setItem('jwtToken', response.token);  // Save the JWT token
-        localStorage.setItem('user', JSON.stringify(response.user));  // Save user data
+        localStorage.setItem("jwtToken", response.token); // Save the JWT token
+        localStorage.setItem("user", JSON.stringify(response.user)); // Save user data
       } else {
-        setIsLoading(false);  // Hide loader
-        handleError('Invalid response structure');
+        setIsLoading(false); // Hide loader
+        handleError("Invalid response structure");
         return;
       }
 
-      handleSuccess('Login successful!');
+      handleSuccess("Login successful!");
       setTimeout(() => {
-        setIsLoading(false);  // Hide loader
-        navigate('/dash');
+        setIsLoading(false); // Hide loader
+        navigate("/dash");
       }, 1000);
     } catch (err) {
-      setIsLoading(false);  // Hide loader
-      handleError(err.message || 'Network error occurred');
+      setIsLoading(false); // Hide loader
+      handleError(err.message || "Network error occurred");
     }
   };
 
@@ -97,10 +97,11 @@ const LoginForm = () => {
                 <input
                   type="checkbox"
                   id="terms"
+                  required
                   className="h-4 w-4 text-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="terms" className="ml-2 text-gray-600 text-sm">
-                  I agree to the{' '}
+                  I agree to the{" "}
                   <a href="#" className="text-blue-500">
                     Terms and Conditions
                   </a>
@@ -110,29 +111,28 @@ const LoginForm = () => {
               <button
                 type="submit"
                 style={{
-                  width: '100%',
-                  backgroundColor: '#2563EB',
-                  color: 'white',
-                  padding: '12px 0',
-                  borderRadius: '8px',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                  transition: 'background-color 0.2s ease',
+                  width: "100%",
+                  backgroundColor: "#2563EB",
+                  color: "white",
+                  padding: "12px 0",
+                  borderRadius: "8px",
+                  border: "none",
+                  outline: "none",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  transition: "background-color 0.2s ease",
                 }}
                 onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#1E40AF')
+                  (e.target.style.backgroundColor = "#1E40AF")
                 }
-                onMouseOut={(e) =>
-                  (e.target.style.backgroundColor = '#2563EB')
-                }
+                onMouseOut={(e) => (e.target.style.backgroundColor = "#2563EB")}
               >
-                {isLoading ? 'Logging in...' : 'Login'}  {/* Show loading text */}
+                {isLoading ? "Logging in..." : "Login"}{" "}
+                {/* Show loading text */}
               </button>
 
               <p className="text-center text-gray-600 mt-4">
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <a href="signup" className="text-blue-500">
                   Sign Up
                 </a>

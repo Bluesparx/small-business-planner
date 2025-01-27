@@ -16,14 +16,13 @@ import BalanceS from "./pages/BalanceS";
 import StockDataInput from "./pages/StockDataInput";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
-import Chatbot from "./pages/Chatbot";
+import Chatbot from "./Components/Chatbot";
 import StockAnalysis from "./pages/stockAnalysis";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import EMICalculator from "./pages/EMICalculator";
-
+import SIPCalculator from "./pages/SIPCalculator";
 
 function App() {
-  
   return (
     <>
       <ThemeProvider>
@@ -42,7 +41,7 @@ function App() {
           <Route path="/stock-analysis" element={<StockAnalysis />} />
           <Route path="/analysis" element={<AnalyticsPage />} />
           <Route path="/emi" element={<EMICalculator />} />
-         
+          <Route path="/sip" element={<SIPCalculator />} />
         </Routes>
         <Chatbot />
       </ThemeProvider>

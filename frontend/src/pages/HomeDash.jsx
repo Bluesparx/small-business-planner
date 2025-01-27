@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link } from 'react-router-dom';
-import BalanceSheetChart from '../components/BalanceSheetChart';
-import AssetChart from '../components/AssetChart';
-import ProfitabilityChart from '../components/ProfitabilityChart';
-import { getUserAnalysis } from '../apiRequest';
-import emptyDashImage from '../assets/empty_dash.svg';
-import { Loader } from 'lucide-react';
-import {StockChart} from '../components/StockChart';
+import React, { useEffect, useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Link } from "react-router-dom";
+import BalanceSheetChart from "../Components/BalanceSheetChart";
+import AssetChart from "../Components/AssetChart";
+import ProfitabilityChart from "../Components/ProfitabilityChart";
+import { getUserAnalysis } from "../apiRequest";
+import emptyDashImage from "../assets/empty_dash.svg";
+import { Loader } from "lucide-react";
+import { StockChart } from "../Components/StockChart";
 
 const formatValue = (value) => {
-  if (typeof value === 'number') {
+  if (typeof value === "number") {
     const isNegative = value < 0;
-    const color = isNegative ? 'text-red-600' : 'text-green-600'; // Tailwind classes for red and green text colors
+    const color = isNegative ? "text-red-600" : "text-green-600"; // Tailwind classes for red and green text colors
 
-    return (
-      <span className={color}>
-        {value.toFixed(2)}%
-      </span>
-    );
+    return <span className={color}>{value.toFixed(2)}%</span>;
   }
-  return value || 'N/A';
+  return value || "N/A";
 };
 
 const MetricTable = ({ title, metrics }) => (
@@ -55,7 +58,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     const userId = user?._id;
 
     if (userId) {
@@ -65,7 +68,7 @@ const Dashboard = () => {
           setIsLoading(false);
         })
         .catch((error) => {
-          console.error('Error fetching analysis data:', error);
+          console.error("Error fetching analysis data:", error);
           setIsLoading(false);
         });
     }
@@ -74,172 +77,182 @@ const Dashboard = () => {
   if (!analyzedData) {
     return (
       <div className="p-8 max-w-7xl mx-auto grid grid-cols-1 gap-6 space-y-6">
-      <div className="flex flex-row w-full gap-6 mx-18 my-16">
-              <Card className="flex-2 w-2/3 py-6">
-                <CardContent className="flex flex-col items-center justify-center min-h-[400px]">
-                  <div
-                    className="w-1/2 h-60 bg-cover bg-center rounded-lg"
-                    style={{
-                      backgroundImage: `url(${emptyDashImage})`,
-                      backgroundPosition: 'center',
-                      backgroundSize: 'cover'
-                    }}
-                  />
-                  <p className="text-xl font-semibold text-gray-600 mt-4 mb-2">
-                    No Analytics Available
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Please upload financial statements to view analysis
-                  </p>
-                </CardContent>
-              </Card>
+        <div className="flex flex-row w-full gap-6 mx-18 my-16">
+          <Card className="flex-2 w-2/3 py-6">
+            <CardContent className="flex flex-col items-center justify-center min-h-[400px]">
+              <div
+                className="w-1/2 h-60 bg-cover bg-center rounded-lg"
+                style={{
+                  backgroundImage: `url(${emptyDashImage})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                }}
+              />
+              <p className="text-xl font-semibold text-gray-600 mt-4 mb-2">
+                No Analytics Available
+              </p>
+              <p className="text-sm text-gray-500">
+                Please upload financial statements to view analysis
+              </p>
+            </CardContent>
+          </Card>
 
-              <div className="flex-1 w-full">
-                <Card className="py-8 px-2">
-                  <CardHeader>
-                    <CardTitle>Getting Started</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {[
-                        {
-                          title: "Upload Income Statement",
-                          description: "Upload your company's income statement for financial analysis.",
-                          link: "/incomeS"
-                        },
-                        {
-                          title: "Upload Balance Sheet",
-                          description: "Upload your balance sheet to analyze assets and liabilities.",
-                          link: "/incomeS"
-                        },
-                        {
-                          title: "Upload Stock Data",
-                          description: "Import stock data to track market performance.",
-                          link: "/stockS"
-                        }
-                      ].map((item, index) => (
-                        <div key={index} className="space-y-2">
-                          <Link
-                            to={item.link}
-                            className="text-blue-600 hover:text-blue-800 font-medium block"
-                          >
-                            {item.title}
-                          </Link>
-                          <p className="text-sm text-gray-600">{item.description}</p>
-                        </div>
-                      ))}
+          <div className="flex-1 w-full">
+            <Card className="py-8 px-2">
+              <CardHeader>
+                <CardTitle>Getting Started</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[
+                    {
+                      title: "Upload Income Statement",
+                      description:
+                        "Upload your company's income statement for financial analysis.",
+                      link: "/incomeS",
+                    },
+                    {
+                      title: "Upload Balance Sheet",
+                      description:
+                        "Upload your balance sheet to analyze assets and liabilities.",
+                      link: "/incomeS",
+                    },
+                    {
+                      title: "Upload Stock Data",
+                      description:
+                        "Import stock data to track market performance.",
+                      link: "/stockS",
+                    },
+                  ].map((item, index) => (
+                    <div key={index} className="space-y-2">
+                      <Link
+                        to={item.link}
+                        className="text-blue-600 hover:text-blue-800 font-medium block"
+                      >
+                        {item.title}
+                      </Link>
+                      <p className="text-sm text-gray-600">
+                        {item.description}
+                      </p>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-            </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     );
   }
 
   // Process income statement metrics
   const incomeStatementMetrics = [
     {
-      name: 'Gross Profit Margin',
+      name: "Gross Profit Margin",
       value: analyzedData.growthIncomeStatement?.find(
-        item => item.IncomeMetric === 'grossProfitMargin'
-      )?.OverallGrowth
+        (item) => item.IncomeMetric === "grossProfitMargin"
+      )?.OverallGrowth,
     },
     {
-      name: 'Operating Profit Margin',
+      name: "Operating Profit Margin",
       value: analyzedData.growthIncomeStatement?.find(
-        item => item.IncomeMetric === 'OperatingProfitMargin'
-      )?.OverallGrowth
+        (item) => item.IncomeMetric === "OperatingProfitMargin"
+      )?.OverallGrowth,
     },
     {
-      name: 'Interest Coverage Ratio',
+      name: "Interest Coverage Ratio",
       value: analyzedData.growthIncomeStatement?.find(
-        item => item.IncomeMetric === 'InterestCoverageRatio'
-      )?.OverallGrowth
+        (item) => item.IncomeMetric === "InterestCoverageRatio"
+      )?.OverallGrowth,
     },
     {
-      name: 'Net Profit Ratio',
+      name: "Net Profit Ratio",
       value: analyzedData.growthIncomeStatement?.find(
-        item => item.IncomeMetric === 'NetProfitRatio'
-      )?.OverallGrowth
+        (item) => item.IncomeMetric === "NetProfitRatio"
+      )?.OverallGrowth,
     },
     {
-      name: 'Asset Turnover',
+      name: "Asset Turnover",
       value: analyzedData.growthIncomeStatement?.find(
-        item => item.IncomeMetric === 'AssetTurnover'
-      )?.OverallGrowth
+        (item) => item.IncomeMetric === "AssetTurnover"
+      )?.OverallGrowth,
     },
     {
-      name: 'Return On Assets',
+      name: "Return On Assets",
       value: analyzedData.growthIncomeStatement?.find(
-        item => item.IncomeMetric === 'ReturnOnAssets'
-      )?.OverallGrowth
-    }
+        (item) => item.IncomeMetric === "ReturnOnAssets"
+      )?.OverallGrowth,
+    },
   ];
 
   const balanceSheetMetrics = [
     {
-      name: 'Current Ratio',
+      name: "Current Ratio",
       value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'currentRatio'
-      )?.OverallGrowth
+        (item) => item.BalanceSheetMetric === "currentRatio"
+      )?.OverallGrowth,
     },
     {
-      name: 'Quick Ratio',
+      name: "Quick Ratio",
       value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'quickCurrentRatio'
-      )?.OverallGrowth
+        (item) => item.BalanceSheetMetric === "quickCurrentRatio"
+      )?.OverallGrowth,
     },
     {
-      name: 'Debt to Equity',
+      name: "Debt to Equity",
       value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'debtToEquityRatio'
-      )?.OverallGrowth
+        (item) => item.BalanceSheetMetric === "debtToEquityRatio"
+      )?.OverallGrowth,
     },
     {
-      name: 'Inventory Turnover',
+      name: "Inventory Turnover",
       value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'inventoryTurnover'
-      )?.OverallGrowth
+        (item) => item.BalanceSheetMetric === "inventoryTurnover"
+      )?.OverallGrowth,
     },
     {
-      name: 'Receivable Turnover',
+      name: "Receivable Turnover",
       value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'receivableTurnover'
-      )?.OverallGrowth
+        (item) => item.BalanceSheetMetric === "receivableTurnover"
+      )?.OverallGrowth,
     },
     {
-      name: 'Working Capital',
+      name: "Working Capital",
       value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'workingCapital'
-      )?.OverallGrowth
+        (item) => item.BalanceSheetMetric === "workingCapital"
+      )?.OverallGrowth,
     },
-    
-    {
-      name: 'Average Age of Receivables',
-      value: analyzedData.growthBalanceSheet?.find(
-        item => item.BalanceSheetMetric === 'averageAgeOfReceivables'
-      )?.OverallGrowth
-    }
-  ];
 
+    {
+      name: "Average Age of Receivables",
+      value: analyzedData.growthBalanceSheet?.find(
+        (item) => item.BalanceSheetMetric === "averageAgeOfReceivables"
+      )?.OverallGrowth,
+    },
+  ];
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 gap-6">
         <div className="space-y-6">
-           <div className='flex flex-row'>
-              <div className="flex flex-col gap-4 w-full mt-4 m-2">
-                <MetricTable title="Balance Sheet Analysis" metrics={balanceSheetMetrics} />
-                <MetricTable title="Income Statement Analysis" metrics={incomeStatementMetrics} />
-                <StockChart />
-              </div>
-              <div className="grid grid-col gap-4 m-2 p-2">
-                <BalanceSheetChart data={analyzedData.balanceSheetAnalysis} />
-                <ProfitabilityChart data={analyzedData.incomeStatementAnalysis} />
-                <AssetChart data={analyzedData.incomeStatementAnalysis} />
-              </div>
+          <div className="flex flex-row">
+            <div className="flex flex-col gap-4 w-full mt-4 m-2">
+              <MetricTable
+                title="Balance Sheet Analysis"
+                metrics={balanceSheetMetrics}
+              />
+              <MetricTable
+                title="Income Statement Analysis"
+                metrics={incomeStatementMetrics}
+              />
+              <StockChart />
             </div>
+            <div className="grid grid-col gap-4 m-2 p-2">
+              <BalanceSheetChart data={analyzedData.balanceSheetAnalysis} />
+              <ProfitabilityChart data={analyzedData.incomeStatementAnalysis} />
+              <AssetChart data={analyzedData.incomeStatementAnalysis} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -247,7 +260,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
 
 // const sampleAnalyzedData = {
 //   "balanceSheetAnalysis": [
