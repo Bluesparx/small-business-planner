@@ -7,7 +7,7 @@ import { triggerAnalysis } from '../config/triggerML.js';
 // Endpoint to trigger the analysis
 const triggerUserAnalysis = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user.id;
     console.log('Received userId:', userId);
 
     const user = await User.findById(userId);
@@ -38,7 +38,7 @@ const triggerUserAnalysis = async (req, res) => {
 // Endpoint to get the analysis result for a user
 const getUserAnalysis = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id;
     console.log('Fetching analysis result for userId:', userId);
 
     // Find the most recent analysis for the user

@@ -1,9 +1,10 @@
 import { createIncomeTable,getAllIncomeTables,getIncomeTableById} from '../controller/income_table.js';
 import express from 'express';
+import { protect } from '../middleware/authMiddleware.js';
 const incomeRouter = express.Router();
 
-incomeRouter.post('/table',createIncomeTable);
-incomeRouter.get('/table', getAllIncomeTables);
-incomeRouter.get('/table/:id', getIncomeTableById);
+incomeRouter.post('/table', protect, createIncomeTable);
+incomeRouter.get('/table', protect, getAllIncomeTables);
+incomeRouter.get('/table/:id', protect, getIncomeTableById);
 
 export default incomeRouter;

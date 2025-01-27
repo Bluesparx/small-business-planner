@@ -5,7 +5,8 @@ import BalanceSheetRow from "../models/BalanceSheetRow.js";
 // router.post('/balance-sheet/table',
 const createBalanceSheetTable = async (req, res) => {
   try {
-    const { userId, name, rows } = req.body;
+    const { name, rows } = req.body;
+    const userId = req.user.id;
 
     // Validate rows
     if (!rows || !Array.isArray(rows)) {

@@ -4,20 +4,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StockPredictionGraph from '@/Components/StockPredictionGraph';
 import { Card } from '@/components/ui/card';
+import { uploadHistoricalData } from '@/utils/apiRequest';
 
 const StockDataInput = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState(null); // Initialize userId state
-
-  useEffect(() => {
-    // Get the user from localStorage
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setUserId(user?._id); // Set the userId from localStorage
-    }
-  }, []);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -29,30 +21,14 @@ const StockDataInput = () => {
       return;
     }
 
-    if (!userId) {
-      toast.error('User ID is not available.');
-      return;
-    }
-
     setLoading(true);
     setPredictions([]);
 
-    const formData = new FormData();
-    formData.append('historical_data', selectedFile);
-
     try {
-      const response = await axios.post(
-        `http://localhost:5000/analyze_historical?user_id=${userId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      const response = await uploadHistoricalData(selectedFile);
 
-      if (response.data.historical_analysis) {
-        setPredictions(response.data.historical_analysis);
+      if (response.historical_analysis) {
+        setPredictions(response.historical_analysis);
         toast.success('File uploaded and processed successfully!');
       } else {
         toast.error('Unexpected response from the server.');

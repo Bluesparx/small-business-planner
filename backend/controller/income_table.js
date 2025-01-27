@@ -4,7 +4,8 @@ import IncomeRow from "../models/income_row.js";
 // POST: Create a new income statement table
 const createIncomeTable = async (req, res) => {
   try {
-    const { userId, name, rows } = req.body;
+    const { name, rows } = req.body;
+    const userId = req.user.id;
 
     // Validate rows
     if (!rows || !Array.isArray(rows)) {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import BalanceSheetChart from '../components/BalanceSheetChart';
 import ProfitabilityChart from '../components/ProfitabilityChart';
 import AssetChart from '../components/AssetChart';
-import { getUserAnalysis } from '../apiRequest';
+import { getUserAnalysis } from '../utils/apiRequest';
 import { Loader } from 'lucide-react';
 import WorkingCapitalChart from '../Components/ui/WorkingCapitalChart';
 import LiquidityRatiosChart from '../Components/ui/LiquidityRatiosChart';
@@ -60,20 +60,17 @@ const AnalyticsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const userId = user?._id;
-
-    if (userId) {
-      getUserAnalysis(userId)
-        .then((data) => {
-          setAnalyzedData(data);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching analysis data:', error);
-          setIsLoading(false);
-        });
-    }
+    const fetchData = async () => {
+      try {
+        const data = await getUserAnalysis();
+        setAnalyzedData(data);
+      } catch (error) {
+        console.error('Error fetching analysis data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   if (isLoading) {

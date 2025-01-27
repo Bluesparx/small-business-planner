@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; 
-import { HeroParallaxDemo } from "./HeroParallax";
-import { Footer } from "./Footer";
+import { HeroParallaxDemo } from "../components/HeroParallax";
+import { Footer } from "../components/Footer";
 import Loader from "../Components/Loader";  
 
 const Landing = () => {
@@ -18,8 +18,8 @@ const Landing = () => {
         <Loader />  
       ) : (
         <>
-          <HeroParallaxDemo />
           <div className="mt-4">
+            <h4>hi i removed landing component</h4>
             <Footer />  
           </div>
         </>

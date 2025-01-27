@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Components/Loader';  // Import the loader component
-import { userSignUp } from '../apiRequest';
+import { userSignUp } from '../utils/apiRequest';
 
 const SignUpForm = () => {
   const [signupInfo, setSignupInfo] = useState({

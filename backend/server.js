@@ -1,3 +1,4 @@
+import './constants.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -7,6 +8,7 @@ import router from './routes/user.js'; // Correctly import user router
 import balanceSheetRouter from './routes/balanceSheetTable.js'; // Correctly import BalanceSheet router
 import incomeRouter from './routes/income_table.js';
 import dataAnalyticsRouter from './routes/dataAnalyticsRoutes.js';
+import stockRouter from './routes/stockRoutes.js';
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ app.use('/api/users', router);
 app.use('/api/balance-sheet', balanceSheetRouter);
 app.use('/api/income', incomeRouter);
 app.use('/api/data', dataAnalyticsRouter);
+app.use('/api/stock', stockRouter);
 
 // Start the server
 app.listen(PORT, () => {

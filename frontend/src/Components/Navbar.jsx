@@ -10,22 +10,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useAuth } from "@/utils/authProvider";
 
 export const Navbar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
+  const { token, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check if user is logged in (JWT token exists in localStorage)
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    setIsLoggedIn(!!token); // Set state based on token existence
-  }, []);
+  const isLoggedIn = token && token !== null;
 
   const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("user");
-    setIsLoggedIn(false); // Update state after logout
+    logout();
   };
 
   return (

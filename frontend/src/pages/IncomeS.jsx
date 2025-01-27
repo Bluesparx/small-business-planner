@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import UploadCSV from "@/Components/csvUpload_financial";
-import { createBalanceSheetTable, createIncomeTable, triggerUserAnalysis } from "@/apiRequest";
+import { createBalanceSheetTable, createIncomeTable, triggerUserAnalysis } from "@/utils/apiRequest";
 import { toast } from "react-toastify";
 import Papa from "papaparse";
 

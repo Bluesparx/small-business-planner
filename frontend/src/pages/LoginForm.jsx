@@ -4,9 +4,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Components/Loader';  // Import the loader component
-import { userLogin } from '../apiRequest';
+import { userLogin } from '../utils/apiRequest';
+import { useAuth } from '@/utils/authProvider';
 
 const LoginForm = () => {
+  const { login } = useAuth();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -22,37 +24,27 @@ const LoginForm = () => {
     }));
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const { email, password } = loginInfo;
-
-    if (!email || !password) {
-      return handleError('Email and password are required');
-    }
-
-    try {
-      setIsLoading(true);  // Show loader
-      const response = await userLogin({ email, password });
-      
-      if (response.token && response.user) {
-        localStorage.setItem('jwtToken', response.token);  // Save the JWT token
-        localStorage.setItem('user', JSON.stringify(response.user));  // Save user data
-      } else {
-        setIsLoading(false);  // Hide loader
-        handleError('Invalid response structure');
+  const handleLogin = async (event) => {
+      event.preventDefault();
+      console.log(loginInfo);
+  
+      const { email, password } = loginInfo;
+  
+      if (!email || !password) {
+        console.error("Please fill all fields");
         return;
       }
-
-      handleSuccess('Login successful!');
-      setTimeout(() => {
-        setIsLoading(false);  // Hide loader
-        navigate('/dash');
-      }, 1000);
-    } catch (err) {
-      setIsLoading(false);  // Hide loader
-      handleError(err.message || 'Network error occurred');
-    }
-  };
+  
+      try {
+        const response = await userLogin({ email, password });
+        console.log("Login successful", response);
+        localStorage.setItem("token", response.token);
+        login(response.token);
+        navigate("/");
+      } catch (error) {
+        console.error("Could not log in:", error);
+      }
+    };
 
   return (
     <div>

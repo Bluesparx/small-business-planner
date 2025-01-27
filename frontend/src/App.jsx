@@ -1,18 +1,18 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom"; // Import Route and Routes for routing
+import { Route, Routes, BrowserRouter as Router, useLocation } from "react-router-dom";
 
-// Example Components
+import { AuthProvider, useAuth } from "./utils/authProvider";
+import AuthenticatedRoute from "./utils/useAuthContext";
 
 import Landing from "./pages/Landing";
 import { Navbar } from "./Components/Navbar";
-import { Footer } from "./pages/Footer";
+import { Footer } from "./components/Footer";
 
 import Dashboard from "./pages/HomeDash";
 import SignUpForm from "./pages/SignUpForm";
 import LoginForm from "./pages/LoginForm";
 import { ThemeProvider } from "../components/ui/ThemeContext";
 import IncomeS from "./pages/IncomeS";
-import BalanceS from "./pages/BalanceS";
 import StockDataInput from "./pages/StockDataInput";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
@@ -21,33 +21,50 @@ import StockAnalysis from "./pages/stockAnalysis";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import EMICalculator from "./pages/EMICalculator";
 
+const routeDefinitions = [
+  { path: "/", element: <Landing />, protected: false },
+  { path: "/login", element: <LoginForm />, protected: false },
+  { path: "/signup", element: <SignUpForm />, protected: false },
+  { path: "/dash", element: <Dashboard />, protected: true },
+  { path: "/incomeS", element: <IncomeS />, protected: true },
+  { path: "/stockInput", element: <StockDataInput />, protected: true },
+  { path: "/subscription", element: <SubscriptionPage />, protected: false },
+  { path: "/about", element: <About />, protected: false },
+  { path: "/stock-analysis", element: <StockAnalysis />, protected: true },
+  { path: "/analysis", element: <AnalyticsPage />, protected: true },
+  { path: "/emi", element: <EMICalculator />, protected: false },
+];
 
-function App() {
-  
+function AppRoutes() {
+  const { token } = useAuth();
   return (
-    <>
-      <ThemeProvider>
-        <Navbar />
-        <Routes>
-          {/* Define your routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/dash" element={<Dashboard />} />
-          <Route path="/incomeS" element={<IncomeS />} />
-          <Route path="/balanceS" element={<BalanceS />} />
-          <Route path="/stockInput" element={<StockDataInput />} />
-          <Route path="/subscription" element={<SubscriptionPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/stock-analysis" element={<StockAnalysis />} />
-          <Route path="/analysis" element={<AnalyticsPage />} />
-          <Route path="/emi" element={<EMICalculator />} />
-         
-        </Routes>
-        <Chatbot />
-      </ThemeProvider>
-    </>
+    <Routes>
+      {routeDefinitions.map(({ path, element, protected: isProtected }) => {
+        const routeElement = isProtected ? (
+          <AuthenticatedRoute element={element} />
+        ) : (
+          element
+        );
+        return <Route key={path} path={path} element={routeElement} />;
+      })}
+    </Routes>
   );
 }
 
-export default App;
+export default function App() {
+  const location = useLocation();
+  const isDefinedRoute = routeDefinitions.some(
+    (route) => route.path === location.pathname
+  );
+
+  return (
+    <AuthProvider>
+      <ThemeProvider>
+        <Navbar />
+        <AppRoutes />
+        <Footer />
+        <Chatbot />
+      </ThemeProvider>
+    </AuthProvider>
+  );
+}

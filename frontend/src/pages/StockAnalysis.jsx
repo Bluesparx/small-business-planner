@@ -2,40 +2,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StockPredictionGraph from "@/Components/StockPredictionGraph";
 import { PredictionsTable } from "@/Components/ui/PredictionsTable";
+import { getPredictions } from "@/utils/apiRequest";
 
 const StockAnalysis = () => {
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to fetch user analysis data based on userId (e.g. from backend API)
-  const getUserAnalysis = async (userId) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/getprediction?user_id=${userId}`);
-      return response.data;  // Assuming response contains predictions
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  // Fetch data from backend using the user's ID
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));  // Retrieve user data from localStorage
-    const userId = user?._id;  // Extract userId
-
-    if (userId) {
-      getUserAnalysis(userId)
-        .then((data) => {
+    const fetchPredictions = async () => {
+      try {
+        const data = await getPredictions(); // Wait for the predictions data
+        if (data) {
           setPredictions(data.predictions);  // Set the predictions to state
           setLoading(false);  // Stop the loading state
-        })
-        .catch((error) => {
-          console.error('Error fetching analysis data:', error);
-          setError("Failed to fetch data.");  // Handle error state
-          setLoading(false);
-        });
-    } else {
-      setError("User not logged in.");
+        }
+      } catch (error) {
+        console.error('Error fetching analysis data:', error);
+        setError('Failed to fetch data.');  // Handle error state
+        setLoading(false);
+      }
+    };
+
+    if (localStorage.getItem('token')) {
+      fetchPredictions();
+    } 
+    else {
+      setError('User not logged in.');
       setLoading(false);
     }
   }, []); // Empty array means this effect runs once on mount

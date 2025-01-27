@@ -6,6 +6,8 @@ import axios from 'axios';
 import FormData from 'form-data';
 import { Parser } from 'json2csv';  
 
+const ml_app = process.env.ML_SERVER;
+
 export const triggerAnalysis = async (user) => {
   try {
     console.log('Triggering ML analysis for user:', user._id);
@@ -44,7 +46,7 @@ export const triggerAnalysis = async (user) => {
       contentType: 'text/csv',
     });
 
-    const response = await axios.post('http://localhost:5000/analyze', formData, {
+    const response = await axios.post(`${ml_app}/analyze`, formData, {
       headers: {
         ...formData.getHeaders(),
         'Accept': 'application/json',
