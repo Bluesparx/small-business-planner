@@ -19,6 +19,7 @@ import About from "./pages/About";
 import Chatbot from "./pages/Chatbot";
 import StockAnalysis from "./pages/stockAnalysis";
 import AnalyticsPage from "./pages/AnalyticsPage";
+import EMICalculator from "./pages/EMICalculator";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stock-analysis" element={<StockAnalysis />} />
           <Route path="/analysis" element={<AnalyticsPage />} />
+          <Route path="/emi" element={<EMICalculator />} />
          
         </Routes>
         <Chatbot />

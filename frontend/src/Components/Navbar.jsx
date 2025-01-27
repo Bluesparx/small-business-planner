@@ -70,6 +70,12 @@ export const Navbar = () => {
                 About
               </Link>
               <Link
+                to="/emi"
+                className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+              >
+                EMI Calculator
+              </Link>
+              <Link
                 to="/subscription"
                 className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
               >
