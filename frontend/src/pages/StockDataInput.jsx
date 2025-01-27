@@ -41,7 +41,7 @@ const StockDataInput = () => {
   };
 
   return (
-    <div className="text-center mb-6">
+    <div className="h-screen text-center py-6 mt-10">
       <ToastContainer />
       <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 p-8">
         Upload Stocks Data

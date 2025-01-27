@@ -18,13 +18,10 @@ const Landing = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <>
+        <div className="mb-4">
           <SpotlightPreview />
           <Carousel />
-          <div className="mt-4">
-            <Footer />  
-          </div>
-        </>
+        </div>
       )}
     </div>
   );
