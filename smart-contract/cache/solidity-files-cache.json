@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\Documents\\small-business-planner\\smart-contract\\contracts\\SubscriptionService.sol": {
+      "lastModificationDate": 1737906197744,
+      "contentHash": "9918e905756c652b7d2e5d6516e8870f",
+      "sourceName": "contracts/SubscriptionService.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SubscriptionService"
+      ]
+    }
+  }
+}
