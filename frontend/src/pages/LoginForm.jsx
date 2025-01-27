@@ -10,8 +10,8 @@ import { useAuth } from '@/utils/authProvider';
 const LoginForm = () => {
   const { login } = useAuth();
   const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [isLoading, setIsLoading] = useState(false); // Loader state
   const navigate = useNavigate();
@@ -89,10 +89,11 @@ const LoginForm = () => {
                 <input
                   type="checkbox"
                   id="terms"
+                  required
                   className="h-4 w-4 text-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="terms" className="ml-2 text-gray-600 text-sm">
-                  I agree to the{' '}
+                  I agree to the{" "}
                   <a href="#" className="text-blue-500">
                     Terms and Conditions
                   </a>
@@ -102,29 +103,28 @@ const LoginForm = () => {
               <button
                 type="submit"
                 style={{
-                  width: '100%',
-                  backgroundColor: '#2563EB',
-                  color: 'white',
-                  padding: '12px 0',
-                  borderRadius: '8px',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                  transition: 'background-color 0.2s ease',
+                  width: "100%",
+                  backgroundColor: "#2563EB",
+                  color: "white",
+                  padding: "12px 0",
+                  borderRadius: "8px",
+                  border: "none",
+                  outline: "none",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  transition: "background-color 0.2s ease",
                 }}
                 onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#1E40AF')
+                  (e.target.style.backgroundColor = "#1E40AF")
                 }
-                onMouseOut={(e) =>
-                  (e.target.style.backgroundColor = '#2563EB')
-                }
+                onMouseOut={(e) => (e.target.style.backgroundColor = "#2563EB")}
               >
-                {isLoading ? 'Logging in...' : 'Login'}  {/* Show loading text */}
+                {isLoading ? "Logging in..." : "Login"}{" "}
+                {/* Show loading text */}
               </button>
 
               <p className="text-center text-gray-600 mt-4">
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <a href="signup" className="text-blue-500">
                   Sign Up
                 </a>

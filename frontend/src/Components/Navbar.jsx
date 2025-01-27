@@ -44,7 +44,7 @@ export const Navbar = () => {
               </div>
               <Link
                 to="/"
-                className="text-2xl font-bold text-cyan-600 dark:text-blue-400"
+                className="text-2xl font-bold text-blue-500 dark:text-blue-400"
               >
                 Vyapaar-e
               </Link>
@@ -64,12 +64,8 @@ export const Navbar = () => {
               >
                 About
               </Link>
-              <Link
-                to="/emi"
-                className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-              >
-                EMI Calculator
-              </Link>
+             
+
               <Link
                 to="/subscription"
                 className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
@@ -84,7 +80,19 @@ export const Navbar = () => {
                   >
                     Dashboard
                   </Link>
-
+                  <DropdownMenu>
+                <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                  Calculator
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className=" rounded-lg shadow-md">
+                  <DropdownMenuItem>
+                    <Link to="/emi">EMI Calculator</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/sip">SIP Calculator</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Upload Data
@@ -112,13 +120,12 @@ export const Navbar = () => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                   <Link to="/">
-                  <button
-                    
-                    onClick={handleLogout}
-                    className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                  >
-                    Logout
-                  </button>
+                    <button
+                      onClick={handleLogout}
+                      className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                    >
+                      Logout
+                    </button>
                   </Link>
                 </>
               )}

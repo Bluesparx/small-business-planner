@@ -16,10 +16,11 @@ import IncomeS from "./pages/IncomeS";
 import StockDataInput from "./pages/StockDataInput";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
-import Chatbot from "./pages/Chatbot";
+import Chatbot from "./Components/Chatbot";
 import StockAnalysis from "./pages/stockAnalysis";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import EMICalculator from "./pages/EMICalculator";
+import SIPCalculator from "./pages/SIPCalculator";
 
 const routeDefinitions = [
   { path: "/", element: <Landing />, protected: false },
@@ -33,6 +34,7 @@ const routeDefinitions = [
   { path: "/stock-analysis", element: <StockAnalysis />, protected: true },
   { path: "/analysis", element: <AnalyticsPage />, protected: true },
   { path: "/emi", element: <EMICalculator />, protected: false },
+  { path: "/sip", element: <SIPCalculator/>, protected: false},
 ];
 
 function AppRoutes() {

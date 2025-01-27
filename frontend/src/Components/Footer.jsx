@@ -7,37 +7,12 @@ export const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Left Section */}
           <div className="text-center md:text-left mb-4 md:mb-0">
-            <p className="text-lg font-semibold">BrandLogo</p>
-            <p className="text-sm">Your tagline or description goes here.</p>
+            <p className="text-lg font-semibold">Vyapaar-e</p>
+            <p className="text-sm">Managing finances, Building businesses</p>
           </div>
 
           {/* Middle Section - Links */}
-          <div className="flex space-x-6 mb-4 md:mb-0">
-            <a
-              href=""
-              className="text-gray-400 hover:text-white text-sm"
-            >
-              Home
-            </a>
-            <a
-              href="about"
-              className="text-gray-400 hover:text-white text-sm"
-            >
-              About
-            </a>
-            <a
-              href="services"
-              className="text-gray-400 hover:text-white text-sm"
-            >
-              Services
-            </a>
-            <a
-              href="contact"
-              className="text-gray-400 hover:text-white text-sm"
-            >
-              Contact
-            </a>
-          </div>
+          
 
           {/* Right Section - Social Media */}
           <div className="flex space-x-6">

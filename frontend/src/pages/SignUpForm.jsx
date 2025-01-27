@@ -8,11 +8,11 @@ import { userSignUp } from '../utils/apiRequest';
 
 const SignUpForm = () => {
   const [signupInfo, setSignupInfo] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
-  const [isLoading, setIsLoading] = useState(false);  // Loader state
+  const [isLoading, setIsLoading] = useState(false); // Loader state
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ const SignUpForm = () => {
     const { name, email, password } = signupInfo;
 
     if (!name || !email || !password) {
-      return handleError('Name, email, and password are required');
+      return handleError("Name, email, and password are required");
     }
 
     try {
@@ -36,20 +36,20 @@ const SignUpForm = () => {
       const response = await userSignUp({ name, email, password });
 
       if (!response.token && !response.user) {
-        handleError('Invalid Sign Up');
+        handleError("Invalid Sign Up");
         return;
       } else {
         setIsLoading(false);
       }
 
-      handleSuccess('Sign-up successful!');
+      handleSuccess("Sign-up successful!");
       setTimeout(() => {
         setIsLoading(false);
-        navigate('/login');
+        navigate("/login");
       }, 1000);
     } catch (err) {
       setIsLoading(false);
-      handleError(err.message || 'Network error occurred');
+      handleError(err.message || "Network error occurred");
     }
   };
 
@@ -110,10 +110,11 @@ const SignUpForm = () => {
                 <input
                   type="checkbox"
                   id="terms"
+                  required
                   className="h-4 w-4 text-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="terms" className="ml-2 text-gray-600 text-sm">
-                  I agree to the{' '}
+                  I agree to the{" "}
                   <a href="#" className="text-blue-500">
                     Terms and Conditions
                   </a>
@@ -123,29 +124,28 @@ const SignUpForm = () => {
               <button
                 type="submit"
                 style={{
-                  width: '100%',
-                  backgroundColor: '#2563EB',
-                  color: 'white',
-                  padding: '12px 0',
-                  borderRadius: '8px',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                  transition: 'background-color 0.2s ease',
+                  width: "100%",
+                  backgroundColor: "#2563EB",
+                  color: "white",
+                  padding: "12px 0",
+                  borderRadius: "8px",
+                  border: "none",
+                  outline: "none",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  transition: "background-color 0.2s ease",
                 }}
                 onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#1E40AF')
+                  (e.target.style.backgroundColor = "#1E40AF")
                 }
-                onMouseOut={(e) =>
-                  (e.target.style.backgroundColor = '#2563EB')
-                }
+                onMouseOut={(e) => (e.target.style.backgroundColor = "#2563EB")}
               >
-                {isLoading ? 'Signing Up...' : 'Sign Up'}  {/* Show loading text */}
+                {isLoading ? "Signing Up..." : "Sign Up"}{" "}
+                {/* Show loading text */}
               </button>
 
               <p className="text-center text-gray-600 mt-4">
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <a href="login" className="text-blue-500">
                   Login
                 </a>
