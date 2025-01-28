@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   AreaChart,
   Area,
@@ -8,114 +8,304 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { ChevronUpIcon, ChevronDownIcon, TrendingUpIcon, AlertCircle, ArrowUpIcon, ArrowDownIcon } from "lucide-react";
 
 const StockPredictionGraph = ({ predictions }) => {
   const [timeRange, setTimeRange] = useState("90d");
 
-  // Filter chart data based on time range
-  const filteredData = (() => {
-    const getLastNEntries = (n) => predictions.slice(-n);
-    switch (timeRange) {
-      case "7d":
-        return getLastNEntries(7);
-      case "30d":
-        return getLastNEntries(30);
-      case "90d":
-      default:
-        return getLastNEntries(90);
+  // Transform the predictions object into an array first
+  const transformedData = useMemo(() => {
+    const predictionArray = [];
+    for (let key in predictions) {
+      if (predictions.hasOwnProperty(key) && !isNaN(key)) {
+        predictionArray.push({
+          date: new Date(predictions[key].Date),  // Convert to Date object immediately
+          closingPrice: predictions[key]["Predicted Close"]
+        });
+      }
     }
-  })();
+    // Sort by date
+    return predictionArray.sort((a, b) => a.date - b.date);
+  }, [predictions]);
 
-  
+const filteredData = useMemo(() => {
+  if (!transformedData.length) return [];
+
+  const today = new Date();
+  const startDate = new Date(today);
+
+  switch (timeRange) {
+    case "7d":
+      startDate.setDate(today.getDate() + 7);
+      break;
+    case "30d":
+      startDate.setDate(today.getDate() + 30);
+      break;
+    case "90d":
+    default:
+      startDate.setDate(today.getDate() + 90);
+      break;
+  }
+
+  return transformedData.filter(item => item.date <= startDate);
+}, [timeRange, transformedData]);
+
+
+  const startPrice = filteredData[0]?.closingPrice || 0;
+  const endPrice = filteredData[filteredData.length - 1]?.closingPrice || 0;
+  const priceChange = endPrice - startPrice;
+  const percentageChange = startPrice !== 0 ? ((priceChange / startPrice) * 100).toFixed(2) : 0;
+  const isPositive = priceChange >= 0;
+
+  // Calculate metrics for suggestions
+  const analyzePredictions = useMemo(() => {
+    if (filteredData.length < 2) return null;
+
+    let volatility = 0;
+    let shortTermTrend = 0;
+    let highestPrice = filteredData[0].closingPrice;
+    let lowestPrice = filteredData[0].closingPrice;
+
+    for (let i = 1; i < filteredData.length; i++) {
+      const curr = filteredData[i];
+      const prev = filteredData[i - 1];
+      
+      volatility += Math.abs((curr.closingPrice - prev.closingPrice) / prev.closingPrice);
+
+      if (i >= filteredData.length - 7) {
+        shortTermTrend += (curr.closingPrice - prev.closingPrice);
+      }
+
+      if (curr.closingPrice > highestPrice) highestPrice = curr.closingPrice;
+      if (curr.closingPrice < lowestPrice) lowestPrice = curr.closingPrice;
+    }
+
+    volatility = volatility / (filteredData.length - 1);
+    
+    return {
+      volatility,
+      shortTermTrend,
+      highestPrice,
+      lowestPrice,
+      currentPrice: endPrice,
+      distanceFromHigh: ((highestPrice - endPrice) / highestPrice) * 100,
+      distanceFromLow: ((endPrice - lowestPrice) / lowestPrice) * 100
+    };
+  }, [filteredData]);
+
+  const analyzeBusinessMetrics = analyzePredictions;
 
   return (
-    <Card>
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-        <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle>Stock Prediction Graph</CardTitle>
+    <Card className="w-full p-2 shadow-lg">
+      <CardHeader className="flex-row items-center justify-between border-b p-6">
+        <div>
+          <CardTitle className="text-2xl font-bold flex items-center gap-2">
+            <TrendingUpIcon className="w-6 h-6 text-blue-600" />
+            Stock Prediction Graph
+          </CardTitle>
           <CardDescription>
-            Showing stock predictions for the last{" "}
+            Predicted stock closing values for the next{" "}
             {timeRange === "90d"
-              ? "90 entries"
+              ? "90 days"
               : timeRange === "30d"
-              ? "30 entries"
-              : "7 entries"}
+              ? "30 days"
+              : "7 days"}
           </CardDescription>
         </div>
-        <Select value={timeRange} onValueChange={setTimeRange}>
-          <SelectTrigger
-            className="w-[160px] rounded-lg sm:ml-auto"
-            aria-label="Select a value"
+        <div className="flex gap-2">
+          <Button
+            variant={timeRange === "7d" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setTimeRange("7d")}
           >
-            <SelectValue placeholder="Last 90 entries" />
-          </SelectTrigger>
-          <SelectContent className="rounded-xl bg-white">
-            <SelectItem value="90d" className="rounded-lg">
-             90 entries
-            </SelectItem>
-            <SelectItem value="30d" className="rounded-lg">
-              30 entries
-            </SelectItem>
-            <SelectItem value="7d" className="rounded-lg">
-               7 entries
-            </SelectItem>
-          </SelectContent>
-        </Select>
+            7d
+          </Button>
+          <Button
+            variant={timeRange === "30d" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setTimeRange("30d")}
+          >
+            30d
+          </Button>
+          <Button
+            variant={timeRange === "90d" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setTimeRange("90d")}
+          >
+            90d
+          </Button>
+        </div>
       </CardHeader>
-      <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ResponsiveContainer width="100%" height={250}>
-          <AreaChart data={filteredData}>
-            <defs>
-              <linearGradient id="fillPrediction" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#00bcd4" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#00bcd4" stopOpacity={0.1} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="Date"
-              tickFormatter={(value) => {
-                const date = new Date(value);
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
-            <YAxis domain={["auto", "auto"]} />
-            <Tooltip
-              formatter={(value) => value.toFixed(2)}
-              labelFormatter={(label) => {
-                const date = new Date(label);
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
-            <Area
-              dataKey="Predicted Close"
-              type="monotone"
-              fill="url(#fillPrediction)"
-              stroke="#00bcd4"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+      <CardContent className="p-6">
+        <div className="flex justify-between gap-8">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <p className="text-sm text-muted-foreground">Predicted Value</p>
+                <p className="text-2xl font-bold">${endPrice.toFixed(2)}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                {isPositive ? (
+                  <ChevronUpIcon className="w-6 h-6 text-green-600" />
+                ) : (
+                  <ChevronDownIcon className="w-6 h-6 text-red-600" />
+                )}
+                <span
+                  className={`font-semibold ${
+                    isPositive ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  ${Math.abs(priceChange).toFixed(2)} ({percentageChange}%)
+                </span>
+              </div>
+            </div>
+
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  data={filteredData.map(item => ({
+                    ...item,
+                    date: item.date.toISOString(),
+                  }))}
+                >
+                  <defs>
+                    <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#1D4ED8" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#1D4ED8" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid horizontal={false} stroke="#f3f4f6" />
+                  <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    minTickGap={32}
+                    tickFormatter={(value) =>
+                      new Date(value).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })
+                    }
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tickFormatter={(value) => `$${value.toFixed(2)}`}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#fff",
+                      borderRadius: "8px",
+                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    }}
+                    labelFormatter={(value) =>
+                      new Date(value).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    }
+                    formatter={(value) => [`$${value.toFixed(2)}`, "Predicted Close"]}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="closingPrice"
+                    stroke="#1D4ED8"
+                    fill="url(#blueGradient)"
+                    fillOpacity={1}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+                {/* right side */}
+          <div className="w-80 flex gap-2 flex-col">
+            <h3 className="text-lg font-semibold mb-4">Business Strategy Insights</h3>
+
+            {/* Market Perception */}
+            {analyzeBusinessMetrics?.distanceFromHigh <= 5 && (
+              <Alert>
+                <div className="flex flex-row items-center gap-3">
+                  <ArrowUpIcon className="w-10 h-10 text-green-600" />
+                  <div className="flex flex-col">
+                    <AlertTitle>Stock near historical high</AlertTitle>
+                    <AlertDescription>
+                      Optimal time for considering stock-based acquisitions & employee stock programs. Strong position for negotiating business partnerships.
+                    </AlertDescription>
+                  </div>
+                </div>
+              </Alert>
+            )}
+
+            {analyzeBusinessMetrics?.distanceFromLow <= 10 && (
+              <Alert>
+                <div className="flex flex-row items-center gap-3">
+                  <ArrowDownIcon className="w-10 h-10 text-yellow-600" />
+                  <div className="flex flex-col">
+                    <AlertTitle>Stock valuation potentially under-representing company value</AlertTitle>
+                    <AlertDescription>
+                      Consider share buyback programs or increased investor relations efforts to communicate business strength.
+                    </AlertDescription>
+                  </div>
+                </div>
+              </Alert>
+            )}
+
+            {/* Market Stability */}
+            {analyzeBusinessMetrics?.volatility > 0.02 ? (
+              <Alert>
+                <div className="flex flex-row items-center gap-3">
+                  <AlertCircle className="w-10 h-10 text-yellow-600" />
+                  <div className="flex flex-col">
+                    <AlertTitle>Higher market volatility observed</AlertTitle>
+                    <AlertDescription>
+                      Consider reinforcing business stability message through consistent operational updates and clear communication of long-term strategy.
+                    </AlertDescription>
+                  </div>
+                </div>
+              </Alert>
+            ) : (
+              <Alert>
+                <div className="flex flex-row items-center gap-3">
+                  <TrendingUpIcon className="w-10 h-10 text-green-600" />
+                  <div className="flex flex-col">
+                    <AlertTitle>Stable market performance</AlertTitle>
+                    <AlertDescription>
+                      Indicates strong market confidence. Favorable conditions for announcing long-term strategic initiatives.
+                    </AlertDescription>
+                  </div>
+                </div>
+              </Alert>
+            )}
+
+            {/* Growth Trajectory */}
+            {analyzeBusinessMetrics?.shortTermTrend > 0 && (
+              <Alert>
+                <div className="flex flex-row items-center gap-3">
+                  <TrendingUpIcon className="w-10 h-10 text-blue-600" />
+                  <div className="flex flex-col">
+                    <AlertTitle>Positive growth trajectory</AlertTitle>
+                    <AlertDescription>
+                      Favorable timing for announcing expansion plans, R&D initiatives, or strategic investments to maintain momentum.
+                    </AlertDescription>
+                  </div>
+                </div>
+              </Alert>
+            )}
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

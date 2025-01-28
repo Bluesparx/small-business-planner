@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import UploadCSV from "@/Components/csvUpload_financial";
+import UploadCSV from "@/components/csvUpload";
 import { createBalanceSheetTable, createIncomeTable, triggerUserAnalysis } from "@/utils/apiRequest";
 import { toast } from "react-toastify";
 import Papa from "papaparse";
@@ -108,15 +108,99 @@ const IncomeS = () => {
   };
 
   return (
-    <div className="min-h-screen  dark:bg-gray-900 p-6">
-      <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-          Upload Financial Data
-        </h1>
+    <div className="min-h-screen flex flex-row gap-4 p-4 justify-around dark:bg-gray-900 p-6">
+      <div className="p-6 flex-2 w-3/5 mx-auto">
+
+      <h2 className="text-xl text-blue-600 dark:text-blue-400 font-bold mb-4 text-center">Sample Data Format</h2>
+        <h3 className="text-lg font-semibold mb-4 text-center">Income Statement</h3>
+        <table className="table-auto w-full border-collapse border border-gray-300 mb-8">
+          <thead>
+            <tr className="bg-gray-200">
+              {columns.map((column, index) => (
+                <th
+                  key={index}
+                  className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700"
+                >
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {sampleIncomeRows.map((row, rowIndex) => (
+              <tr
+                key={rowIndex}
+                className={`${
+                  rowIndex % 2 === 0
+                    ? "bg-gray-50 dark:bg-gray-800"
+                    : "bg-white dark:bg-gray-900"
+                }`}
+              >
+                {columns.map((column, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className="border border-gray-300 px-4 py-2 text-sm text-gray-600"
+                  >
+                    {row[column.toLowerCase().replace(/ /g, "")] || ""}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="text-lg font-semibold mb-4 text-center">Balance Sheet</h3>
+        <table className="table-auto w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200">
+              {balanceSheetColumns.map((column, index) => (
+                <th
+                  key={index}
+                  className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700"
+                >
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {sampleBalanceSheetRows.map((row, rowIndex) => (
+              <tr
+                key={rowIndex}
+                className={`${
+                  rowIndex % 2 === 0
+                    ? "bg-gray-50 dark:bg-gray-800"
+                    : "bg-white dark:bg-gray-900"
+                }`}
+              >
+                {balanceSheetColumns.map((column, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className="border border-gray-300 px-4 py-2 text-sm text-gray-600"
+                  >
+                    {row[column.toLowerCase().replace(/ /g, "")] || ""}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <p className="text-sm text-gray-500 mt-4 dark:text-gray-200 text-center">
+          * Please format your data to match the structure shown above.
+        </p>
       </div>
 
+
+      <div className="upload-section p-6 flex-1">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            Upload Financial Data
+          </h1>
+        </div>
+
       <div className="space-y-4">
-        <div className="flex flex-row gap-4 p-4 justify-center align-center">
+        <div className="flex flex-col gap-6 p-4 justify-center align-center">
         <div>
           <h2 className="text-lg font-semibold mb-2">Balance Sheet</h2>
           <UploadCSV onFileUpload={(file) => handleFileUpload("balance_sheet", file)} />
@@ -141,6 +225,7 @@ const IncomeS = () => {
             {isLoading ? "Processing..." : "Trigger Financial Analysis"}
           </button>
         </div>
+        </div>
 
         {isAnalysisComplete && (
           <div className="text-center mt-6">
@@ -158,3 +243,69 @@ const IncomeS = () => {
 };
 
 export default IncomeS;
+
+
+const sampleIncomeRows = [
+  {
+    date: "2024-01-01",
+    revenue: "100000",
+    costofrevenue: "60000",
+    operatingincome: "25000",
+    interestexpense: "5000",
+    incomebeforetax: "20000",
+    netincome: "15000",
+  },
+  {
+    date: "2024-07-01",
+    revenue: "130000",
+    costofrevenue: "75000",
+    operatingincome: "35000",
+    interestexpense: "7000",
+    incomebeforetax: "28000",
+    netincome: "21000",
+  },
+];
+
+const columns = [
+  "Date",
+  "Revenue",
+  "Cost of Revenue",
+  "Operating Income",
+  "Interest Expense",
+  "Income Before Tax",
+  "Net Income",
+];
+
+const sampleBalanceSheetRows = [
+  {
+    date: "2024-04-01",
+    totalcurrentassets: "55000",
+    totalcurrentliabilities: "23000",
+    inventory: "18000",
+    totalliabilities: "42000",
+    totalstockholdersequity: "8000",
+    netreceivables: "18000",
+    totalassets: "60000",
+  },
+  {
+    date: "2024-07-01",
+    totalcurrentassets: "60000",
+    totalcurrentliabilities: "25000",
+    inventory: "17000",
+    totalliabilities: "46000",
+    totalstockholdersequity: "14000",
+    netreceivables: "22000",
+    totalassets: "80000",
+  },
+];
+
+const balanceSheetColumns = [
+  "Date",
+  "Total Current Assets",
+  "Total Current Liabilities",
+  "Inventory",
+  "Total Liabilities",
+  "Total Stockholders Equity",
+  "Net Receivables",
+  "Total Assets",
+];

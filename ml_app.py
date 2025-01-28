@@ -71,7 +71,7 @@ def train_lstm_model(X_train, y_train):
         model.compile(optimizer='adam', loss='mean_squared_error')
 
         # Train model
-        model.fit(X_train, y_train, epochs=75, batch_size=64)
+        model.fit(X_train, y_train, epochs=60, batch_size=64)
 
         return model
 
