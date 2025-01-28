@@ -13,7 +13,7 @@ const Chatbot = () => {
       {/* Floating Chatbot Icon */}
       <div
         onClick={toggleChatbot}
-        className="fixed bottom-8 right-8 transition-all cursor-pointer bg-cyan-400 rounded-full p-4 shadow-lg hover:shadow-xl "
+        className="fixed bottom-8 right-8 transition-all cursor-pointer bg-[#6cacff] rounded-full p-4 shadow-lg hover:shadow-xl "
         style={{
           animation: "jump 1s infinite alternate", 
         }}

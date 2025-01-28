@@ -160,8 +160,8 @@ const StockSuggestions = ({ predictions }) => {
                   <span className="font-semibold text-md">Resource Planning:</span>{' '}
                   Price range of {analysis.priceRange.toFixed(2)}% suggests 
                   {analysis.priceRange > 15 
-                    ? " need for flexible resource allocation and strong cash management."
-                    : " stable conditions for fixed resource commitments and long-term investments."}
+                    ? " that we need more flexible resource allocation and cash management."
+                    : " good conditions for long-term investments and commitments."}
                 </AlertDescription>
               </div>
             </Alert>

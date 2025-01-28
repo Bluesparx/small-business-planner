@@ -49,26 +49,31 @@ const StockDataInput = () => {
         <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-400 p-8">Sample Data Format</h3>
         <table className="table-auto w-full border-collapse border dark:border-gray-800 border-gray-300 mb-4">
           <thead>
-            <tr className="bg-gray-400 dark:bg-gray-700 text-gray-950">
-              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Date</th>
-              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Close/Last</th>
-              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Volume</th>
-              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Open</th>
-              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">High</th>
-              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Low</th>
+            <tr className="bg-gray-500 dark:bg-[#6cacff]  text-gray-950">
+              <th className="border border-gray-500 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Date</th>
+              <th className="border border-gray-500 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Close/Last</th>
+              <th className="border border-gray-500 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Volume</th>
+              <th className="border border-gray-500 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Open</th>
+              <th className="border border-gray-500 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">High</th>
+              <th className="border border-gray-500 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Low</th>
             </tr>
           </thead>
           <tbody>
             {sampleStockData.map((row, index) => (
               <tr
-                key={index}
-                className='bg-gray-200 text-gray-800'   >
-                <td className="border border-gray-300 px-4 py-2">{row.date}</td>
-                <td className="border border-gray-300 px-4 py-2">{row.close}</td>
-                <td className="border border-gray-300 px-4 py-2">{row.volume}</td>
-                <td className="border border-gray-300 px-4 py-2">{row.open}</td>
-                <td className="border border-gray-300 px-4 py-2">{row.high}</td>
-                <td className="border border-gray-300 px-4 py-2">{row.low}</td>
+              key={index}
+              className={`${
+                index % 2 === 0
+                  ? "bg-gray-50 dark:bg-[#353535]"
+                  : "bg-white dark:bg-[#4e4e4e]"
+              }`}
+            >
+                <td className="border border-gray-500 px-4 py-2">{row.date}</td>
+                <td className="border border-gray-500 px-4 py-2">{row.close}</td>
+                <td className="border border-gray-500 px-4 py-2">{row.volume}</td>
+                <td className="border border-gray-500 px-4 py-2">{row.open}</td>
+                <td className="border border-gray-500 px-4 py-2">{row.high}</td>
+                <td className="border border-gray-500 px-4 py-2">{row.low}</td>
               </tr>
             ))}
           </tbody>
@@ -100,7 +105,7 @@ const StockDataInput = () => {
       </div>
 
       {predictions.length > 0 && (
-        <div className='flex align-center flex-col justify-center mx-10 mt-2'>
+        <div className='flex flex-col justify-center mx-10 mt-2'>
       <StockPredictionGraph predictions={predictions} />
         <Card className="mt-2">
           <h2 className="text-xl font-bold text-green-600">Predicted Stock Prices</h2>

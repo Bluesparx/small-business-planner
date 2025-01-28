@@ -79,10 +79,11 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
       const prev = filteredData[i - 1];
       
       volatility += Math.abs((curr.closingPrice - prev.closingPrice) / prev.closingPrice);
-
-      if (i >= filteredData.length - 7) {
+      
+      if (i < 7) {
         shortTermTrend += (curr.closingPrice - prev.closingPrice);
       }
+      
 
       if (curr.closingPrice > highestPrice) highestPrice = curr.closingPrice;
       if (curr.closingPrice < lowestPrice) lowestPrice = curr.closingPrice;

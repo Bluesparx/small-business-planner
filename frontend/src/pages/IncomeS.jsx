@@ -106,18 +106,18 @@ const IncomeS = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-row gap-4 p-4 justify-around dark:bg-gray-900 p-6">
+    <div className="min-h-screen flex flex-row gap-4 p-4 justify-around p-6">
       <div className="p-6 flex-2 w-3/5 mx-auto">
 
       <h2 className="text-xl text-blue-600 dark:text-blue-400 font-bold mb-4 text-center">Sample Data Format</h2>
         <h3 className="text-lg font-semibold mb-4 text-center">Income Statement</h3>
-        <table className="table-auto w-full border-collapse border border-gray-300 mb-8">
+        <table className="table-auto w-full  mb-8">
           <thead>
-            <tr className="bg-gray-200">
+            <tr className="dark:bg-[#6cacff] bg-gray-200">
               {columns.map((column, index) => (
                 <th
                   key={index}
-                  className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700"
+                  className="border border-gray-500 px-4 py-2 text-left text-sm font-medium text-gray-800"
                 >
                   {column}
                 </th>
@@ -130,14 +130,14 @@ const IncomeS = () => {
                 key={rowIndex}
                 className={`${
                   rowIndex % 2 === 0
-                    ? "bg-gray-50 dark:bg-gray-800"
-                    : "bg-white dark:bg-gray-900"
+                    ? "bg-gray-50 dark:bg-[#353535]"
+                    : "bg-white dark:bg-[#4e4e4e]"
                 }`}
               >
                 {columns.map((column, colIndex) => (
                   <td
                     key={colIndex}
-                    className="border border-gray-300 px-4 py-2 text-sm text-gray-600"
+                    className="border border-gray-500 dark:text-gray-100 px-4 py-2 text-sm text-gray-600"
                   >
                     {row[column.toLowerCase().replace(/ /g, "")] || ""}
                   </td>
@@ -148,14 +148,14 @@ const IncomeS = () => {
         </table>
 
         <h3 className="text-lg font-semibold mb-4 text-center">Balance Sheet</h3>
-        <table className="table-auto w-full border-collapse border border-gray-300">
+        <table className="table-auto w-full ">
           <thead>
-            <tr className="bg-gray-200">
+            <tr className="dark:bg-[#6cacff] bg-gray-200">
               {balanceSheetColumns.map((column, index) => (
                 <th
-                  key={index}
-                  className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700"
-                >
+                key={index}
+                className="border border-gray-500 px-4 py-2 text-left text-sm font-medium text-gray-800"
+              >
                   {column}
                 </th>
               ))}
@@ -167,14 +167,14 @@ const IncomeS = () => {
                 key={rowIndex}
                 className={`${
                   rowIndex % 2 === 0
-                    ? "bg-gray-50 dark:bg-gray-800"
-                    : "bg-white dark:bg-gray-900"
+                    ? "bg-gray-50 dark:bg-[#353535]"
+                    : "bg-white dark:bg-[#4e4e4e]"
                 }`}
               >
                 {balanceSheetColumns.map((column, colIndex) => (
                   <td
                     key={colIndex}
-                    className="border border-gray-300 px-4 py-2 text-sm text-gray-600"
+                    className="border border-gray-500 dark:text-gray-100 px-4 py-2 text-sm text-gray-600"
                   >
                     {row[column.toLowerCase().replace(/ /g, "")] || ""}
                   </td>

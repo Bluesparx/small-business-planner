@@ -34,7 +34,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#252630] shadow-md">
+      <nav className="dark:bg-[#252630] shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo section remains the same */}
@@ -94,7 +94,7 @@ export const Navbar = () => {
                     <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Calculator
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="rounded-lg shadow-md">
+                    <DropdownMenuContent className="dark:bg-[#252630] bg-white border-gray-500 rounded-xl shadow-md">
                       <DropdownMenuItem onClick={handleMenuItemClick}>
                         <Link to="/emi">EMI Calculator</Link>
                       </DropdownMenuItem>
@@ -107,7 +107,7 @@ export const Navbar = () => {
                     <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Upload Data
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-[#252630] border-gray-500 rounded-xl shadow-md">
+                    <DropdownMenuContent className="dark:bg-[#252630] bg-white border-gray-500 rounded-xl shadow-md">
                       <DropdownMenuItem onClick={handleMenuItemClick}>
                         <Link to="/incomeS">Income statement</Link>
                       </DropdownMenuItem>
@@ -120,7 +120,7 @@ export const Navbar = () => {
                     <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Analytics
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-[#252630] border-gray-500 rounded-xl shadow-md">
+                    <DropdownMenuContent className="dark:bg-[#252630] bg-white border-gray-500 rounded-xl shadow-md">
                       <DropdownMenuItem onClick={handleMenuItemClick}>
                         <Link to="/analysis">Finance</Link>
                       </DropdownMenuItem>
