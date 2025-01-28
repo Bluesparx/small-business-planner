@@ -53,12 +53,12 @@ const ProfitabilityPieChart = ({ data }) => {
       </CardHeader>
       <CardContent>
         {/* Dropdown for selecting date */}
-        <div className="flex flex-col items-start mb-4">
-          <label htmlFor="date-selector" className="font-semibold mb-2">Select Date:</label>
+        <div className="flex flex-col items-start mb-4 ">
+          <label htmlFor="date-selector" className="font-semibold mb-2 ">Select Date:</label>
           <select
             id="date-selector"
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="p-2 border rounded"
+            className="p-2 border rounded dark:bg-[#252630]"
             value={selectedDate}
           >
             {data.map((item, index) => (
