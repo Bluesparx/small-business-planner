@@ -7,11 +7,15 @@ import {
   CardContent,
 } from "../Components/ui/card";
 import { Button } from "../Components/ui/button";
+import { Spotlight } from "@/components/ui/Spotlight";
 
 const About = () => {
   return (
     <div className="min-h-screen ">
-      {/* Hero Section */}
+          <div className="h-[30rem] w-full rounded-md flex md:items-center md:justify-center antialiased bg-grid-white/[0.02] relative overflow-hidden">
+            {/* Spotlight Effect */}
+            <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+            
       <section className="flex flex-col items-center justify-center px-6 py-12 text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight  mb-6">
           About Our App
@@ -24,7 +28,7 @@ const About = () => {
           your trusted companion in making informed decisions.
         </p>
       </section>
-
+      </div>
       {/* Features and Technology Grid */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6 py-12 max-w-6xl mx-auto">
         {/* Key Features */}

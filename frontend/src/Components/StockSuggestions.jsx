@@ -54,7 +54,7 @@ const StockSuggestions = ({ predictions }) => {
 
   return (
     <div className="p-2">
-      <Card>
+      <Card className="dark:bg-[#2d2d30] dark:border-[#2d2d30]">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BarChart3 className="w-6 h-6 text-blue-600" />
@@ -63,8 +63,8 @@ const StockSuggestions = ({ predictions }) => {
           <CardDescription>Based on the analysis on stock data provided, we have found some actionable insights.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-4 px-6 bg-gray-50  dark:bg-gray-200 rounded-2xl">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <Target className="w-4 h-4" />
                 Projected Change
@@ -73,7 +73,7 @@ const StockSuggestions = ({ predictions }) => {
                 {analysis.overallChange.toFixed(2)}%
               </div>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 px-6 bg-gray-50  dark:bg-gray-200 rounded-2xl">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <ArrowUpRight className="w-4 h-4" />
                 Average Volatility
@@ -82,7 +82,7 @@ const StockSuggestions = ({ predictions }) => {
                 {analysis.avgVolatility.toFixed(2)}%
               </div>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 px-6 bg-gray-50 dark:bg-gray-200 rounded-2xl">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <DollarSign className="w-4 h-4" />
                 Price Range
@@ -93,8 +93,8 @@ const StockSuggestions = ({ predictions }) => {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <Alert>
+          <div className="space-y-4 text-xl">
+            <Alert className="dark:border-none">
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-blue-600" />
                 <AlertDescription>
@@ -109,7 +109,7 @@ const StockSuggestions = ({ predictions }) => {
 
             {/* Risk Assessment */}
             {analysis.avgVolatility > 2 ? (
-              <Alert>
+              <Alert className="dark:border-none">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-yellow-600" />
                   <AlertDescription>
@@ -119,7 +119,7 @@ const StockSuggestions = ({ predictions }) => {
                 </div>
               </Alert>
             ) : (
-              <Alert>
+              <Alert className="dark:border-none">
                 <div className="flex items-center gap-2">
                   <TrendingDown className="w-5 h-5 text-green-600" />
                   <AlertDescription>
@@ -132,7 +132,7 @@ const StockSuggestions = ({ predictions }) => {
 
             {/* Growth Strategy */}
             {analysis.overallChange >= 5 ? (
-              <Alert>
+              <Alert className="dark:border-none">
                 <div className="flex items-center gap-2">
                   <TrendingUpIcon className="w-5 h-5 text-green-600" />
                   <AlertDescription>
@@ -142,7 +142,7 @@ const StockSuggestions = ({ predictions }) => {
                 </div>
               </Alert>
             ) : (
-              <Alert>
+              <Alert className="dark:border-none">
                 <div className="flex items-center gap-2">
                   <Target className="w-5 h-5 text-blue-600" />
                   <AlertDescription>
@@ -153,7 +153,7 @@ const StockSuggestions = ({ predictions }) => {
               </Alert>
             )}
 
-            <Alert>
+            <Alert className="dark:border-none">
               <div className="flex items-center gap-2">
                 <DollarSign className="w-5 h-5 text-blue-600" />
                 <AlertDescription>

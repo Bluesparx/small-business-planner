@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,8 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [isLoading, setIsLoading] = useState(false); // Loader state
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,32 +26,38 @@ const LoginForm = () => {
   };
 
   const handleLogin = async (event) => {
-      event.preventDefault();
-      console.log(loginInfo);
+    event.preventDefault();
+    
+    const { email, password } = loginInfo;
   
-      const { email, password } = loginInfo;
+    if (!email || !password) {
+      setError("Please fill all fields.");
+      return;
+    }
   
-      if (!email || !password) {
-        console.error("Please fill all fields");
-        return;
-      }
+    setError("");
+    setIsLoading(true);
   
-      try {
-        const response = await userLogin({ email, password });
-        console.log("Login successful", response);
-        localStorage.setItem("token", response.token);
-        login(response.token);
-        navigate("/");
-      } catch (error) {
-        console.error("Could not log in:", error);
-      }
-    };
+    try {
+      const response = await userLogin({ email, password });
+      console.log("Login successful", response);
+      localStorage.setItem("token", response.token);
+      login(response.token);
+      navigate("/");
+    } catch (error) {
+      console.error("Could not log in:", error);
+      setError("Login failed. Please check your credentials.");
+      toast.error("Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div>
       <div className="flex items-center justify-center min-h-[70vh] pt-8">
-        <div className="w-full max-w-md p-8  rounded-lg shadow-lg">
-          <div className="max-w-sm mx-auto  p-6">
+        <div className="max-w-md dark:text-white dark:bg-surface rounded-lg shadow-lg">
+          <div className="max-w-sm mx-auto p-6">
             <h2 className="text-2xl text-blue-600 font-semibold">Login</h2>
             <p className="text-gray-600 mt-1">
               Nice to meet you again! Enter your details.
@@ -84,6 +91,8 @@ const LoginForm = () => {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
               <div className="flex items-center mb-4">
                 <input
@@ -119,8 +128,7 @@ const LoginForm = () => {
                 }
                 onMouseOut={(e) => (e.target.style.backgroundColor = "#2563EB")}
               >
-                {isLoading ? "Logging in..." : "Login"}{" "}
-                {/* Show loading text */}
+                {isLoading ? "Logging in..." : "Login"}
               </button>
 
               <p className="text-center text-gray-600 mt-4">

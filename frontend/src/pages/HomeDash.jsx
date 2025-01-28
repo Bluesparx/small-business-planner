@@ -255,7 +255,7 @@ const Dashboard = () => {
             <div className="flex flex-col gap-4 w-3/5 mt-4 m-2">
               <MetricTable title="Balance Sheet Analysis" metrics={balanceSheetMetrics} />
               <MetricTable title="Income Statement Analysis" metrics={incomeStatementMetrics} />
-              <StockPredictionGraph />
+              <StockPredictionGraph predictions={predictions} showAnalytics={false} />
             </div>
             <div className="grid grid-cols-1 gap-4 m-2 p-2">
               <BalanceSheetChart data={analyzedData.balanceSheetAnalysis} />

@@ -44,19 +44,18 @@ const StockDataInput = () => {
     <div className='min-h-screen h-full p-6'>
     <div className=" text-center mt-10">
       <ToastContainer />
-      <div className="w-full justify-around flex flex-row text-center py-6 mt-10 dark:bg-gray-900">
-      <ToastContainer />
-      <div className="mt-2">
+      <div className="w-full justify-around flex flex-row text-center py-6 mt-10">
+      <div className="mt-2 rounded-lg min-h-100 p-12 ">
         <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-400 p-8">Sample Data Format</h3>
-        <table className="table-auto w-full border-collapse border border-gray-300 mb-4">
+        <table className="table-auto w-full border-collapse border dark:border-gray-800 border-gray-300 mb-4">
           <thead>
-            <tr className="bg-gray-400 text-gray-950">
-              <th className="border border-gray-300 px-4 py-2">Date</th>
-              <th className="border border-gray-300 px-4 py-2">Close/Last</th>
-              <th className="border border-gray-300 px-4 py-2">Volume</th>
-              <th className="border border-gray-300 px-4 py-2">Open</th>
-              <th className="border border-gray-300 px-4 py-2">High</th>
-              <th className="border border-gray-300 px-4 py-2">Low</th>
+            <tr className="bg-gray-400 dark:bg-gray-700 text-gray-950">
+              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Date</th>
+              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Close/Last</th>
+              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Volume</th>
+              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Open</th>
+              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">High</th>
+              <th className="border dark:border-gray-800 dark:text-gray-300 text-sm border-gray-300 px-4 py-2">Low</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +78,7 @@ const StockDataInput = () => {
         </p>
       </div>
 
-      <div className="mb-4 flex flex-col gap-4">
+      <div className="mb-4 mr-10 flex flex-col gap-4">
         
       <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 p-8">
         Upload Stocks Data

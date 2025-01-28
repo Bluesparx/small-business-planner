@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, BrowserRouter as Router, useLocation } from "react-router-dom";
-
+import './index.css';
 import { AuthProvider, useAuth } from "./utils/authProvider";
 import AuthenticatedRoute from "./utils/useAuthContext";
 
