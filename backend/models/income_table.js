@@ -7,10 +7,7 @@ const incometableSchema =new mongoose.Schema(
       ref: 'User',
       required: true, 
     },
-    name: {
-      type: String,
-      required: false, // Make the name field optional
-    },
+    
     rows: [
       {
         type: mongoose.Schema.Types.ObjectId,

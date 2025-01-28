@@ -55,17 +55,15 @@ const LoginForm = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-[70vh] pt-8">
-        <div className="max-w-md dark:text-white dark:bg-surface rounded-lg shadow-lg">
-          <div className="max-w-sm mx-auto p-6">
-            <h2 className="text-2xl text-blue-600 font-semibold">Login</h2>
-            <p className="text-gray-600 mt-1">
-              Nice to meet you again! Enter your details.
-            </p>
+  <div className="flex items-center justify-center min-h-screen ">
+        <div className="w-full max-w-md px-8 py-4 dark:bg-[#252630] rounded-xl shadow-lg">
+          <div className="max-w-sm mx-auto p-8 ">
+            <h2 className="text-3xl text-blue-600 font-semibold">Login</h2>
+            
 
             <form className="mt-6" onSubmit={handleLogin}>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
+                <label className="dark:text-white/80 block text-gray-700 text-sm font-medium mb-2">
                   Your Email
                 </label>
                 <input
@@ -79,7 +77,7 @@ const LoginForm = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
+                <label className=" dark:text-white/80 block text-gray-700 text-sm font-medium mb-2">
                   Password
                 </label>
                 <input
@@ -101,7 +99,7 @@ const LoginForm = () => {
                   required
                   className="h-4 w-4 text-blue-500 border-gray-300 rounded"
                 />
-                <label htmlFor="terms" className="ml-2 text-gray-600 text-sm">
+                <label htmlFor="terms" className=" dark:text-white/80ml-2 text-gray-600 text-sm">
                   I agree to the{" "}
                   <a href="#" className="text-blue-500">
                     Terms and Conditions

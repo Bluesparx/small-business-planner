@@ -10,8 +10,8 @@ const IncomeS = () => {
     balance_sheet: null,
     income_statement: null,
   });
-  const [balanceSheetRows, setBalanceSheetRows] = useState([]);
-  const [incomeStatementRows, setIncomeStatementRows] = useState([]);
+  const [balanceSheetData, setBalanceSheetData] = useState(null);
+  const [incomeStatementData, setIncomeStatementData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAnalysisComplete, setIsAnalysisComplete] = useState(false);
 
@@ -22,32 +22,42 @@ const IncomeS = () => {
           if (result.errors.length > 0) {
             reject("Error parsing CSV");
           } else {
-            let rows = [];
+            const formattedData = {
+              rows: result.data.map((row) => {
+                // Create a Date object and format it
+                const date = new Date(row["date"]);
+                
+                if (fileType === "balance_sheet") {
+                  return {
+                    date: date.toString(),
+                    totalCurrentAssets: Number(row["totalCurrentAssets"] || 0),
+                    totalCurrentLiabilities: Number(row["totalCurrentLiabilities"] || 0),
+                    inventory: Number(row["inventory"] || 0),
+                    totalLiabilities: Number(row["totalLiabilities"] || 0),
+                    totalStockholdersEquity: Number(row["totalStockholdersEquity"] || 0),
+                    netReceivables: Number(row["netReceivables"] || 0),
+                    totalAssets: Number(row["totalAssets"] || 0),
+                  };
+                } else {
+                  return {
+                    date: date.toString(),
+                    revenue: Number(row["revenue"] || 0),
+                    costOfRevenue: Number(row["costOfRevenue"] || 0),
+                    operatingIncome: Number(row["operatingIncome"] || 0),
+                    interestExpense: Number(row["interestExpense"] || 0),
+                    incomeBeforeTax: Number(row["incomeBeforeTax"] || 0),
+                    netIncome: Number(row["netIncome"] || 0),
+                  };
+                }
+              })
+            };
+
             if (fileType === "balance_sheet") {
-              rows = result.data.map((row) => ({
-                date: row["date"] ? new Date(row["date"]) : new Date(),
-                totalCurrentAssets: parseFloat(row["totalCurrentAssets"] || 0),
-                totalCurrentLiabilities: parseFloat(row["totalCurrentLiabilities"] || 0),
-                inventory: parseFloat(row["inventory"] || 0),
-                totalLiabilities: parseFloat(row["totalLiabilities"] || 0),
-                totalStockholdersEquity: parseFloat(row["totalStockholdersEquity"] || 0),
-                netReceivables: parseFloat(row["netReceivables"] || 0),
-                totalAssets: parseFloat(row["totalAssets"] || 0),
-              }));
-              setBalanceSheetRows(rows);
-            } else if (fileType === "income_statement") {
-              rows = result.data.map((row) => ({
-                date: row["date"] ? new Date(row["date"]) : new Date(),
-                revenue: parseFloat(row["revenue"] || 0),
-                costOfRevenue: parseFloat(row["costOfRevenue"] || 0),
-                operatingIncome: parseFloat(row["operatingIncome"] || 0),
-                interestExpense: parseFloat(row["interestExpense"] || 0),
-                incomeBeforeTax: parseFloat(row["incomeBeforeTax"] || 0),
-                netIncome: parseFloat(row["netIncome"] || 0),
-              }));
-              setIncomeStatementRows(rows);
+              setBalanceSheetData(formattedData);
+            } else {
+              setIncomeStatementData(formattedData);
             }
-            resolve(rows);
+            resolve(formattedData);
           }
         },
         header: true,
@@ -78,24 +88,12 @@ const IncomeS = () => {
 
     setIsLoading(true);
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const userId = user ? user._id : null;
+      // console.log(balanceSheetData);
+      // console.log(incomeStatementData);
 
-      const balanceSheetPayload = {
-        userId,
-        name: "financial_data",
-        rows: balanceSheetRows
-      };
-
-      const incomeStatementPayload = {
-        userId,
-        name: "financial_data",
-        rows: incomeStatementRows
-      };
-
-      await createBalanceSheetTable(balanceSheetPayload);
-      await createIncomeTable(incomeStatementPayload);
-      await triggerUserAnalysis(userId);
+      await createBalanceSheetTable(balanceSheetData);
+      await createIncomeTable(incomeStatementData);
+      await triggerUserAnalysis();
 
       toast.success("Financial analysis completed successfully");
       setIsAnalysisComplete(true);

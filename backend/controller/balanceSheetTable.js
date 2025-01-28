@@ -5,9 +5,9 @@ import BalanceSheetRow from "../models/BalanceSheetRow.js";
 // router.post('/balance-sheet/table',
 const createBalanceSheetTable = async (req, res) => {
   try {
-    const { name, rows } = req.body;
+    const { rows } = req.body;
     const userId = req.user.id;
-
+    console.log(rows);
     // Validate rows
     if (!rows || !Array.isArray(rows)) {
       return res.status(400).json({ error: "Rows must be an array" });
@@ -19,7 +19,6 @@ const createBalanceSheetTable = async (req, res) => {
     // Create the table with saved row IDs and userId
     const newTable = new BalanceSheetTable({
       user: userId,
-      name,
       rows: savedRows.map((row) => row._id),
     });
 

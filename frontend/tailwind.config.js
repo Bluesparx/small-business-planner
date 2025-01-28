@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        spotlight: "spotlight 2s ease .75s 1 forwards",
+        spotlight: "spotlight 2s ease  1 forwards",
       },
       keyframes: {
         spotlight: {

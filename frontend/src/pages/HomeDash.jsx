@@ -97,19 +97,19 @@ const Dashboard = () => {
 
   if (!analyzedData) {
     return (
-      <div className="p-8 max-w-7xl mx-auto grid grid-cols-1 gap-6 space-y-6">
+      <div className="p-8 max-w-7xl h-[90vh] mx-auto grid grid-cols-1 gap-6 space-y-6">
         <div className="flex flex-row w-full gap-6 mx-18 my-16">
-          <Card className="flex-2 w-2/3 py-6">
+          <Card className="flex-2 border-gray-200 shadow-lg dark:bg-[#252630] dark:border-none w-2/3 py-6">
             <CardContent className="flex flex-col items-center justify-center min-h-[400px]">
               <div
-                className="w-1/2 h-60 bg-cover bg-center rounded-lg"
+                className="w-1/2 h-60 mb-4 bg-cover bg-center rounded-lg"
                 style={{
                   backgroundImage: `url(${emptyDashImage})`,
                   backgroundPosition: 'center',
                   backgroundSize: 'cover'
                 }}
               />
-              <p className="text-xl font-semibold text-gray-600 mt-4 mb-2">
+              <p className="text-xl font-semibold dark:text-white text-gray-600 mt-8 mb-2">
                 No Analytics Available
               </p>
               <p className="text-sm text-gray-500">
@@ -119,9 +119,9 @@ const Dashboard = () => {
           </Card>
 
           <div className="flex-1 w-full">
-            <Card className="py-8 px-2">
+            <Card className="py-8 border-gray-200 shadow-lg dark:bg-[#252630] dark:border-gray-900 px-2">
               <CardHeader>
-                <CardTitle>Getting Started</CardTitle>
+                <CardTitle className="text-xl">Getting Started</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -145,11 +145,11 @@ const Dashboard = () => {
                     <div key={index} className="space-y-2">
                       <Link
                         to={item.link}
-                        className="text-blue-600 hover:text-blue-800 font-medium block"
+                        className="text-blue-600 hover:text-blue-800 text-md block"
                       >
                         {item.title}
                       </Link>
-                      <p className="text-sm text-gray-600">{item.description}</p>
+                      <p className="text-sm text-gray-600 dark:text-white/80">{item.description}</p>
                     </div>
                   ))}
                 </div>

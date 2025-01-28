@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Components/Loader';  // Import the loader component
-import { userSignUp } from '../utils/apiRequest';
+import { userSignUp, userLogin } from '../utils/apiRequest';
+import { useAuth } from '@/utils/authProvider';
 
 const SignUpForm = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -14,6 +15,8 @@ const SignUpForm = () => {
   });
   const [isLoading, setIsLoading] = useState(false); // Loader state
   const navigate = useNavigate();
+
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,11 +44,15 @@ const SignUpForm = () => {
       } else {
         setIsLoading(false);
       }
+      const logg = await userLogin({ email, password });
+      console.log("Login successful", logg);
+      localStorage.setItem("token", logg.token);
+      login(logg.token);
 
       handleSuccess("Sign-up successful!");
-      setTimeout(() => {
+      setTimeout(async () => {
         setIsLoading(false);
-        navigate("/login");
+        navigate("/dash");
       }, 1000);
     } catch (err) {
       setIsLoading(false);
@@ -55,17 +62,17 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-[70vh] pt-8">
-        <div className="w-full max-w-md p-8  rounded-lg shadow-lg">
-          <div className="max-w-sm mx-auto  p-6">
+      <div className="flex items-center justify-center min-h-screen ">
+        <div className="w-full max-w-md px-8 py-4 dark:bg-[#252630] rounded-xl shadow-lg">
+          <div className="max-w-sm mx-auto py-4 px-6">
             <h2 className="text-2xl text-blue-600 font-semibold">Sign Up</h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 text-md dark:text-gray-300 mt-1">
               Nice to meet you! Enter your details to register.
             </p>
 
             <form className="mt-6" onSubmit={handleSignup}>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
+                <label className="block dark:text-white/80 text-gray-700 text-sm font-medium mb-2">
                   Your Name
                 </label>
                 <input
@@ -79,7 +86,7 @@ const SignUpForm = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
+                <label className="block dark:text-white/80 text-gray-700 text-sm font-medium mb-2">
                   Your Email
                 </label>
                 <input
@@ -93,7 +100,7 @@ const SignUpForm = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
+                <label className="block dark:text-white/80 text-gray-700 text-sm font-medium mb-2">
                   Password
                 </label>
                 <input
@@ -113,7 +120,7 @@ const SignUpForm = () => {
                   required
                   className="h-4 w-4 text-blue-500 border-gray-300 rounded"
                 />
-                <label htmlFor="terms" className="ml-2 text-gray-600 text-sm">
+                <label htmlFor="terms" className="ml-2 dark:text-white/80 text-gray-600 text-sm">
                   I agree to the{" "}
                   <a href="#" className="text-blue-500">
                     Terms and Conditions
@@ -144,7 +151,7 @@ const SignUpForm = () => {
                 {/* Show loading text */}
               </button>
 
-              <p className="text-center text-gray-600 mt-4">
+              <p className="text-center text-gray-500 mt-4">
                 Already have an account?{" "}
                 <a href="login" className="text-blue-500">
                   Login
