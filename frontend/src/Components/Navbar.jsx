@@ -52,19 +52,20 @@ export const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-6">
-              <Link
-                to="/"
-                className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-              >
-                Home
-              </Link>
+              {!isLoggedIn && (
+                <Link
+                  to="/"
+                  className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                >
+                  Home
+                </Link>
+              )}
               <Link
                 to="/about"
                 className=" hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
               >
                 About
               </Link>
-             
 
               <Link
                 to="/subscription"
@@ -81,18 +82,18 @@ export const Navbar = () => {
                     Dashboard
                   </Link>
                   <DropdownMenu>
-                <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
-                  Calculator
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className=" rounded-lg shadow-md">
-                  <DropdownMenuItem>
-                    <Link to="/emi">EMI Calculator</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/sip">SIP Calculator</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                      Calculator
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className=" rounded-lg shadow-md">
+                      <DropdownMenuItem>
+                        <Link to="/emi">EMI Calculator</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link to="/sip">SIP Calculator</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
                       Upload Data

@@ -248,7 +248,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
+    <div className="p-16 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 gap-8">
         <div className="space-y-6">
           <div className='flex flex-row'>

@@ -43,7 +43,7 @@ const LoginForm = () => {
       console.log("Login successful", response);
       localStorage.setItem("token", response.token);
       login(response.token);
-      navigate("/");
+      navigate("/dash");
     } catch (error) {
       console.error("Could not log in:", error);
       setError("Login failed. Please check your credentials.");
