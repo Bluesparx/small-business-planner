@@ -65,6 +65,7 @@ const PlanCard = ({
   };
 
   return (
+    
     <Card className="w-full max-w-sm hover:shadow-lg transition-shadow">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
@@ -93,7 +94,7 @@ const PlanCard = ({
 
 const SubscriptionPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center m-12 p-4">
+    <div className=" h-[80vh] flex flex-col items-center justify-center m-12 p-4">
       <h1 className="text-4xl font-bold mb-8 text-center">Choose Your Plan</h1>
 
       <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
