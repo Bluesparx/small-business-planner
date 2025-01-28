@@ -17,11 +17,15 @@ export const Navbar = () => {
   const { token, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [userAddress, setUserAddress] = useState(null);
 
   const isLoggedIn = token && token !== null;
 
   const handleLogout = () => {
     logout();
+    setIsConnected(false);
+    setUserAddress(null);
   };
 
   const handleDropdownClick = (dropdownName) => {

@@ -1,24 +1,15 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "../Components/ui/card";
+import { useNavigate } from "react-router-dom"; 
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../Components/ui/card";
 import { Button } from "../Components/ui/button";
+import Web3 from "web3";
 
 const plans = [
   {
     id: "free",
     title: "Free Plan",
     description: "Basic features for individual users",
-    features: [
-      "Access to basic features",
-      "Community support",
-      "Limited usage",
-    ],
+    features: ["Access to basic features", "Community support", "Limited usage"],
     buttonText: "Select Free Plan",
     buttonVariant: "outline",
   },
@@ -43,29 +34,13 @@ const PlanCard = ({
   buttonText,
   buttonVariant,
 }) => {
-  const [isConnected, setIsConnected] = useState(false);
-
-  const connectToMetaMask = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        if (accounts.length > 0) {
-          setIsConnected(true);
-          alert("Connected to MetaMask");
-        }
-      } catch (error) {
-        console.error("Error connecting to MetaMask:", error);
-        alert("Failed to connect to MetaMask");
-      }
-    } else {
-      alert("MetaMask is not installed");
-    }
+  const navigate = useNavigate();  
+  const handleUpgrade = () => {
+    navigate("/subscription-details");  
   };
+  
 
   return (
-    
     <Card className="w-full max-w-sm hover:shadow-lg transition-shadow">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
@@ -83,9 +58,9 @@ const PlanCard = ({
           variant={buttonVariant}
           className="w-full"
           aria-label={`Select ${title}`}
-          onClick={title === "Pro Plan" ? connectToMetaMask : null}
+          onClick={title === "Pro Plan" ? handleUpgrade : () => {}}
         >
-          {buttonText}
+          {title === "Pro Plan" ? "Upgrade to Pro" : buttonText}
         </Button>
       </CardFooter>
     </Card>
@@ -94,7 +69,7 @@ const PlanCard = ({
 
 const SubscriptionPage = () => {
   return (
-    <div className=" h-[80vh] flex flex-col items-center justify-center m-12 p-4">
+    <div className="h-[80vh] flex flex-col items-center justify-center m-12 p-4">
       <h1 className="text-4xl font-bold mb-8 text-center">Choose Your Plan</h1>
 
       <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">

@@ -21,6 +21,7 @@ import StockAnalysis from "./pages/stockAnalysis";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import EMICalculator from "./pages/EMICalculator";
 import SIPCalculator from "./pages/SIPCalculator";
+import SubscriptionDetails from "./pages/SubscriptionDetails";
 
 const routeDefinitions = [
   { path: "/", element: <Landing />, protected: false },
@@ -30,6 +31,7 @@ const routeDefinitions = [
   { path: "/incomeS", element: <IncomeS />, protected: true },
   { path: "/stockInput", element: <StockDataInput />, protected: true },
   { path: "/subscription", element: <SubscriptionPage />, protected: false },
+  { path: "/subscription-details", element: <SubscriptionDetails />, protected: true },
   { path: "/about", element: <About />, protected: false },
   { path: "/stock-analysis", element: <StockAnalysis />, protected: true },
   { path: "/analysis", element: <AnalyticsPage />, protected: true },
