@@ -41,7 +41,8 @@ const StockDataInput = () => {
   };
 
   return (
-    <div className="h-screen text-center py-6 mt-10">
+    <div className='min-h-[80vh]'>
+    <div className="text-center py-6 mt-10">
       <ToastContainer />
       <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 p-8">
         Upload Stocks Data
@@ -91,6 +92,7 @@ const StockDataInput = () => {
         </Card>
         </div> 
       )}
+    </div>
     </div>
   );
 };

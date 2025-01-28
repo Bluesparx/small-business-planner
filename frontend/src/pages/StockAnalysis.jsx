@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import StockPredictionGraph from "@/Components/StockPredictionGraph";
 import { PredictionsTable } from "@/Components/ui/PredictionsTable";
 import { getPredictions } from "@/utils/apiRequest";
+import { Link } from "react-router-dom";
 
 const StockAnalysis = () => {
   const [predictions, setPredictions] = useState([]);
@@ -14,21 +14,20 @@ const StockAnalysis = () => {
       try {
         const data = await getPredictions(); // Wait for the predictions data
         if (data) {
-          setPredictions(data.predictions);  // Set the predictions to state
-          setLoading(false);  // Stop the loading state
+          setPredictions(data.predictions); // Set the predictions to state
+          setLoading(false); // Stop the loading state
         }
       } catch (error) {
-        console.error('Error fetching analysis data:', error);
-        setError('Failed to fetch data.');  // Handle error state
+        console.error("Error fetching analysis data:", error);
+        setError("Please input data."); // Custom error message
         setLoading(false);
       }
     };
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem("token")) {
       fetchPredictions();
-    } 
-    else {
-      setError('User not logged in.');
+    } else {
+      setError("User not logged in.");
       setLoading(false);
     }
   }, []); // Empty array means this effect runs once on mount
@@ -45,14 +44,27 @@ const StockAnalysis = () => {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center h-[400px]">
-        <p className="mb-4 text-lg text-red-500">{error}</p>
-        <button
-          onClick={() => window.location.reload()} // Retry loading data by reloading page
-          className="px-6 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition"
-        >
-          Retry
-        </button>
+      <div className="flex flex-col items-center justify-center min-h-[80vh]">
+        <p className="text-xl font-semibold text-gray-600">
+          No Analytics Data Available
+        </p>
+        <Link to="/stockInput" className="text-blue-600 hover:underline mt-4">
+          Upload Stock Data
+        </Link>
+      </div>
+    );
+  }
+
+  // Check if predictions data is empty
+  if (!predictions || predictions.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[70vh]">
+        <p className="text-xl font-semibold text-gray-600">
+          No Analytics Data Available
+        </p>
+        <Link to="/stockInput" className="text-blue-600 hover:underline mt-4">
+          Upload Financial Data
+        </Link>
       </div>
     );
   }
@@ -65,9 +77,7 @@ const StockAnalysis = () => {
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Page Header */}
         <div className="text-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">
-            Stock Analysis
-          </h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">Stock Analysis</h1>
           <p className="mt-2">
             Analyze predicted stock performance using the graph and table below.
           </p>
