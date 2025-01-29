@@ -3,3 +3,4 @@ frontend/node_modules/
 backend/env
 smart-contract/node_modules/
 smart-contract/env
+.env
