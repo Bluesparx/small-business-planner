@@ -6,13 +6,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dropout, Dense
-import os
+from pymongo import MongoClient
+import os 
 
 app = Flask(__name__)
 CORS(app)
 
+ #only for render we can use os directly
+mongo_uri = os.environ.get('uri')
 
-mongo_uri = os.environ.get('CONNECTION_STRING')
+#else
+if not mongo_uri:
+    try:
+        from config import MONGODB_CONFIG
+        mongo_uri = MONGODB_CONFIG['uri']
+    except ImportError:
+        raise ValueError("MongoDB URI not found in environment variables or local config")
 
 if mongo_uri is None:
     raise ValueError("MongoDB URI is not set in environment variables.")
