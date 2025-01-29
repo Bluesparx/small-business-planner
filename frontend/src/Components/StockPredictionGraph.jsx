@@ -105,7 +105,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
   const analyzeBusinessMetrics = analyzePredictions;
 
   return (
-<Card className="p-4 dark:bg-[#24242f] dark:border-[#2d2d30] shadow-lg">
+<Card className="p-4 dark:bg-[#3b3944]  dark:border-none border-gray-300 shadow-lg">
   <CardHeader className="flex-row items-center justify-between border-b p-6">
     <div>
       <CardTitle className="text-2xl font-bold flex items-center gap-2">
@@ -119,7 +119,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
     </div>
     <div className="flex gap-2">
       <Button
-        variant={timeRange === "7d" ? "default" : "outline"}
+        variant={timeRange === "7d" ? "outline" : "default"}
         size="sm"
         onClick={() => setTimeRange("7d")}
         className="hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -127,7 +127,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
         7d
       </Button>
       <Button
-        variant={timeRange === "30d" ? "default" : "outline"}
+        variant={timeRange === "30d" ? "outline" : "default"}
         size="sm"
         onClick={() => setTimeRange("30d")}
         className="hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -135,7 +135,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
         30d
       </Button>
       <Button
-        variant={timeRange === "90d" ? "default" : "outline"}
+        variant={timeRange === "90d" ? "outline" : "default"}
         size="sm"
         onClick={() => setTimeRange("90d")}
         className="hover:bg-gray-200 dark:hover:bg-gray-700"

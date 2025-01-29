@@ -1,16 +1,16 @@
 import React from 'react';
-import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
 
 const chartConfig = {
   roa: {
     label: "Return on Assets",
-    color: "#5365cf",
+    color: "#e6c85e",
   },
   assetTurnover: {
     label: "Asset Turnover",
-    color: "#e6c85e",
+    color: "#5365cf",
   },
 };
 
@@ -22,19 +22,19 @@ const AssetChart = ({ data }) => {
   })) || [];
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:border-none border-gray-300 dark:bg-[#24222e]">
       <CardHeader>
-        <CardTitle>Asset Efficiency Metrics</CardTitle>
-        <CardDescription>Return on Assets & Asset Turnover</CardDescription>
+        <CardTitle className='text-white'>Asset Efficiency Metrics</CardTitle>
+        <CardDescription className='dark:text-white/80'>Return on Assets & Asset Turnover</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-60 w-80">
-          <LineChart
+          <AreaChart
             data={transformedData}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <defs>
-              {Object.entries(chartConfig).map(([key, { color }]) => (
+              {Object.entries(chartConfig).map(([key, { color }], index) => (
                 <linearGradient key={key} id={`gradient-${key}`} x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={color} stopOpacity={0.8} />
                   <stop offset="95%" stopColor={color} stopOpacity={0.1} />
@@ -67,7 +67,7 @@ const AssetChart = ({ data }) => {
                 return null;
               }}
             />
-            <Line
+            <Area
               type="linear"
               dataKey="roa"
               stroke={chartConfig.roa.color}
@@ -76,7 +76,7 @@ const AssetChart = ({ data }) => {
               strokeWidth={2}
               dot={false}
             />
-            <Line
+            <Area
               type="linear"
               dataKey="assetTurnover"
               stroke={chartConfig.assetTurnover.color}
@@ -85,7 +85,7 @@ const AssetChart = ({ data }) => {
               strokeWidth={2}
               dot={false}
             />
-          </LineChart>
+          </AreaChart>
         </ChartContainer>
       </CardContent>
     </Card>

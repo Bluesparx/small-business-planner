@@ -106,7 +106,7 @@ const StockDataInput = () => {
 
       {predictions.length > 0 && (
         <div className='flex flex-col justify-center mx-10 mt-2'>
-      <StockPredictionGraph predictions={predictions} />
+      <StockPredictionGraph predictions={predictions} showAnalytics={false}/>
         <Card className="mt-2">
           <h2 className="text-xl font-bold text-green-600">Predicted Stock Prices</h2>
           <table className="mt-4 border-collapse border border-gray-300 w-full">

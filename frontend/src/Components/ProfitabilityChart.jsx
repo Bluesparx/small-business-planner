@@ -29,10 +29,10 @@ const ProfitabilityChart = ({ data }) => {
   const tickInterval = transformedData.length > 1 ? Math.floor(transformedData.length / tickCount) : 1;
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:bg-[#24222e] dark:border-none border-gray-300">
       <CardHeader>
-        <CardTitle>Profitability Metrics</CardTitle>
-        <CardDescription>Operating Margin & Net Profit</CardDescription>
+        <CardTitle className='text-white'>Profitability Metrics</CardTitle>
+        <CardDescription className='dark:text-white/80'>Operating Margin & Net Profit</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-60 w-80">

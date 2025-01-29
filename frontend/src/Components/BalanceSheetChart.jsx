@@ -39,10 +39,10 @@ const BalanceSheetChart = ({ data }) => {
   })) || [];
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:bg-[#24222e] dark:border-none border-gray-300">
       <CardHeader>
-        <CardTitle>Balance Sheet Metrics</CardTitle>
-        <CardDescription>Current & Quick Ratios</CardDescription>
+        <CardTitle className='text-white'>Balance Sheet Metrics</CardTitle>
+        <CardDescription className='dark:text-white/80'>Current & Quick Ratios</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-60 w-80">
@@ -69,7 +69,7 @@ const BalanceSheetChart = ({ data }) => {
                         borderRadius: "5px",
                       }}
                     >
-                      <p className="font-medium">{new Date(date).toLocaleDateString('en-US')}</p>
+                      <p className="font-medium text-gray-800">{new Date(date).toLocaleDateString('en-US')}</p>
                       <p className="text-sm text-gray-600">Current Ratio: {currentRatio.toFixed(4)}</p>
                       <p className="text-sm text-gray-600">Quick Ratio: {quickRatio.toFixed(4)}</p>
                     </div>

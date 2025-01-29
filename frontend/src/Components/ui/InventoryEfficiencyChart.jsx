@@ -11,7 +11,7 @@ const InventoryEfficiencyChart = ({ data }) => {
   })) || [];
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:border-none dark:bg-[#4e4e4e]">
       <CardHeader>
         <CardTitle>Inventory Efficiency</CardTitle>
       </CardHeader>
@@ -30,7 +30,7 @@ const InventoryEfficiencyChart = ({ data }) => {
             axisLine={false}
             tickMargin={8}
             tickCount={4}
-            tickFormatter={(value) => `${value}x`} // Custom tick formatter for Y axis (e.g., showing "x" for turnover)
+            tickFormatter={(value) => `${value}x`}
           />
           <Tooltip />
           <Area

@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link } from 'react-router-dom';
-import BalanceSheetChart from '../components/BalanceSheetChart';
-import AssetChart from '../components/AssetChart';
-import ProfitabilityChart from '../components/ProfitabilityChart';
-import { getUserAnalysis, getPredictions } from '../utils/apiRequest';
-import emptyDashImage from '../assets/empty_dash.svg';
-import { Loader } from 'lucide-react';
-import StockPredictionGraph from '@/components/StockPredictionGraph';
+import React, { useEffect, useState } from 'react'; 
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'; 
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'; 
+import { Link } from 'react-router-dom'; 
+import BalanceSheetChart from '../components/BalanceSheetChart'; 
+import AssetChart from '../components/AssetChart'; 
+import ProfitabilityChart from '../components/ProfitabilityChart'; 
+import { getUserAnalysis, getPredictions } from '../utils/apiRequest'; 
+import emptyDashImage from '../assets/empty_dash.svg'; 
+import { Loader } from 'lucide-react'; 
+import StockPredictionGraph from '@/components/StockPredictionGraph';  
 
-const formatValue = (value) => {
-  if (typeof value === "number") {
-    const isNegative = value < 0;
-    const color = isNegative ? 'text-red-600' : 'text-green-600';  
-    return (
-      <span className={color}>
-        {value.toFixed(2)}%
-      </span>
-    );
-  }
-  return value || "N/A";
+const formatValue = (value) => { 
+  if (typeof value === "number") { 
+    const isNegative = value < 0; 
+    const color = isNegative ? 'text-red-600' : 'text-green-600'; 
+    return ( 
+      <span className={color}> 
+        {value.toFixed(2)}% 
+      </span> 
+    ); 
+  } 
+  return value || "N/A"; 
 };
 
 const MetricTable = ({ title, metrics }) => (
-  <Card className="w-full">
+  <Card className="w-full dark:border-none border-gray-300 dark:bg-[#3b3944]">
     <CardHeader>
-      <CardTitle>{title}</CardTitle>
+      <CardTitle className="text-lg">{title}</CardTitle>
     </CardHeader>
     <CardContent>
-      <Table>
+      <Table className='border-gray-500'>
         <TableHeader>
           <TableRow>
             <TableHead>Metric</TableHead>
@@ -55,27 +55,25 @@ const Dashboard = () => {
   const [predictions, setPredictions] = useState(null);
 
   useEffect(() => {
-        const fetchPredictions = async () => {
-          try {
-            const data = await getPredictions();
-            if (data) {
-              setPredictions(data.predictions); 
-              setIsLoading(false);
-            }
-          } catch (error) {
-            console.error('Error fetching analysis data:', error);
-            setIsLoading(false);
-          }
-        };
-    
-        if (localStorage.getItem('token')) {
-          fetchPredictions();
-        } 
-        else {
+    const fetchPredictions = async () => {
+      try {
+        const data = await getPredictions();
+        if (data) {
+          setPredictions(data.predictions);
           setIsLoading(false);
         }
-      }, []);
-  
+      } catch (error) {
+        console.error('Error fetching analysis data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    if (localStorage.getItem('token')) {
+      fetchPredictions();
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +115,6 @@ const Dashboard = () => {
               </p>
             </CardContent>
           </Card>
-
           <div className="flex-1 w-full">
             <Card className="py-8 border-gray-200 shadow-lg dark:bg-[#252630] dark:border-gray-900 px-2">
               <CardHeader>
@@ -125,28 +122,13 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {[
-                    {
-                      title: "Upload Income Statement",
-                      description: "Upload your company's income statement for financial analysis.",
-                      link: "/incomeS"
-                    },
-                    {
-                      title: "Upload Balance Sheet",
-                      description: "Upload your balance sheet to analyze assets and liabilities.",
-                      link: "/incomeS"
-                    },
-                    {
-                      title: "Upload Stock Data",
-                      description: "Import stock data to track market performance.",
-                      link: "/stockS"
-                    }
+                  {[ 
+                    { title: "Upload Income Statement", description: "Upload your company's income statement for financial analysis.", link: "/incomeS" },
+                    { title: "Upload Balance Sheet", description: "Upload your balance sheet to analyze assets and liabilities.", link: "/incomeS" },
+                    { title: "Upload Stock Data", description: "Import stock data to track market performance.", link: "/stockS" }
                   ].map((item, index) => (
                     <div key={index} className="space-y-2">
-                      <Link
-                        to={item.link}
-                        className="text-blue-600 hover:text-blue-800 text-md block"
-                      >
+                      <Link to={item.link} className="text-blue-600 hover:text-blue-800 text-md block">
                         {item.title}
                       </Link>
                       <p className="text-sm text-gray-600 dark:text-white/80">{item.description}</p>
@@ -162,7 +144,7 @@ const Dashboard = () => {
   }
 
   // Process income statement metrics
-  const incomeStatementMetrics = [
+  const incomeStatementMetrics1 = [
     {
       name: "Gross Profit Margin",
       value: analyzedData.growthIncomeStatement?.find(
@@ -181,6 +163,9 @@ const Dashboard = () => {
         (item) => item.IncomeMetric === "InterestCoverageRatio"
       )?.OverallGrowth,
     },
+  ];
+
+  const incomeStatementMetrics2 = [
     {
       name: "Net Profit Ratio",
       value: analyzedData.growthIncomeStatement?.find(
@@ -201,7 +186,7 @@ const Dashboard = () => {
     },
   ];
 
-  const balanceSheetMetrics = [
+  const balanceSheetMetrics1 = [
     {
       name: "Current Ratio",
       value: analyzedData.growthBalanceSheet?.find(
@@ -220,6 +205,9 @@ const Dashboard = () => {
         (item) => item.BalanceSheetMetric === "debtToEquityRatio"
       )?.OverallGrowth,
     },
+  ];
+
+  const balanceSheetMetrics2 = [
     {
       name: "Inventory Turnover",
       value: analyzedData.growthBalanceSheet?.find(
@@ -238,13 +226,6 @@ const Dashboard = () => {
         (item) => item.BalanceSheetMetric === "workingCapital"
       )?.OverallGrowth,
     },
-
-    {
-      name: "Average Age of Receivables",
-      value: analyzedData.growthBalanceSheet?.find(
-        (item) => item.BalanceSheetMetric === "averageAgeOfReceivables"
-      )?.OverallGrowth,
-    },
   ];
 
   return (
@@ -253,8 +234,14 @@ const Dashboard = () => {
         <div className="space-y-6">
           <div className='flex flex-row'>
             <div className="flex flex-col gap-4 w-3/5 mt-4 m-2">
-              <MetricTable title="Balance Sheet Analysis" metrics={balanceSheetMetrics} />
-              <MetricTable title="Income Statement Analysis" metrics={incomeStatementMetrics} />
+              <div className="flex flex-row gap-4">
+                <MetricTable title="Liquidity" metrics={balanceSheetMetrics1} />
+                <MetricTable title="Efficiency & Capital Structure" metrics={balanceSheetMetrics2} />
+              </div>
+              <div className="flex flex-row gap-4">
+                <MetricTable title="Profitability Ratios" metrics={incomeStatementMetrics1} />
+                <MetricTable title="Efficiency & Return on Assets" metrics={incomeStatementMetrics2} />
+              </div>
               <StockPredictionGraph predictions={predictions} showAnalytics={false} />
             </div>
             <div className="grid grid-cols-1 gap-4 m-2 p-2">
@@ -270,4 +257,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
