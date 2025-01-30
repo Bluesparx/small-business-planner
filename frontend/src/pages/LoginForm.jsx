@@ -38,8 +38,9 @@ const LoginForm = () => {
       const response = await userLogin({ email, password });
       console.log("Login successful", response);
       localStorage.setItem("token", response.token);
+      toast.success("Login successful!");
       login(response.token);
-      navigate("/dash");
+      setTimeout(() => navigate("/dash"), 1000);
     } catch (error) {
       console.error("Could not log in:", error);
       setError("Login failed. Please check your credentials.");

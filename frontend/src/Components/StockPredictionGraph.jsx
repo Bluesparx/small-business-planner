@@ -14,9 +14,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
+import { Button } from "@/Components/ui/button";
 import { ChevronUpIcon, ChevronDownIcon, TrendingUpIcon, AlertCircle, ArrowUpIcon, ArrowDownIcon } from "lucide-react";
 
 const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
