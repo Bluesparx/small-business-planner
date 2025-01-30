@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import chatbotIcon from '../assets/Chatbot.png';
+import chatbotIcon from '../assets/chatbot.png';
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false); // State to toggle the chatbot visibility
 
