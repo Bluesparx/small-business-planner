@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer } from "@/components/ui/chart";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card";
+import { ChartContainer } from "@/Components/ui/chart";
 
 // Chart Configuration
 const chartConfig = {

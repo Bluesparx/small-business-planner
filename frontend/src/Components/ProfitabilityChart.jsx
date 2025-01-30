@@ -1,7 +1,7 @@
 import React from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/Components/ui/chart";
 
 const chartConfig = {
   operatingMargin: {
