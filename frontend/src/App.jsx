@@ -6,7 +6,7 @@ import AuthenticatedRoute from "./utils/useAuthContext";
 
 import Landing from "./pages/Landing";
 import { Navbar } from "./Components/Navbar";
-import { Footer } from "./components/Footer";
+import { Footer } from "./Components/Footer";
 
 import Dashboard from "./pages/HomeDash";
 import SignUpForm from "./pages/SignUpForm";
