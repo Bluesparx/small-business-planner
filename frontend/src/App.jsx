@@ -17,7 +17,7 @@ import StockDataInput from "./pages/StockDataInput";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import About from "./pages/About";
 import Chatbot from "./Components/Chatbot";
-import StockAnalysis from "./pages/stockAnalysis";
+import StockAnalysis from "./pages/StockAnalysis";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import EMICalculator from "./pages/EMICalculator";
 import SIPCalculator from "./pages/SIPCalculator";
