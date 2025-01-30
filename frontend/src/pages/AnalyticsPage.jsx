@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@/components/ui/table';
+import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@/Components/ui/table';
 import { Link } from 'react-router-dom';
 import BalanceSheetChart from '../Components/BalanceSheetChart';
 import ProfitabilityChart from '../Components/ProfitabilityChart';
