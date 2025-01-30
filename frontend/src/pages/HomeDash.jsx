@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'; 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'; 
+import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/card'; 
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table'; 
 import { Link } from 'react-router-dom'; 
 import BalanceSheetChart from '../Components/BalanceSheetChart'; 
 import AssetChart from '../Components/AssetChart'; 
@@ -8,7 +8,7 @@ import ProfitabilityChart from '../Components/ProfitabilityChart';
 import { getUserAnalysis, getPredictions } from '../utils/apiRequest'; 
 import emptyDashImage from '../assets/empty_dash.svg'; 
 import { Loader } from 'lucide-react'; 
-import StockPredictionGraph from '@/components/StockPredictionGraph';  
+import StockPredictionGraph from '@/Components/StockPredictionGraph';  
 
 const formatValue = (value) => { 
   if (typeof value === "number") { 
