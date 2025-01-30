@@ -15,32 +15,28 @@ const SubscriptionDetailsPage = () => {
   const [userAddress, setUserAddress] = useState(null); 
   const navigate = useNavigate();
 
-  // subscription details 
   useEffect(() => {
-    if (userAddress) {
-      fetchSubscriptionDetails(userAddress);
-    }
-  }, [userAddress]);
-
-  // Handle MetaMask connection
-  const connectMetaMask = async () => {
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({
-          method: 'eth_requestAccounts',
-        });
-        const account = accounts[0];
-        setUserAddress(account);
-        alert("Connected MetaMask");
-        console.log("Connected MetaMask Address:", account);
-      } catch (error) {
-        setError("MetaMask connection failed.");
-        console.error(error);
+    const connectMetaMask = async () => {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({
+            method: 'eth_requestAccounts',
+          });
+          const account = accounts[0];
+          setUserAddress(account);
+          console.log("Connected MetaMask Address:", account);
+          fetchSubscriptionDetails(account);
+        } catch (error) {
+          setError("MetaMask connection failed.");
+          console.error(error);
+        }
+      } else {
+        setError("Please install MetaMask to proceed.");
       }
-    } else {
-      setError("Please install MetaMask to proceed.");
-    }
-  };
+    };
+
+    connectMetaMask();
+  }, []); 
 
   // Fetch subscription details from the smart contract
   const fetchSubscriptionDetails = async (address) => {
@@ -170,9 +166,6 @@ const SubscriptionDetailsPage = () => {
         <div className="mt-4 space-x-4">
           {!subscriptionDetails.isActive && (
             <>
-              <Button variant="outline" onClick={connectMetaMask}>
-                Connect MetaMask
-              </Button>
               <Button variant="outline" onClick={handleSubscribe} disabled={isSubscribing}>
                 Buy Subscription
               </Button>
@@ -197,4 +190,3 @@ const SubscriptionDetailsPage = () => {
 };
 
 export default SubscriptionDetailsPage;
-
