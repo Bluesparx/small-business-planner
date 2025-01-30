@@ -1,6 +1,6 @@
 import React from "react";
 import { Spotlight } from "./Spotlight"; // Adjust the import path as needed
-import { Button } from "@/components/ui/button"; // Adjust the import path as needed
+import { Button } from "@/Components/ui/button"; // Adjust the import path as needed
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'; // Ensure this import
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/Components/ui/card'; // Ensure this import
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { TrendingUp } from 'lucide-react'; // Assuming you're still using this for footer
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/card';
+import { Alert, AlertTitle, AlertDescription } from '@/Components/ui/alert';
 import { TrendingUp, TrendingDown, Wallet, Clock, CreditCard, BarChart2, PieChart, ChevronDown, ChevronUp } from 'lucide-react';
 
 const getSuggestionIcon = (category) => {

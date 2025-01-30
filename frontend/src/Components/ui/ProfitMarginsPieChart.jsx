@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/card';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 // Function to format data for pie chart based on provided structure
