@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 // Function to format the date
@@ -36,12 +36,13 @@ const NormalizedLineChart = ({ data }) => {
   }));
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className="w-full dark:border-gray-600 border-gray-300 shadow-lg">
+      <CardHeader className='border-b mb-4 border-gray-300 dark:border-none dark:bg-[#2a263d] bg-gray-200 rounded-t-xl'>
         <CardTitle>Normalized Financial Metrics</CardTitle>
+        <CardDescription>Metrices provides summary of key financial indicators, highlighting trends and performance across various financial aspects.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <LineChart width={450} height={500} data={transformedData}>
+      <CardContent >
+        <LineChart width={1100} height={500} data={transformedData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />
