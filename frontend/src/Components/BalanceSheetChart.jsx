@@ -41,7 +41,7 @@ const BalanceSheetChart = ({ data }) => {
   return (
     <Card className="w-full dark:bg-[#24222e] dark:border-none border-gray-300">
       <CardHeader>
-        <CardTitle className='text-white'>Balance Sheet Metrics</CardTitle>
+        <CardTitle>Balance Sheet Metrics</CardTitle>
         <CardDescription className='dark:text-white/80'>Current & Quick Ratios</CardDescription>
       </CardHeader>
       <CardContent>

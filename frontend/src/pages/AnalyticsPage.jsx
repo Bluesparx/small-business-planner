@@ -6,37 +6,59 @@ import BalanceSheetChart from '../components/BalanceSheetChart';
 import ProfitabilityChart from '../components/ProfitabilityChart';
 import AssetChart from '../components/AssetChart';
 import { getUserAnalysis } from '../utils/apiRequest';
-import { Loader } from 'lucide-react';
+import { Loader, ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
 import WorkingCapitalChart from '../components/ui/WorkingCapitalChart';
 import LiquidityRatiosChart from '../components/ui/LiquidityRatiosChart';
 import InventoryEfficiencyChart from '../components/ui/InventoryEfficiencyChart';
 import MetricsComparisonChart from '@/components/ui/MetricsComparisonChart';
 import ProfitMarginsPieChart from '@/components/ui/ProfitMarginsPieChart';
-import  YOUR_CONTRACT_ABI  from '../abi/abi.json';
-import {ethers} from 'ethers';
+import FinancialSuggestions from '@/components/ui/finance_suggestion';
+import YOUR_CONTRACT_ABI from '../abi/abi.json';
+import { ethers } from 'ethers';
 
-const formatValue = (value) => {
+// Function to format values and add icons
+const formatValueWithIcon = (value) => {
   if (typeof value === 'number') {
     const color = value < 0 ? 'text-red-600' : 'text-green-600';
-    return <span className={color}>{value.toFixed(2)}%</span>;
+    const icon = value < 0 ? (
+      <ArrowDownCircle className={`${color} inline-block mr-2`} size={16} />
+    ) : (
+      <ArrowUpCircle className={`${color} inline-block mr-2`} size={16} />
+    );
+    return (
+      <span className={`${color} flex items-center`}>
+        {icon}
+        {value.toFixed(2)}%
+      </span>
+    );
   }
   return value || 'N/A';
 };
 
 const MetricTable = ({ title, metrics }) => (
-  <div className="overflow-hidden rounded-lg shadow-md">
-    <table className="w-full table-auto border-collapse border border-gray-200">
-      <thead className="bg-gray-100">
+  <div className="overflow-hidden rounded-xl w-full shadow-lg dark:bg-[#24222e] border border-gray-300 dark:border-gray-500">
+    <div className='text-center p-4 font-bold text-lg border-b border-gray-500'>{title}</div>
+    <table className="w-full table-auto border-collapse">
+      <thead className="dark:bg-[#413d53]/80 bg-gray-200">
         <tr>
-          <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Metric</th>
-          <th className="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Value</th>
+          <th className="px-6 py-3 text-left text-sm font-semibold  border-b dark:border-gray-600 border-gray-300">Metric</th>
+          <th className="px-6 py-3 text-left text-sm font-semibold border-b dark:border-gray-600 border-gray-300">Value</th>
         </tr>
       </thead>
       <tbody>
         {metrics.map((metric, index) => (
-          <tr key={index} className={index % 2 === 0 ? 'bg-white ' : 'bg-gray-50 ' }>
-            <td className="px-4 py-2 text-sm text-gray-700 border-b border-gray-300">{metric.name}</td>
-            <td className="px-4 py-2 text-sm text-gray-700 border-b border-gray-300">{formatValue(metric.value)}</td>
+          <tr
+            key={index}
+            className={`${
+              index % 2 === 0 ? 'dark:bg-[#2a263d] bg-gray-100' : 'dark:bg-[#24222e] bg-gray-200'
+            } hover:bg-gray-700 transition duration-200`}
+          >
+            <td className="px-6 py-4 text-sm border-b  dark:border-gray-600 border-gray-300">
+              {metric.name}
+            </td>
+            <td className="px-6 py-4 text-sm border-b dark:border-gray-600 border-gray-300">
+              {formatValueWithIcon(metric.value)}
+            </td>
           </tr>
         ))}
       </tbody>
@@ -160,45 +182,36 @@ const AnalyticsPage = () => {
       value: item.OverallGrowth,
     })) || [];
 
+
+
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-12">
       <h1 className="text-3xl font-bold">Financial Analytics</h1>
 
       <section className="space-y-8">
-        <h2 className="text-xl font-semibold ">Income Statement Analysis</h2>
-        <MetricTable title="Income Statement Metrics" metrics={incomeStatementMetrics} />
-        <div className="grid gap-6 md:grid-cols-2  ">
-          <ChartDetail title="Profitability Analysis" description="Shows the company’s ability to generate profit relative to revenue.">
-            <ProfitabilityChart data={analyzedData.incomeStatementAnalysis} />
-          </ChartDetail>
-          <ChartDetail title="Asset Analysis" description="Visualizes the allocation and growth of assets over time.">
-            <AssetChart data={analyzedData.incomeStatementAnalysis} />
-          </ChartDetail>
-          <ChartDetail title="Metrics Comparison" description="Compares key financial metrics to provide a holistic view.">
-            <MetricsComparisonChart data={analyzedData.incomeStatementAnalysis} />
-          </ChartDetail>
-          <ChartDetail title="Profit Margins" description="Breaks down different profit margins in a visual format.">
-            <ProfitMarginsPieChart data={analyzedData.incomeStatementAnalysis} />
-          </ChartDetail>
+        <div>
+          <FinancialSuggestions data={analyzedData}/>
         </div>
-      </section>
-
-      <section className="space-y-8">
-        <h2 className="text-xl font-semibold">Balance Sheet Analysis</h2>
+        
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
+          <div className="col-span-1">
+              <ProfitabilityChart data={analyzedData.incomeStatementAnalysis} />
+          </div>
+          <div className="col-span-1">
+            <AssetChart data={analyzedData.incomeStatementAnalysis} />
+            
+          </div>
+          <div className="col-span-1">
+            <ProfitMarginsPieChart data={analyzedData.incomeStatementAnalysis} />
+            
+          </div>
+          <div className="col-span-3">
+            <MetricsComparisonChart data={analyzedData.incomeStatementAnalysis}/>            
+          </div>
+        </div>
+        <div className='flex flex-row gap-6'>
+        <MetricTable title="Income Statement Metrics" metrics={incomeStatementMetrics} />
         <MetricTable title="Balance Sheet Metrics" metrics={balanceSheetMetrics} />
-        <div className="grid gap-6 md:grid-cols-2">
-          <ChartDetail title="Balance Sheet Visualization" description="A comprehensive view of assets, liabilities, and equity.">
-            <BalanceSheetChart data={analyzedData.balanceSheetAnalysis} />
-          </ChartDetail>
-          <ChartDetail title="Working Capital" description="Shows the liquidity and operational efficiency.">
-            <WorkingCapitalChart data={analyzedData.balanceSheetAnalysis} />
-          </ChartDetail>
-          <ChartDetail title="Liquidity Ratios" description="Highlights the company’s ability to meet short-term obligations.">
-            <LiquidityRatiosChart data={analyzedData.balanceSheetAnalysis} />
-          </ChartDetail>
-          <ChartDetail title="Inventory Efficiency" description="Analyzes inventory turnover and efficiency.">
-            <InventoryEfficiencyChart data={analyzedData.balanceSheetAnalysis} />
-          </ChartDetail>
         </div>
       </section>
     </div>

@@ -24,7 +24,7 @@ const AssetChart = ({ data }) => {
   return (
     <Card className="w-full dark:border-none border-gray-300 dark:bg-[#24222e]">
       <CardHeader>
-        <CardTitle className='text-white'>Asset Efficiency Metrics</CardTitle>
+        <CardTitle >Asset Efficiency Metrics</CardTitle>
         <CardDescription className='dark:text-white/80'>Return on Assets & Asset Turnover</CardDescription>
       </CardHeader>
       <CardContent>
