@@ -7,7 +7,7 @@ import {
   CardContent,
 } from "../Components/ui/card";
 import { Button } from "../Components/ui/button";
-import { Spotlight } from "@/components/ui/Spotlight";
+import { Spotlight } from "@/Components/ui/Spotlight";
 
 const About = () => {
   return (

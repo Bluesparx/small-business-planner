@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; 
-import { Footer } from "../components/Footer";
+import { Footer } from "../Components/Footer";
 import Loader from "../Components/Loader";  
 import { SpotlightPreview } from "@/Components/ui/SpotlightPreview";
 import Carousel from "@/Components/ui/Carousel";

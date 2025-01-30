@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StockPredictionGraph from '@/Components/StockPredictionGraph';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/Components/ui/card';
 import { uploadHistoricalData } from '@/utils/apiRequest';
 
 const StockDataInput = () => {
