@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import BalanceSheetRowSchema from './BalanceSheetRow.js'; // Import the row schema
+import BalanceSheetRowSchema from './balanceSheetRow.js'; // Import the row schema
 
 const BalanceSheetTableSchema = new mongoose.Schema(
   {

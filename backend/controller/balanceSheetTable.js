@@ -1,5 +1,5 @@
 import BalanceSheetTable from "../models/balanceSheetTable.js";
-import BalanceSheetRow from "../models/BalanceSheetRow.js";
+import BalanceSheetRow from "../models/balanceSheetRow.js";
 
 // POST: Create a new balance sheet table
 // router.post('/balance-sheet/table',
