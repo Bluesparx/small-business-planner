@@ -31,7 +31,7 @@ const SubscriptionDetailsPage = () => {
         });
         const account = accounts[0];
         setUserAddress(account);
-        alert("Connected MetaMask Address:", account);
+        alert("Connected MetaMask");
         console.log("Connected MetaMask Address:", account);
       } catch (error) {
         setError("MetaMask connection failed.");

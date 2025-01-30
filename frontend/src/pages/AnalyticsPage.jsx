@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from '@/components/ui/table';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@/components/ui/table';
 import { Link } from 'react-router-dom';
 import BalanceSheetChart from '../components/BalanceSheetChart';
 import ProfitabilityChart from '../components/ProfitabilityChart';
@@ -23,6 +12,8 @@ import LiquidityRatiosChart from '../components/ui/LiquidityRatiosChart';
 import InventoryEfficiencyChart from '../components/ui/InventoryEfficiencyChart';
 import MetricsComparisonChart from '@/components/ui/MetricsComparisonChart';
 import ProfitMarginsPieChart from '@/components/ui/ProfitMarginsPieChart';
+import  YOUR_CONTRACT_ABI  from '../abi/abi.json';
+import {ethers} from 'ethers';
 
 const formatValue = (value) => {
   if (typeof value === 'number') {
@@ -64,9 +55,50 @@ const ChartDetail = ({ title, description, children }) => (
 const AnalyticsPage = () => {
   const [analyzedData, setAnalyzedData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubscribed, setIsSubscribed] = useState(false); 
+  const [userAddress, setUserAddress] = useState(null); 
+  const [isMetamaskConnected, setIsMetamaskConnected] = useState(false); 
+  const contractAddress = '0x3a84c0e541dfb3fe788634f25809066eface42c1';
+  const contractABI = YOUR_CONTRACT_ABI;
+
+  useEffect(() => {
+    const checkMetamaskConnection = async () => {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          if (accounts.length > 0) {
+            setIsMetamaskConnected(true);
+            setUserAddress(accounts[0]);
+            checkSubscriptionStatus(accounts[0]);
+          }
+        } catch (error) {
+          console.error('Error connecting to Metamask:', error);
+        }
+      } else {
+        console.error('Metamask not installed');
+      }
+    };
+
+    const checkSubscriptionStatus = async (address) => {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const contract = new ethers.Contract(contractAddress, contractABI, provider);
+        const subscriptionStatus = await contract.checkSubscription(address);
+        setIsSubscribed(subscriptionStatus);
+      } catch (error) {
+        console.error('Error checking subscription:', error);
+      }
+    };
+
+    checkMetamaskConnection();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!isMetamaskConnected || !isSubscribed) {
+        return; 
+      }
+
       try {
         const data = await getUserAnalysis();
         setAnalyzedData(data);
@@ -77,7 +109,23 @@ const AnalyticsPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [isMetamaskConnected, isSubscribed]);
+
+  if (!isMetamaskConnected) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
+        <p className="text-xl font-semibold text-gray-600">Please connect your Metamask wallet.</p>
+      </div>
+    );
+  }
+
+  if (!isSubscribed) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
+        <p className="text-xl font-semibold text-gray-600">You must have an active subscription to access this page.</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
