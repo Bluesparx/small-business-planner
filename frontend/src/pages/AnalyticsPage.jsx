@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@/Components/ui/table';
+import { Button } from '@/Components/ui/button'; 
+
 import { Link } from 'react-router-dom';
-import BalanceSheetChart from '../Components/BalanceSheetChart';
 import ProfitabilityChart from '../Components/ProfitabilityChart';
 import AssetChart from '../Components/AssetChart';
 import { getUserAnalysis } from '../utils/apiRequest';
 import { Loader, ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
-import WorkingCapitalChart from '../Components/ui/WorkingCapitalChart';
-import LiquidityRatiosChart from '../Components/ui/LiquidityRatiosChart';
-import InventoryEfficiencyChart from '../Components/ui/InventoryEfficiencyChart';
 import MetricsComparisonChart from '@/Components/ui/MetricsComparisonChart';
 import ProfitMarginsPieChart from '@/Components/ui/ProfitMarginsPieChart';
 import FinancialSuggestions from '@/Components/ui/finance_suggestion';
@@ -136,7 +134,10 @@ const AnalyticsPage = () => {
   if (!isMetamaskConnected) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
-        <p className="text-xl font-semibold text-gray-600">Please connect your Metamask wallet.</p>
+        <p className="text-xl font-semibold text-gray-600">Please connect to your metamask wallet</p>
+        <Link to="/subscription">
+          <Button className="mt-4 bg-gray-500">Connect</Button>
+        </Link>
       </div>
     );
   }
@@ -145,6 +146,9 @@ const AnalyticsPage = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
         <p className="text-xl font-semibold text-gray-600">You must have an active subscription to access this page.</p>
+        <Link to="/subscription">
+          <Button className="mt-4" variant="primary">Pricing</Button>
+        </Link>
       </div>
     );
   }

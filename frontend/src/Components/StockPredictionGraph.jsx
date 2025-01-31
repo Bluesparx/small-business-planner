@@ -17,7 +17,7 @@ import {
 } from "@/Components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
 import { Button } from "@/Components/ui/button";
-import { ChevronUpIcon, ChevronDownIcon, TrendingUpIcon, AlertCircle, ArrowUpIcon, ArrowDownIcon } from "lucide-react";
+import { ChevronUpIcon, ChevronDownIcon, TrendingUpIcon, AlertCircle, ArrowUpIcon, ArrowDownIcon , TrendingDownIcon} from "lucide-react";
 
 const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
   const [timeRange, setTimeRange] = useState("90d");
@@ -80,7 +80,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
       
       volatility += Math.abs((curr.closingPrice - prev.closingPrice) / prev.closingPrice);
       
-      if (i < 7) {
+      if (i < 10) {
         shortTermTrend += (curr.closingPrice - prev.closingPrice);
       }
       
@@ -101,7 +101,8 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
       distanceFromLow: ((endPrice - lowestPrice) / lowestPrice) * 100
     };
   }, [filteredData]);
-
+  const mini = Math.min(...filteredData.map(item => item.closingPrice))-5;
+  const maxi = Math.max(...filteredData.map(item=> item.closingPrice))+5;
   const analyzeBusinessMetrics = analyzePredictions;
 
   return (
@@ -199,7 +200,8 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
                 axisLine={{ stroke: "#4b5563" }}
                 tickMargin={8}
                 tickFormatter={(value) => `$${value.toFixed(2)}`}
-              />
+                domain={[mini, maxi]}
+                />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "#374151",
@@ -232,7 +234,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
       {showAnalytics && (
          <div className="w-96 flex flex-col"> 
           <h3 className="text-lg font-semibold mb-6 text-center">Strategy Insights</h3>
-          {analyzeBusinessMetrics?.distanceFromHigh <= 5 && (
+          {analyzeBusinessMetrics?.distanceFromHigh >= 5 && (
             <Alert className="dark:border-none">
               <div className="flex flex-row items-center gap-3">
                 <ArrowUpIcon className="w-10 h-10 text-green-600" />
@@ -246,7 +248,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
             </Alert>
           )}
 
-          {analyzeBusinessMetrics?.distanceFromLow <= 10 && (
+          {analyzeBusinessMetrics?.distanceFromLow <= 5 && (
             <Alert className="dark:border-none">
               <div className="flex flex-row items-center gap-3">
                 <ArrowDownIcon className="w-10 h-10 text-yellow-600" />
@@ -261,7 +263,7 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
           )}
 
           {/* Market Stability */}
-          {analyzeBusinessMetrics?.volatility >= 0.02 ? (
+          {analyzeBusinessMetrics?.volatility >= 0.5 ? (
             <Alert className="dark:border-none">
               <div className="flex flex-row items-center gap-3">
                 <AlertCircle className="w-10 h-10 text-yellow-600" />
@@ -288,19 +290,32 @@ const StockPredictionGraph = ({ predictions, showAnalytics = true }) => {
           )}
 
           {/* Growth Trajectory */}
-          {analyzeBusinessMetrics?.shortTermTrend > 0 && (
+          {analyzeBusinessMetrics?.shortTermTrend > 0 ? (
             <Alert className="dark:border-none">
               <div className="flex flex-row items-center gap-3">
                 <TrendingUpIcon className="w-10 h-10 text-blue-600" />
                 <div className="flex flex-col">
-                  <AlertTitle>Positive growth trajectory</AlertTitle>
+                  <AlertTitle>Positive short term trajectory</AlertTitle>
                   <AlertDescription>
                     Favorable timing for announcing expansion plans, R&D initiatives, or strategic investments to maintain momentum.
                   </AlertDescription>
                 </div>
               </div>
             </Alert>
+          ) : (
+            <Alert className="dark:border-none">
+              <div className="flex flex-row items-center gap-3">
+                <TrendingDownIcon className="w-10 h-10 text-red-600" />
+                <div className="flex flex-col">
+                  <AlertTitle>Negative short term trajectory</AlertTitle>
+                  <AlertDescription>
+                    It may be wise to hold off on major investments or strategic initiatives until there is more stability.
+                  </AlertDescription>
+                </div>
+              </div>
+            </Alert>
           )}
+          
         </div>
       )}
     </div>
