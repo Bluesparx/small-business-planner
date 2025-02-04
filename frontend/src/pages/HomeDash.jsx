@@ -7,8 +7,9 @@ import AssetChart from '../Components/AssetChart';
 import ProfitabilityChart from '../Components/ProfitabilityChart'; 
 import { getUserAnalysis, getPredictions } from '../utils/apiRequest'; 
 import emptyDashImage from '../assets/empty_dash.svg'; 
-import { Loader } from 'lucide-react'; 
+import { Loader , MessageCircle, X } from 'lucide-react'; 
 import StockPredictionGraph from '@/Components/StockPredictionGraph';  
+import QnAForm from '@/components/QAchat';
 
 const formatValue = (value) => { 
   if (typeof value === "number") { 
@@ -53,6 +54,7 @@ const Dashboard = () => {
   const [analyzedData, setAnalyzedData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [predictions, setPredictions] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const fetchPredictions = async () => {
@@ -230,6 +232,36 @@ const Dashboard = () => {
 
   return (
     <div className="p-16 max-w-7xl mx-auto">
+    <div
+        onClick={() => setIsChatOpen(true)}
+        className="fixed bottom-32 right-8 transition-all cursor-pointer bg-[#4747d3] rounded-full p-6 shadow-lg hover:shadow-xl "
+        style={{
+          animation: "jump 1s infinite alternate", 
+        }}
+      >
+        <MessageCircle size={30} />
+      </div>
+
+      {/* Chat Modal */}
+      {isChatOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-indigo-600/70 rounded-xl w-[500px] min-h-[80vh] flex flex-col relative">
+            <div className="flex justify-between items-center p-4 ">
+              <h2 className="text-xl text-white font-semibold">Financial Agent</h2>
+              <button
+                onClick={() => setIsChatOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X size={24} color='white'/>
+              </button>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <QnAForm analyzedData={analyzedData} predictions={predictions} />
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-8">
         <div className="space-y-6">
           <div className='flex flex-row'>

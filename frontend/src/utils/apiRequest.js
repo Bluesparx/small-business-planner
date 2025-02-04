@@ -46,6 +46,9 @@ export const getAllBalanceSheetTables = async () =>
 export const getBalanceSheetTableById = async (tableId) =>
   apiRequest(`${API_URL}/balance-sheet/table/${tableId}`, 'GET');
 
+export const getBalanceByUserId = async () =>
+  apiRequest(`${API_URL}/balance-sheet/get-table`, 'GET')
+
 // Income Statement API
 export const createIncomeTable = async (incomeData) =>
   apiRequest(`${API_URL}/income/table`, 'POST', incomeData);
@@ -55,6 +58,9 @@ export const getAllIncomeTables = async () =>
 
 export const getIncomeTableById = async (tableId) =>
   apiRequest(`${API_URL}/income/table/${tableId}`, 'GET');
+
+export const getIncomeByUserId = async () =>
+  apiRequest(`${API_URL}/income/get-table`, 'GET')
 
 // Data Analytics API
 export const triggerUserAnalysis = async () =>
@@ -88,3 +94,5 @@ export const uploadHistoricalData = async (file) => {
   }
 };
 
+export const getAnswer = async (question) => 
+  apiRequest(`${API_URL}/ask`, 'POST', question)

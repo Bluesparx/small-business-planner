@@ -228,7 +228,7 @@ const IncomeS = () => {
         {isAnalysisComplete && (
           <div className="text-center mt-6">
             <Link
-              to="/analysis"
+              to="/dash"
               className="px-6 py-3 text-white bg-green-600 rounded-md hover:bg-green-700"
             >
               Check Analysed Data

@@ -1,5 +1,36 @@
 import mongoose from 'mongoose';
-import incomerowSchema from './income_row.js';
+
+const incomerowSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
+  revenue: {
+    type: Number,
+    required: true,
+  },
+  costOfRevenue: {
+    type: Number,
+    required: true,
+  },
+  operatingIncome: {
+    type: Number,
+    required: true,
+  },
+  interestExpense: {
+    type: Number,
+    required: true,
+  },
+  incomeBeforeTax: {
+    type: Number,
+    required: true,
+  },
+  netIncome: {
+    type: Number,
+    required: true,
+  },
+});
+
 const incometableSchema =new mongoose.Schema(
   {
     user: {
@@ -8,12 +39,7 @@ const incometableSchema =new mongoose.Schema(
       required: true, 
     },
     
-    rows: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "IncomeRow", // Reference to the BalanceSheetRow schema
-      },
-    ],
+    rows: [incomerowSchema],
   },
   { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );

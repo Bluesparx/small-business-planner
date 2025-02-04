@@ -1,5 +1,4 @@
 import IncomeTable from "../models/income_table.js";
-import IncomeRow from "../models/income_row.js";
 
 // POST: Create a new income statement table
 const createIncomeTable = async (req, res) => {
@@ -12,14 +11,10 @@ const createIncomeTable = async (req, res) => {
       return res.status(400).json({ error: "Rows must be an array" });
     }
 
-    // Save rows first
-    const savedRows = await IncomeRow.insertMany(rows);
-
-    // Create the table with saved row IDs and userId
     const newTable = new IncomeTable({
       user: userId,
       name,
-      rows: savedRows.map((row) => row._id),
+      rows,
     });
 
     const savedTable = await newTable.save();
@@ -54,8 +49,26 @@ const getIncomeTableById = async (req, res) => {
   }
 };
 
+// GET: Get income statement for a user
+const getIncomeByUserId = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const incomeStatement = await IncomeTable.findOne({ user: userId }).populate("rows");
+
+    if (!incomeStatement) {
+      return res.status(404).json({ error: "Income Statement not found for this user" });
+    }
+
+    res.status(200).json(incomeStatement);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export {
   createIncomeTable,
   getAllIncomeTables,
   getIncomeTableById,
+  getIncomeByUserId,
 };

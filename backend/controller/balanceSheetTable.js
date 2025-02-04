@@ -1,5 +1,4 @@
 import BalanceSheetTable from "../models/balanceSheetTable.js";
-import BalanceSheetRow from "../models/balanceSheetRow.js";
 
 // POST: Create a new balance sheet table
 // router.post('/balance-sheet/table',
@@ -13,13 +12,9 @@ const createBalanceSheetTable = async (req, res) => {
       return res.status(400).json({ error: "Rows must be an array" });
     }
 
-    // Save rows first
-    const savedRows = await BalanceSheetRow.insertMany(rows);
-
-    // Create the table with saved row IDs and userId
     const newTable = new BalanceSheetTable({
       user: userId,
-      rows: savedRows.map((row) => row._id),
+      rows: rows,
     });
 
     const savedTable = await newTable.save();
@@ -54,8 +49,26 @@ const getBalanceSheetTableById = async (req, res) => {
   }
 };
 
+// GET: Get balance sheet for a user
+const getBalanceByUserId = async (req, res) => {
+  try {
+    const userId = req.user.id; 
+
+    const balanceSheet = await BalanceSheetTable.findOne({ user: userId }).populate("rows");
+
+    if (!balanceSheet) {
+      return res.status(404).json({ error: "Balance Sheet not found for this user" });
+    }
+
+    res.status(200).json(balanceSheet);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export {
   createBalanceSheetTable,
   getAllBalanceSheetTables,
   getBalanceSheetTableById,
+  getBalanceByUserId,
 };

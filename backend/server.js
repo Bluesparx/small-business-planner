@@ -9,6 +9,7 @@ import balanceSheetRouter from './routes/balanceSheetTable.js'; // Correctly imp
 import incomeRouter from './routes/income_table.js';
 import dataAnalyticsRouter from './routes/dataAnalyticsRoutes.js';
 import stockRouter from './routes/stockRoutes.js';
+import qna from './routes/qnaRoutes.js';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use('/api/balance-sheet', balanceSheetRouter);
 app.use('/api/income', incomeRouter);
 app.use('/api/data', dataAnalyticsRouter);
 app.use('/api/stock', stockRouter);
+app.use('/api', qna);
 
 // Start the server
 app.listen(PORT, () => {

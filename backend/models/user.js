@@ -15,6 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    aiAgent: {
+        type: {
+            context: { type: String, default: '' },
+            initialized: { type: Boolean, default: false }
+        },
+        default: {}
+    },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
