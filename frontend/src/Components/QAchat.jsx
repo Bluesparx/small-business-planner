@@ -19,12 +19,16 @@ const QnAForm = ({ analyzedData, predictions }) => {
   };
 
   useEffect(() => {
-    // Fetch stored messages from sessionStorage if available
     const storedMessages = sessionStorage.getItem('chatMessages');
-    if (storedMessages) {
+    
+    if (!storedMessages) {
+      setMessages([
+        { type: "bot", text: "Hello, I am your financial assistant. Feel free to ask me any questions about your financial trends, metrics, or overall performance. I'm here to help you understand and analyze your data." }
+      ]);
+      
+    } else {
       setMessages(JSON.parse(storedMessages));
     }
-    
     scrollToBottom();
   }, []);
 

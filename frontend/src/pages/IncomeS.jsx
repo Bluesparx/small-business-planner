@@ -106,11 +106,11 @@ const IncomeS = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-row gap-4 p-4 justify-around p-6">
-      <div className="p-6 flex-2 w-3/5 mx-auto">
+    <div className="min-h-[92vh] grid grid-cols-2 gap-6 p-4 justify-around p-6">
+      <div className="p-6 col-span-1">
 
-      <h2 className="text-xl text-blue-600 dark:text-blue-400 font-bold mb-4 text-center">Sample Data Format</h2>
-        <h3 className="text-lg font-semibold mb-4 text-center">Income Statement</h3>
+      <h2 className="text-2xl text-blue-600 dark:text-blue-400 font-bold mb-4 text-center">Sample Data Format</h2>
+        <h3 className="text-lg font-semibold mb-4">Income Statement</h3>
         <table className="table-auto w-full  mb-8">
           <thead>
             <tr className="dark:bg-[#6cacff] bg-gray-200">
@@ -147,14 +147,14 @@ const IncomeS = () => {
           </tbody>
         </table>
 
-        <h3 className="text-lg font-semibold mb-4 text-center">Balance Sheet</h3>
+        <h3 className="text-lg font-semibold mb-4">Balance Sheet</h3>
         <table className="table-auto w-full ">
           <thead>
             <tr className="dark:bg-[#6cacff] bg-gray-200">
               {balanceSheetColumns.map((column, index) => (
                 <th
                 key={index}
-                className="border border-gray-500 px-4 py-2 text-left text-sm font-medium text-gray-800"
+                className="border border-gray-500  py-2 text-left text-sm font-medium text-gray-800"
               >
                   {column}
                 </th>
@@ -190,7 +190,7 @@ const IncomeS = () => {
       </div>
 
 
-      <div className="upload-section p-6 flex-1">
+      <div className="upload-section p-6 m-8 col-span-1">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
             Upload Financial Data

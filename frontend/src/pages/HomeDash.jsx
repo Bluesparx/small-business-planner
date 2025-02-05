@@ -118,7 +118,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           <div className="flex-1 w-full">
-            <Card className="py-8 border-gray-200 shadow-lg dark:bg-[#252630] dark:border-gray-900 px-2">
+            <Card className="py-8 border-gray-500 shadow-lg dark:bg-[#45404d] px-2">
               <CardHeader>
                 <CardTitle className="text-xl">Getting Started</CardTitle>
               </CardHeader>
@@ -231,7 +231,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-16 max-w-7xl mx-auto">
+    <div className="px-10 py-6 max-w-7xl mx-auto">
     <div
         onClick={() => setIsChatOpen(true)}
         className="fixed bottom-32 right-8 transition-all cursor-pointer bg-[#4747d3] rounded-full p-6 shadow-lg hover:shadow-xl "

@@ -41,7 +41,7 @@ const StockDataInput = () => {
   const filtered_predictions = predictions.filter((_, index) => index % 10 === 0);
 
   return (
-    <div className='min-h-screen h-full p-6'>
+    <div className='min-h-[92vh] p-6'>
     <div className=" text-center mt-10">
       <ToastContainer />
       <div className="w-full justify-around flex flex-row text-center py-6 mt-10">

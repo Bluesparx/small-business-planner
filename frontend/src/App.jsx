@@ -65,9 +65,11 @@ export default function App() {
     <AuthProvider>
       <ThemeProvider>
         <Navbar />
+        <div className="md:ml-60">
         <AppRoutes />
         <Footer />
         <Chatbot />
+        </div>
       </ThemeProvider>
     </AuthProvider>
   );
