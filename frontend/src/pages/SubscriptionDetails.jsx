@@ -3,6 +3,7 @@ import Web3 from "web3";
 import { Button } from "../Components/ui/button"; 
 import SubscriptionServiceABI from "../abi/abi.json"; 
 import { useNavigate } from "react-router-dom";
+import image from '../assets/image.png';
 
 const SubscriptionDetailsPage = () => {
   const [subscriptionDetails, setSubscriptionDetails] = useState({
@@ -154,10 +155,10 @@ const SubscriptionDetailsPage = () => {
   };
 
   return (
-    <div className="h-[80vh] flex flex-col items-center justify-center m-12 p-4">
+    <div className="h-[92vh] flex flex-col items-center justify-center" style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', opacity:'0.8'}}>
       <h1 className="text-4xl font-bold mb-8 text-center">Subscription Details</h1>
 
-      <div className="w-full max-w-lg p-6 border rounded-md shadow-md">
+      <div className="w-full max-w-lg p-6 dark:bg-gray-600 dark:text-white/90 bg-gray-300 text-gray-900 rounded-xl shadow-md">
         <h2 className="text-2xl font-semibold mb-4">Subscription Information</h2>
         <p>Status: {subscriptionDetails.isActive ? "Active" : "Inactive"}</p>
         <p>Expiry Date: {new Date(subscriptionDetails.expiryTimestamp * 1000).toLocaleString()}</p>

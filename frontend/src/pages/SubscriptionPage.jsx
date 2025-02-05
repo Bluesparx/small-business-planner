@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../Components/ui/card";
 import { Button } from "../Components/ui/button";
 import Web3 from "web3";
+import image from '../assets/image.png'
 
 const plans = [
   {
@@ -41,19 +42,19 @@ const PlanCard = ({
   
 
   return (
-    <Card className="w-full max-w-sm hover:shadow-lg transition-shadow">
-      <CardHeader>
+    <Card className="w-full bg-white/90 max-w-sm hover:shadow-lg border-none transition-shadow">
+      <CardHeader className="text-gray-800">
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ul className="list-disc pl-5 space-y-2 text-gray-700">
+        <ul className="list-disc pl-5 space-y-2 text-gray-900">
           {features.map((feature, index) => (
             <li key={index}>{feature}</li>
           ))}
         </ul>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="text-gray-600">
         <Button
           variant={buttonVariant}
           className="w-full"
@@ -69,8 +70,8 @@ const PlanCard = ({
 
 const SubscriptionPage = () => {
   return (
-    <div className="h-[80vh] flex flex-col items-center justify-center m-12 p-4">
-      <h1 className="text-4xl font-bold mb-8 text-center">Choose Your Plan</h1>
+    <div className="h-[92vh] flex flex-col items-center justify-center" style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', opacity:'0.9'}}>
+      <h1 className="text-4xl font-bold mb-8 text-center text-white">Choose Your Plan</h1>
 
       <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
         {plans.map((plan) => (
