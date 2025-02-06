@@ -91,7 +91,7 @@ const QnAForm = ({ analyzedData, predictions }) => {
   };
 
   return (
-    <div className="min-w-[26vw] dark:bg-[#4e4e4e] bg-white mx-auto p-2 rounded-lg shadow-lg">
+    <div className="min-w-[26vw] dark:bg-[#4e4e4e] bg-white mx-auto p-2 rounded-xl shadow-lg">
       <div className="flex flex-col space-y-4">
         
         <div 

@@ -239,13 +239,13 @@ const Dashboard = () => {
           animation: "jump 1s infinite alternate", 
         }}
       >
-        <MessageCircle size={30} />
+        <MessageCircle size={30} color='white'/>
       </div>
 
       {/* Chat Modal */}
       {isChatOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-indigo-600/70 rounded-xl w-[500px] min-h-[80vh] flex flex-col relative">
+          <div className="dark:bg-[#36339b] bg-indigo-600 rounded-xl w-[500px] min-h-[80vh] flex flex-col relative">
             <div className="flex justify-between items-center p-4 ">
               <h2 className="text-xl text-white font-semibold">Financial Agent</h2>
               <button
