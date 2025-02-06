@@ -25,50 +25,61 @@ export default function CreateCommunityForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen  p-6"   style={{ backgroundImage: 'url("https://previews.123rf.com/images/savvas511/savvas5111801/savvas511180100149/93639455-local-arts-and-crafts-handmade.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      <Card className="w-full max-w-lg shadow-md rounded-2xl p-6 bg-white dark:bg-gray-900 ">
+    <div className="relative flex justify-center items-center min-h-screen p-6">
+      {/* Background Image and Overlay */}
+      <div
+        className="absolute inset-0 bg-black  dark:opacity-30"
+        style={{
+          backgroundImage: 'url("https://previews.123rf.com/images/savvas511/savvas5111801/savvas511180100149/93639455-local-arts-and-crafts-handmade.jpg")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+
+      {/* Form */}
+      <Card className="relative w-full max-w-lg shadow-md rounded-2xl p-6 bg-white dark:bg-gray-900 z-10">
         <CardHeader>
           <CardTitle>Create Your Community</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Input 
-              type="text" 
-              name="name" 
-              placeholder="Community Name" 
-              value={formData.name} 
-              onChange={handleChange} 
+            <Input
+              type="text"
+              name="name"
+              placeholder="Community Name"
+              value={formData.name}
+              onChange={handleChange}
               required
             />
-            <Input 
-              type="text" 
-              name="owner" 
-              placeholder="Your Name" 
-              value={formData.owner} 
-              onChange={handleChange} 
+            <Input
+              type="text"
+              name="owner"
+              placeholder="Your Name"
+              value={formData.owner}
+              onChange={handleChange}
               required
             />
-            <Input 
-              type="text" 
-              name="image" 
-              placeholder="Image URL" 
-              value={formData.image} 
-              onChange={handleChange} 
+            <Input
+              type="text"
+              name="image"
+              placeholder="Image URL"
+              value={formData.image}
+              onChange={handleChange}
               required
             />
-            <Input 
-              type="text" 
-              name="type" 
-              placeholder="Business Type" 
-              value={formData.type} 
-              onChange={handleChange} 
+            <Input
+              type="text"
+              name="type"
+              placeholder="Business Type"
+              value={formData.type}
+              onChange={handleChange}
               required
             />
-            <Textarea 
-              name="description" 
-              placeholder="Community Description" 
-              value={formData.description} 
-              onChange={handleChange} 
+            <Textarea
+              name="description"
+              placeholder="Community Description"
+              value={formData.description}
+              onChange={handleChange}
               required
             />
             <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-blue-600">
