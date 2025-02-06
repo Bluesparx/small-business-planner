@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -115,6 +116,17 @@ const SidebarContent = ({ isLoggedIn, onLogout }) => {
                 <Button variant="ghost" className="w-full justify-start gap-2">
                   <BarChart3 className="h-5 w-5" />
                   <span>Stocks Data</span>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="space-y-1">
+              
+              
+              <Link to="/community">
+                <Button variant="ghost" className="w-full justify-start gap-2">
+                <PlusCircle className="w-6 h-6 text-blue-500 cursor-pointer" />
+                  <span>Join/Create Community</span>
                 </Button>
               </Link>
             </div>

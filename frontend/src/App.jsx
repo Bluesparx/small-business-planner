@@ -22,6 +22,8 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import EMICalculator from "./pages/EMICalculator";
 import SIPCalculator from "./pages/SIPCalculator";
 import SubscriptionDetails from "./pages/SubscriptionDetails";
+import CommunityPage from "./pages/CommunityPage";
+import CreateCommunityForm from "./pages/CreateCommunityForm";
 
 const routeDefinitions = [
   { path: "/", element: <Landing />, protected: false },
@@ -37,6 +39,8 @@ const routeDefinitions = [
   { path: "/analysis", element: <AnalyticsPage />, protected: true },
   { path: "/emi", element: <EMICalculator />, protected: false },
   { path: "/sip", element: <SIPCalculator/>, protected: false},
+  { path: "/community", element: <CommunityPage/>, protected: false},
+  { path: "/createcommunity", element: <CreateCommunityForm/>, protected: false},
 ];
 
 function AppRoutes() {
